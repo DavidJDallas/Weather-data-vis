@@ -7,7 +7,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 const Nav = () => {
 
     return(
-        <Grid container sx={{ color: "text.primary" }} style={{ margin: "10rem" }}>
+        <Grid container sx={{ color: "text.primary" }} style={{ margin: "3rem" }}>
 <Grid item xs={1}>
   <Typography>More</Typography>
 </Grid>
