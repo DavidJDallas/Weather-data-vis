@@ -1,9 +1,10 @@
 import "../styling/Header.css"
+import "../styling/General.css"
 
 const Header = () => {
     return(
         <>
-        <h1> Weather</h1>
+        <h1 id="weather-title"> Weather</h1>
         </>
 
     )

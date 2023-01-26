@@ -35,4 +35,30 @@ export const mapsCall = async () => {
 }
 
 
+/*
+  const getWeatherData = async() => {
+    const weatherData = await findWeather()
+    console.log(weatherData, "<--- weatherData")
+    return weatherData
+  }
 
+  
+
+  const postcode = "BS5 7US"
+  const place = "Bristol"
+
+  const geocodePlace =async() => {
+    const latitudeAndLongitude = await getGeolocationByPlace(place)
+
+    return latitudeAndLongitude
+  }
+
+  geocodePlace()
+  const geocodePostcode = async() => {
+    const latitudeAndLongitude = await getGeolocationByPostcode(postcode)
+
+    return latitudeAndLongitude
+  }
+ 
+
+*/ 
