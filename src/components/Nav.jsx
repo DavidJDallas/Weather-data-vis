@@ -30,9 +30,9 @@ const Nav = () => {
 // </Grid>
 
 
-<body id="Nav-Body">
+<div id="Nav-Body">
 Text Sample
-</body>
+</div>
 )
 
 }

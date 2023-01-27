@@ -8,12 +8,12 @@ import Highlights from "./components/Highlights"
 
 function App() {
   
-
+  
   
 
   return (
 
-    <div class="wrapper">
+    <div className="wrapper">
       <div id="grid-sideMargin"><SideMargin/></div>
       <div id="grid-Header"><Header/></div>
       <div id="grid-Main"><Nav/></div>      
