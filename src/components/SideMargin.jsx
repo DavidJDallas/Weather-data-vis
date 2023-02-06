@@ -1,7 +1,7 @@
 import "../styling/SideMargin.css"
 import "../styling/weather-icons.css"
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
 const SideMargin = () => {
 
@@ -12,20 +12,42 @@ const SideMargin = () => {
     const [weatherdata, setWeatherData] =  useState("")
 
 
-    const getWeatherData = async() => {
-        const weatherData = await findWeather(lat, long)        
-        setWeatherData(weatherData.data)     
 
-      }
+    useEffect(() => {
+        console.log("UE called")
+        getWeatherData()
+    }, [lat])
 
-    const geocodePostcode = async() => {     
+
+   
+    const getWeatherData = async() => {       
+            console.log("getweatherdata") 
+            console.log(lat, long)
+
+      
+            const weatherData = await findWeather(lat, long)        
+     
+            setWeatherData(weatherData.data) 
+            
+            console.log(weatherdata)
+
+           
+
+    }
+    const geocodePostcode = async() => {  
+        console.log("geocodes")   
         const latitudeAndLongitude = await getGeolocationByPostcode(postCode)
 
         let latitude = latitudeAndLongitude[0].center[1]
         let longitude = latitudeAndLongitude[0].center[0]      
 
+        
+
         setLat(latitude)
         setLong(longitude)    
+
+        console.log(lat)
+        console.log(long)
           
     }
     
@@ -34,9 +56,15 @@ const SideMargin = () => {
     
     
     const geocodePlace =async() => {
+       
       const latitudeAndLongitude = await getGeolocationByPlace(place)
-    
-      return latitudeAndLongitude
+
+     
+      let latitude = latitudeAndLongitude[0].center[1]
+      let longitude = latitudeAndLongitude[0].center[0]
+
+      setLat(latitude)
+      setLong(longitude)
     }
     
      
@@ -45,10 +73,18 @@ const SideMargin = () => {
     const handleSubmitPostCode =  (event) => {
        
         geocodePostcode()
-        getWeatherData()
-        event.preventDefault()
+        
+        event.preventDefault()      
 
-         
+    }
+
+    const handleSubmitPlace = (event) => {
+
+
+        geocodePlace()
+  
+        event.preventDefault()
+        console.log(weatherdata)
 
     }
 
@@ -63,6 +99,16 @@ const SideMargin = () => {
             <button id = "searchbutton" type="submit">Search for places</button>
 
         </form>
+
+        <form onSubmit = {handleSubmitPlace}>
+
+            <label></label>
+            <textarea onChange={(event) => setPlace(event.target.value)}></textarea>
+            <button id = "searchbutton" type="submit">Search for places</button>
+
+</form>
+
+
            
        
 
