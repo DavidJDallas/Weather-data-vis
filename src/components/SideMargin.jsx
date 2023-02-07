@@ -2,52 +2,42 @@ import "../styling/SideMargin.css"
 import "../styling/weather-icons.css"
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
+import {flushSync} from "react-dom"
 
 const SideMargin = () => {
 
     const [postCode, setPostcode] = useState("BS5 7US")
-    const[lat, setLat] = useState("")
-    const [long, setLong] = useState("")
+    const [lat, setLat] = useState(null)
+    const [long, setLong] = useState(null)
     const [place, setPlace] = useState("")
     const [weatherdata, setWeatherData] =  useState("")
 
 
 
     useEffect(() => {
-        console.log("UE called")
-        getWeatherData()
-    }, [lat])
+        if(lat && long){
+            getWeatherData()
+        }
+    }, [lat, long])
 
-
-   
-    const getWeatherData = async() => {       
-            console.log("getweatherdata") 
-            console.log(lat, long)
-
-      
-            const weatherData = await findWeather(lat, long)        
      
-            setWeatherData(weatherData.data) 
-            
-            console.log(weatherdata)
-
-           
+    const getWeatherData = async() => {       
+        const weatherData = await findWeather(lat, long)  
+        setWeatherData(weatherData.data)       
 
     }
+
     const geocodePostcode = async() => {  
-        console.log("geocodes")   
+     
         const latitudeAndLongitude = await getGeolocationByPostcode(postCode)
 
         let latitude = latitudeAndLongitude[0].center[1]
-        let longitude = latitudeAndLongitude[0].center[0]      
-
-        
+        let longitude = latitudeAndLongitude[0].center[0]       
 
         setLat(latitude)
-        setLong(longitude)    
-
-        console.log(lat)
-        console.log(long)
+        setLong(longitude)   
+        
+        //When setting lat and long state, it is set but because it's done asynchronously, it hasn't set in time for when it gets called on line 28. Solved by using useEffect()     
           
     }
     
@@ -73,7 +63,7 @@ const SideMargin = () => {
     const handleSubmitPostCode =  (event) => {
        
         geocodePostcode()
-        
+        // getWeatherData()
         event.preventDefault()      
 
     }
@@ -84,7 +74,7 @@ const SideMargin = () => {
         geocodePlace()
   
         event.preventDefault()
-        console.log(weatherdata)
+        
 
     }
 
@@ -96,7 +86,7 @@ const SideMargin = () => {
 
             <label></label>
             <textarea onChange={(event) => setPostcode(event.target.value)}></textarea>
-            <button id = "searchbutton" type="submit">Search for places</button>
+            <button id = "searchbutton" type="submit">Search by postcode</button>
 
         </form>
 
@@ -104,9 +94,9 @@ const SideMargin = () => {
 
             <label></label>
             <textarea onChange={(event) => setPlace(event.target.value)}></textarea>
-            <button id = "searchbutton" type="submit">Search for places</button>
+            <button id = "searchbutton" type="submit">Search by places</button>
 
-</form>
+        </form>
 
 
            
