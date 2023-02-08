@@ -11,6 +11,7 @@ const SideMargin = () => {
     const [long, setLong] = useState(null)
     const [place, setPlace] = useState("")
     const [weatherdata, setWeatherData] =  useState("")
+    const [searchOn, setSearchOn] = useState(false)
 
 
 
@@ -23,7 +24,8 @@ const SideMargin = () => {
      
     const getWeatherData = async() => {       
         const weatherData = await findWeather(lat, long)  
-        setWeatherData(weatherData.data)       
+        setWeatherData(weatherData.data)   
+     
 
     }
 
@@ -80,30 +82,30 @@ const SideMargin = () => {
 
     
     return(
-        <div id="maincontentsidebar">
+        <div class="grid-sideMargin">
+            <div class="container">
            
-        <form onSubmit = {handleSubmitPostCode}>
+                <form class="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
 
-            <label></label>
-            <textarea onChange={(event) => setPostcode(event.target.value)}></textarea>
-            <button id = "searchbutton" type="submit">Search by postcode</button>
+                    <label></label>
+                    <textarea class="text-area"onChange={(event) => setPostcode(event.target.value)}></textarea>
+                    <button id = "searchbutton" type="submit">Search by postcode</button>
 
-        </form>
+                </form>
 
-        <form onSubmit = {handleSubmitPlace}>
+                <form class="grid-item" id="place"onSubmit = {handleSubmitPlace}>
 
-            <label></label>
-            <textarea onChange={(event) => setPlace(event.target.value)}></textarea>
-            <button id = "searchbutton" type="submit">Search by places</button>
+                    <label></label>
+                    <textarea class="text-area" onChange={(event) => setPlace(event.target.value)}></textarea>
+                    <button id = "searchbutton" type="submit">Search by places</button>
 
-        </form>
+                </form>
 
+                {/* <div class="grid-item"id="weather-icon"><i className="wi wi-day-snow"></i></div>     */}
 
-           
-       
+            
 
-        <div id="weather-icon"><i className="wi wi-day-snow"></i></div>
-
+            </div>
         </div>
     )
 }
