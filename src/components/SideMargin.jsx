@@ -82,7 +82,7 @@ const SideMargin = () => {
 
     
     return(
-        <div class="grid-sideMargin">
+       
             <div class="container">
            
                 <form class="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
@@ -106,7 +106,7 @@ const SideMargin = () => {
             
 
             </div>
-        </div>
+
     )
 }
 

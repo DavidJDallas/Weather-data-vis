@@ -14,7 +14,7 @@ function App() {
   return (
 
     <div className="wrapper">
-      <SideMargin/>
+      <div class="grid-sideMargin"><SideMargin/></div>
       <div class="grid-Header"><Header/></div>
       <div class="grid-Main"><Nav/></div>      
       <div class="grid-Highlights"><Highlights/></div>     
