@@ -5,12 +5,14 @@
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-family: 'Fira Sans', sans-serif;
     padding:1px;
-    margin:1px;  
+    margin:1px; 
+    font-size: 1rem; 
+   
 
 }
 
 h1{
-    font-size: 3rem; 
+    font-size: 5rem; 
     text-align: center;
     
 }  

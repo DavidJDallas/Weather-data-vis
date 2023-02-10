@@ -9,7 +9,7 @@ const myApi=axios.create({
 export const findWeather = async (latitude, longitude) => {
     console.log(latitude, longitude, "<<--- lat and long")
     
-    const pendingWeatherData =  await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`)
+    const pendingWeatherData =  await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&hourly=apparent_temperature&hourly=cloudcover&hourly=windspeed_10m&hourly=snowfall&hourly=rain&hourly=showers&hourly=snow_depth`)
 
     return pendingWeatherData   
 }

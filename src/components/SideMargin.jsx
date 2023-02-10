@@ -2,7 +2,7 @@ import "../styling/SideMargin.css"
 import "../styling/weather-icons.css"
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
-import {flushSync} from "react-dom"
+import SideMarginCard from "./SideMarginCard"
 
 const SideMargin = () => {
 
@@ -10,10 +10,11 @@ const SideMargin = () => {
     const [lat, setLat] = useState(null)
     const [long, setLong] = useState(null)
     const [place, setPlace] = useState("")
-    const [weatherdata, setWeatherData] =  useState("")
-    const [searchOn, setSearchOn] = useState(false)
+    const [weatherdata, setWeatherData] =  useState(null)
+    const [searchOn, setSearchOn] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
-
+   
 
     useEffect(() => {
         if(lat && long){
@@ -21,10 +22,13 @@ const SideMargin = () => {
         }
     }, [lat, long])
 
+
+
      
     const getWeatherData = async() => {       
         const weatherData = await findWeather(lat, long)  
-        setWeatherData(weatherData.data)   
+        setWeatherData(weatherData.data)  
+        setIsLoading(false) 
      
 
     }
@@ -63,45 +67,76 @@ const SideMargin = () => {
       
      
     const handleSubmitPostCode =  (event) => {
-       
+        setSearchOn(false)
+        setIsLoading(true)
         geocodePostcode()
-        // getWeatherData()
+       
         event.preventDefault()      
 
     }
 
     const handleSubmitPlace = (event) => {
 
-
-        geocodePlace()
-  
-        event.preventDefault()
-        
+        setSearchOn(false)
+        setIsLoading(true)
+        geocodePlace()  
+        event.preventDefault()        
 
     }
 
+    const handleSearchAgain = (event) => {
+
+        setSearchOn(true)
+
+    }
+
+    if (isLoading){
+        return (
+            <p> Loading...</p>
+        )
+    }
     
     return(
        
-            <div class="container">
+            <div className="container">
            
-                <form class="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
 
+                
+
+                {searchOn ? (
+                <><form className="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
                     <label></label>
-                    <textarea class="text-area"onChange={(event) => setPostcode(event.target.value)}></textarea>
+                    <textarea className="text-area"onChange={(event) => setPostcode(event.target.value)}></textarea>
                     <button id = "searchbutton" type="submit">Search by postcode</button>
 
                 </form>
 
-                <form class="grid-item" id="place"onSubmit = {handleSubmitPlace}>
+                <form className="grid-item" id="place"onSubmit = {handleSubmitPlace}>
 
                     <label></label>
-                    <textarea class="text-area" onChange={(event) => setPlace(event.target.value)}></textarea>
+                    <textarea className="text-area" onChange={(event) => setPlace(event.target.value)}></textarea>
                     <button id = "searchbutton" type="submit">Search by places</button>
 
-                </form>
+                </form></>
+                ): 
+                <>
+                  
+                    
+                    <SideMarginCard weatherdata={weatherdata}/>
+                     <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
+                    <label></label>                   
+                    <button id = "searchbutton" type="submit">Search Again</button>
+                    </form>
+                    </>
 
-                {/* <div class="grid-item"id="weather-icon"><i className="wi wi-day-snow"></i></div>     */}
+                    
+                
+                
+                
+                }
+                
+
+                
 
             
 

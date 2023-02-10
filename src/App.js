@@ -14,10 +14,10 @@ function App() {
   return (
 
     <div className="wrapper">
-      <div class="grid-sideMargin"><SideMargin/></div>
-      <div class="grid-Header"><Header/></div>
-      <div class="grid-Main"><Nav/></div>      
-      <div class="grid-Highlights"><Highlights/></div>     
+      <div className="grid-sideMargin"><SideMargin/></div>
+      <div className="grid-Header"><Header/></div>
+      <div className="grid-Main"><Nav/></div>      
+      <div className="grid-Highlights"><Highlights/></div>     
     </div>
    
     

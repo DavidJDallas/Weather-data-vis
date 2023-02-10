@@ -1,0 +1,12 @@
+.SideMarginCard{
+    border-width: 10px;
+    border-color: black;
+    text-align: center;
+   
+    border-radius: 5px;
+
+}
+
+#weather-image{
+    border-radius: 25px;
+}
