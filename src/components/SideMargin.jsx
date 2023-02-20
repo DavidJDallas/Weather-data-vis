@@ -1,8 +1,9 @@
 import "../styling/SideMargin.css"
-import "../styling/weather-icons.css"
+
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
 import SideMarginCard from "./SideMarginCard"
+
 
 const SideMargin = () => {
 
@@ -12,9 +13,9 @@ const SideMargin = () => {
     const [place, setPlace] = useState("")
     const [weatherdata, setWeatherData] =  useState(null)
     const [searchOn, setSearchOn] = useState(true)
-    const [isLoading, setIsLoading] = useState(false)
-
-   
+    const [isLoading, setIsLoading] = useState(false)  
+    
+    console.log(postCode)
 
     useEffect(() => {
         if(lat && long){
@@ -22,19 +23,13 @@ const SideMargin = () => {
         }
     }, [lat, long])
 
-
-
-     
     const getWeatherData = async() => {       
         const weatherData = await findWeather(lat, long)  
         setWeatherData(weatherData.data)  
         setIsLoading(false) 
-     
-
     }
 
-    const geocodePostcode = async() => {  
-     
+    const geocodePostcode = async() => {       
         const latitudeAndLongitude = await getGeolocationByPostcode(postCode)
 
         let latitude = latitudeAndLongitude[0].center[1]
@@ -43,27 +38,20 @@ const SideMargin = () => {
         setLat(latitude)
         setLong(longitude)   
         
-        //When setting lat and long state, it is set but because it's done asynchronously, it hasn't set in time for when it gets called on line 28. Solved by using useEffect()     
-          
-    }
-    
-      
+        //When setting lat and long state, it is set but because it's done asynchronously, it hasn't set in time for when it gets called on line 28. Solved by using useEffect()             
+    }   
 
     
     
-    const geocodePlace =async() => {
-       
+    const geocodePlace =async() => {       
       const latitudeAndLongitude = await getGeolocationByPlace(place)
-
      
       let latitude = latitudeAndLongitude[0].center[1]
       let longitude = latitudeAndLongitude[0].center[0]
 
       setLat(latitude)
       setLong(longitude)
-    }
-    
-     
+    } 
       
      
     const handleSubmitPostCode =  (event) => {
@@ -85,9 +73,7 @@ const SideMargin = () => {
     }
 
     const handleSearchAgain = (event) => {
-
         setSearchOn(true)
-
     }
 
     if (isLoading){
@@ -98,50 +84,33 @@ const SideMargin = () => {
     
     return(
        
-            <div className="container">
-           
-
-                
+            <div className="container">               
 
                 {searchOn ? (
-                <><form className="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
+                    <><form className="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
                     <label></label>
                     <textarea className="text-area"onChange={(event) => setPostcode(event.target.value)}></textarea>
                     <button id = "searchbutton" type="submit">Search by postcode</button>
-
+                
                 </form>
-
+                
                 <form className="grid-item" id="place"onSubmit = {handleSubmitPlace}>
-
+                
                     <label></label>
                     <textarea className="text-area" onChange={(event) => setPlace(event.target.value)}></textarea>
                     <button id = "searchbutton" type="submit">Search by places</button>
-
+                
                 </form></>
-                ): 
-                <>
-                  
-                    
-                    <SideMarginCard weatherdata={weatherdata}/>
-                     <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
-                    <label></label>                   
-                    <button id = "searchbutton" type="submit">Search Again</button>
-                    </form>
-                    </>
-
-                    
-                
-                
-                
-                }
-                
-
-                
-
             
+                ) : 
+                <>                 
+                    <SideMarginCard weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/>                     
+                   
+                </>             
+                
+                }     
 
             </div>
-
     )
 }
 
