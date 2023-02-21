@@ -4,10 +4,9 @@ import "./styling/General.css"
 import Header from "./components/Header.jsx"
 import SideMargin from "./components/SideMargin"
 import Highlights from "./components/Highlights"
-
+import { useState } from "react";
 
 function App() {
-  
   
   
 

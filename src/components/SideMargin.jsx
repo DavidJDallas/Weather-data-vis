@@ -3,6 +3,7 @@ import "../styling/SideMargin.css"
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
 import SideMarginCard from "./SideMarginCard"
+import SideMarginSearch from "./SideMarginSearch"
 
 
 const SideMargin = () => {
@@ -15,7 +16,7 @@ const SideMargin = () => {
     const [searchOn, setSearchOn] = useState(true)
     const [isLoading, setIsLoading] = useState(false)  
     
-    console.log(postCode)
+    
 
     useEffect(() => {
         if(lat && long){
@@ -48,7 +49,6 @@ const SideMargin = () => {
      
       let latitude = latitudeAndLongitude[0].center[1]
       let longitude = latitudeAndLongitude[0].center[0]
-
       setLat(latitude)
       setLong(longitude)
     } 
@@ -57,8 +57,7 @@ const SideMargin = () => {
     const handleSubmitPostCode =  (event) => {
         setSearchOn(false)
         setIsLoading(true)
-        geocodePostcode()
-       
+        geocodePostcode()       
         event.preventDefault()      
 
     }
@@ -84,30 +83,17 @@ const SideMargin = () => {
     
     return(
        
-            <div className="container">               
+        <div className="container">               
 
-                {searchOn ? (
-                    <><form className="grid-item" id="postcode"onSubmit = {handleSubmitPostCode}>
-                    <label></label>
-                    <textarea className="text-area"onChange={(event) => setPostcode(event.target.value)}></textarea>
-                    <button id = "searchbutton" type="submit">Search by postcode</button>
-                
-                </form>
-                
-                <form className="grid-item" id="place"onSubmit = {handleSubmitPlace}>
-                
-                    <label></label>
-                    <textarea className="text-area" onChange={(event) => setPlace(event.target.value)}></textarea>
-                    <button id = "searchbutton" type="submit">Search by places</button>
-                
-                </form></>
-            
+         
+            {searchOn ? (                   
+                <>
+                <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/>
+                </>            
                 ) : 
                 <>                 
-                    <SideMarginCard weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/>                     
-                   
-                </>             
-                
+                <SideMarginCard weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/>                     
+                </>                  
                 }     
 
             </div>

@@ -1,9 +1,9 @@
 import "../styling/SideMarginCard.css"
 import { useState } from "react"
 
-const SideMarginCard = (weatherdata, handleSearchAgain) => {
+const SideMarginCard = ({weatherdata, handleSearchAgain}) => {
 
-    const hourlyWeatherData = weatherdata.weatherdata.hourly
+    const hourlyWeatherData = weatherdata.hourly
     const currentTemp = hourlyWeatherData.temperature_2m[0]
     const currentApparentTemp = hourlyWeatherData.apparent_temperature[0]
     const currentCloudCover = hourlyWeatherData.cloudcover[0]
@@ -14,7 +14,7 @@ const SideMarginCard = (weatherdata, handleSearchAgain) => {
 
         <>
         <div className="SideMarginCard">
-            <h1>Currently</h1>
+            
              {currentRain > 0 ?   
             <img id="weather-image"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
             currentCloudCover > 70 ? 
