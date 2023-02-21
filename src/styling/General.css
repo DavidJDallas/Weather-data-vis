@@ -108,7 +108,7 @@ h1{
         grid-auto-rows: repeat(20, 1fr) minmax(150px);
         width: 95vw;
         height: 95vh;
-        grid-gap: 5px 5px;  
+        
    }
 
    .grid-sideMargin{

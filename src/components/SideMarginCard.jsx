@@ -9,6 +9,7 @@ const SideMarginCard = ({weatherdata, handleSearchAgain}) => {
     const currentCloudCover = hourlyWeatherData.cloudcover[0]
     const currentRain = hourlyWeatherData.rain[0]
 
+    console.log(currentRain)
     
     return( 
 
