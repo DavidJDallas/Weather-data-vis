@@ -1,0 +1,28 @@
+
+/*desktop view*/
+@media(min-width: 510px){
+    .flexParent-Maincard{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+     
+       
+    }    
+    .flexChild-Maincard{ 
+   
+      flex: 1;
+      border-width: 5px;
+      border-color: black;
+        
+    
+    }    
+  
+    #weather-image-main{
+        border-radius: 25px;
+        width: 100px;
+        height: 100px;
+    }
+
+   
+
+}

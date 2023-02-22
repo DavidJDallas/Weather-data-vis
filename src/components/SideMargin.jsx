@@ -17,8 +17,12 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     const [isLoading, setIsLoading] = useState(false) 
     const [error, setError] = useState(null)  
 
+
+    //Bug: app breaks if you don't change the postcode after re-setting it. Fixed by setting lat and long to null on the 'handlesearchagain' function. 
+     
     useEffect(() => {
         if(lat && long){
+            console.log("useEffect")
             getWeatherData()
         }
     }, [lat, long])
@@ -28,21 +32,27 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
             const weatherData = await findWeather(lat, long)  
             setWeatherData(weatherData.data)  
             setIsLoading(false)  
+            console.log("getWeatherdata")
         }    
         catch{
             setIsLoading(false)
             setError(error)
+            console.log("getweatherdataERROR!")
         }
         
     }
 
     const geocodePostcode = async() => {   
         try{
+            
             const latitudeAndLongitude = await getGeolocationByPostcode(postCode)
+         
             let latitude = latitudeAndLongitude[0].center[1]
             let longitude = latitudeAndLongitude[0].center[0]
             setLat(latitude)
-            setLong(longitude)   
+            setLong(longitude)
+            console.log(latitude,"postlat")   
+            console.log("geocodePostcode")
         }  
         catch (error){
             setIsLoading(false)
@@ -59,6 +69,7 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
             let longitude = latitudeAndLongitude[0].center[0]
             setLat(latitude)
             setLong(longitude)
+            
         }  
         catch(error){
             setIsLoading(false)
@@ -67,6 +78,7 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     }       
      
     const handleSubmitPostCode =  (event) => {
+        console.log("handlesubmitpostcode")
         setSearchOn(false)
         setIsLoading(true)
         geocodePostcode()       
@@ -74,6 +86,7 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     }
 
     const handleSubmitPlace = (event) => {
+        
         setSearchOn(false)
         setIsLoading(true)
         geocodePlace()  
@@ -81,7 +94,9 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     }
 
     const handleSearchAgain = (event) => {        
-        setSearchOn(true)        
+        setSearchOn(true)  
+        setLat(null)
+        setLong(null)      
     }
 
     if(error){
