@@ -1,0 +1,28 @@
+
+/*desktop view*/
+@media(min-width: 510px){
+    .flexParent-Highlightcard{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+     
+       
+    }    
+    .flexChild-Highlightcard{ 
+   
+      flex: 1;
+      border-width: 5px;
+      border-color: black;
+        
+    
+    }    
+  
+    #weather-image-highlight{
+        border-radius: 25px;
+        width: 100px;
+        height: 100px;
+    }
+
+   
+
+}

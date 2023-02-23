@@ -5,9 +5,12 @@ import {useState, useEffect} from "react"
 import SideMarginCard from "./SideMarginCard"
 import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "./ErrorHandler"
+import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 
 
-const SideMargin = ({setWeatherData, weatherdata}) => {
+const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode}) => {
+
+  
 
     const [postCode, setPostcode] = useState("")
     const [lat, setLat] = useState(null)
@@ -16,43 +19,48 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     const [searchOn, setSearchOn] = useState(true)
     const [isLoading, setIsLoading] = useState(false) 
     const [error, setError] = useState(null)  
-
+    
+   
+  
 
     //Bug: app breaks if you don't change the postcode after re-setting it. Fixed by setting lat and long to null on the 'handlesearchagain' function. 
-     
+
     useEffect(() => {
-        if(lat && long){
-            console.log("useEffect")
+        if(lat && long){            
             getWeatherData()
         }
     }, [lat, long])
 
     const getWeatherData = async() => {   
         try{
-            const weatherData = await findWeather(lat, long)  
-            setWeatherData(weatherData.data)  
-            setIsLoading(false)  
-            console.log("getWeatherdata")
+            if(displayCelsius==true){
+                const weatherData = await findWeather(lat, long, 'celsius')
+                setWeatherData(weatherData.data) 
+                setIsLoading(false)   
+            } else if(displayCelsius==false){
+                const weatherData = await findWeather(lat, long, 'fahrenheit')
+                setWeatherData(weatherData.data) 
+                setIsLoading(false)  
+            }
+             
+       
+            
         }    
         catch{
             setIsLoading(false)
-            setError(error)
-            console.log("getweatherdataERROR!")
-        }
-        
+            setError(error)           
+        }        
     }
 
     const geocodePostcode = async() => {   
         try{
             
-            const latitudeAndLongitude = await getGeolocationByPostcode(postCode)
-         
+            const latitudeAndLongitude = await getGeolocationByPostcode(postCode)         
             let latitude = latitudeAndLongitude[0].center[1]
             let longitude = latitudeAndLongitude[0].center[0]
             setLat(latitude)
             setLong(longitude)
-            console.log(latitude,"postlat")   
-            console.log("geocodePostcode")
+            
         }  
         catch (error){
             setIsLoading(false)
@@ -78,9 +86,10 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     }       
      
     const handleSubmitPostCode =  (event) => {
-        console.log("handlesubmitpostcode")
+        
         setSearchOn(false)
         setIsLoading(true)
+        setDisplayPostcode(postCode)
         geocodePostcode()       
         event.preventDefault()      
     }
@@ -89,6 +98,7 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
         
         setSearchOn(false)
         setIsLoading(true)
+        setDisplayLocation(place)
         geocodePlace()  
         event.preventDefault()    
     }
@@ -99,6 +109,7 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
         setLong(null)      
     }
 
+  
     if(error){
         return (<>
             <ErrorHandler error={error}/>           
@@ -116,17 +127,26 @@ const SideMargin = ({setWeatherData, weatherdata}) => {
     }  
     
     return(       
-        <div className="container">             
+        <div className="container">  
             {searchOn ? (                   
                 <>
-                <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/>
+                <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/> 
+                <SideMarginToggleSwitch displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius}/>  
                 </>            
                 ) : 
                 <>                 
-                <SideMarginCard weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/>                     
-                </>                  
-                }     
-            </div>
+                <SideMarginCard displayCelsius={displayCelsius} weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/> 
+                
+                                      
+                </>}
+
+
+                   
+            
+            
+            </div>  
+            
+            
     )
 }
 
