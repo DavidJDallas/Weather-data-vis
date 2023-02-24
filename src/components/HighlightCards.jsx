@@ -1,7 +1,7 @@
 import "../styling/HighlightCards.css"
 
 
-const HighlightCards = ({weatherdata}) => {
+const HighlightCards = ({weatherdata, displayCelsius}) => {
 
     const dailyWeatherData = weatherdata
     const hourlyWeatherData = weatherdata.hourly
@@ -14,7 +14,7 @@ const HighlightCards = ({weatherdata}) => {
    let arrOfWeatherObjects = []
     
    for(let i=0; i<120; i++){
-
+    //Try and calculate average of the days if time 
     if(i%24 ===0){
          arrOfWeatherObjects.push(
            {
@@ -36,6 +36,8 @@ const HighlightCards = ({weatherdata}) => {
        {arrOfWeatherObjects.map((card) => {
         return <>
         <div className="flexChild-Highlightcard">
+
+            {/* The code on lines 42-50 is a conditional logic block which tells the programme which weather logo to use, depending on the data that the weather API gives us.*/}
             
             {card.rainInMillimetres > 0 ?   
            <img id="weather-image-highlight"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
@@ -44,13 +46,29 @@ const HighlightCards = ({weatherdata}) => {
            card.cloudCoverPercentage <70 && card.cloudCoverPercentage > 30 ?
            <img id="weather-image-highlight"src={ require('../styling/icons/cloudy-sun.png')} alt="clouds and sun"/>:
            card.cloudCoverPercentage < 30 ? 
-           <img id="weather-image-highlight"src={ require('../styling/icons/sunny.png')} alt="sun"/> : null}
+           <img id="weather-image-highlight"src={ require('../styling/icons/sunny.png')} alt="sun"/> : 
+           null}
 
-           <h3 id = "current-temp">{card.temperature}°C </h3>
+            {/* The next few lines of code conditionally renders depending on whether or not the user has selected the display to be in degrees celsius or degrees fahrenheit.*/}
+
+            {displayCelsius === true ?
+            <>
+            <h3 id = "current-temp">{card.temperature}°C </h3>
            <br></br>
 
            <h3>Feels like: {card.apparentTemperature} °C</h3>
            <br></br>
+            </>
+            : 
+            <>
+            <h3 id = "current-temp">{card.temperature}°F </h3>
+           <br></br>
+           <h3>Feels like: {card.apparentTemperature} °F</h3>
+           <br></br>
+            </>      
+        
+        }
+           
            <h3>Cloud cover: {card.cloudCoverPercentage}%</h3>
            <br></br>
            <h3>Rain: {card.rainInMillimetres}mm</h3>

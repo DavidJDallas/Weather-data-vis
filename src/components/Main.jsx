@@ -1,24 +1,18 @@
 
 import "../styling/Main.css"
 import MainCard from "./MainCard"
-const Main = ({weatherdata}) => {
-    
+const Main = ({weatherdata, displayCelsius, searchOn}) => {
+
+    console.log(displayCelsius)
     return(
         <>  <h2>Today's Weather</h2>
             <section className="container-Main-Display">
-                {weatherdata ? <MainCard weatherdata={weatherdata}/> : null}
+                {weatherdata && !searchOn ? <MainCard weatherdata={weatherdata} displayCelsius={displayCelsius}/> : null}
                 
-            </section>
-            
-            
+            </section>   
         
-        
-        </>        
-
-
-
+        </>
     )
-
 }
 
 export default Main

@@ -8,7 +8,7 @@ const SideMarginToggleSwitch = ({displayCelsius, setDisplayCelsius}) => {
             : <p> displaying in degrees farenheit</p>
 
             }
-            <label onChange ={(event) => setDisplayCelsius(!displayCelsius)} class="switch">
+            <label onChange ={(event) => setDisplayCelsius(!displayCelsius)} className="switch">
             <input type="checkbox"/>
             <span className="slider round"></span>
             </label>

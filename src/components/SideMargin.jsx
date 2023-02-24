@@ -8,7 +8,7 @@ import ErrorHandler from "./ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 
 
-const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode}) => {
+const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn}) => {
 
   
 
@@ -16,7 +16,6 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
     const [lat, setLat] = useState(null)
     const [long, setLong] = useState(null)
     const [place, setPlace] = useState("")    
-    const [searchOn, setSearchOn] = useState(true)
     const [isLoading, setIsLoading] = useState(false) 
     const [error, setError] = useState(null)  
     
@@ -127,7 +126,8 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
     }  
     
     return(       
-        <div className="container">  
+        <div className="container">
+            {/*The code below conditionally renders either the search bar or the current temperature depending on whether or not the user has clicked the search button. Initially the search bar will be display, alongside the ability to toggle between celsisus and farenheit (SideMarginToggleSwitch). The conditionality is dependent on searchOn being true.*/}  
             {searchOn ? (                   
                 <>
                 <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/> 

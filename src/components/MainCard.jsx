@@ -1,8 +1,6 @@
 import "../styling/Main.css"
 
-const MainCard = ({weatherdata, displayCelsius}) => {
-
-    
+const MainCard = ({weatherdata, displayCelsius}) => {    
     
     const hourlyWeatherData = weatherdata.hourly
     const temp = hourlyWeatherData.temperature_2m
@@ -14,7 +12,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
     //BUG: displayCelsius is coming up as undefined, for some reason. 
 
     
-    console.log(displayCelsius)
+    console.log(displayCelsius, "<<==== MAINCARD")
 
    let arrOfWeatherObjects = []
     
@@ -23,7 +21,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
 
    for(let i=0; i<10; i++){
 
-    if(i%2 ==0){
+    if(i%2 ===0){
          arrOfWeatherObjects.push(
            {
             temperature: temp[i],
@@ -46,7 +44,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
         <div className="flexChild-Maincard">
             
             <h4>+{card.time.slice(-4,-3)} hrs</h4>
-
+            
             {card.rainInMillimetres > 0 ?   
            <img id="weather-image-main"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
            card.cloudCoverPercentage > 70 ? 
@@ -56,7 +54,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
            card.cloudCoverPercentage < 30 ? 
            <img id="weather-image-main"src={ require('../styling/icons/sunny.png')} alt="sun"/> : null}
 
-           {displayCelsius == true ? 
+           {displayCelsius === true ? 
            <>
            <h3 id = "current-temp">{card.temperature}°C </h3>
            <br></br>
