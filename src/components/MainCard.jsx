@@ -12,7 +12,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
     //BUG: displayCelsius is coming up as undefined, for some reason. 
 
     
-    console.log(displayCelsius, "<<==== MAINCARD")
+  
 
    let arrOfWeatherObjects = []
     

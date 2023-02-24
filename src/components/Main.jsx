@@ -2,8 +2,6 @@
 import "../styling/Main.css"
 import MainCard from "./MainCard"
 const Main = ({weatherdata, displayCelsius, searchOn}) => {
-
-    console.log(displayCelsius)
     return(
         <>  <h2>Today's Weather</h2>
             <section className="container-Main-Display">

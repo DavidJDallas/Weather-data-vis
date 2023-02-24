@@ -30,7 +30,7 @@ const HighlightCards = ({weatherdata, displayCelsius}) => {
        
     }
 
-//     console.log(arrOfWeatherObjects)
+
     return(
         <div className="flexParent-Highlightcard">
        {arrOfWeatherObjects.map((card) => {

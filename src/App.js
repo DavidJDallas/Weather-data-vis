@@ -13,7 +13,7 @@ function App() {
     const [displayPostcode, setDisplayPostcode] = useState("")
     const [displayCelsius, setDisplayCelsius] = useState(true)
     const [searchOn, setSearchOn] = useState(true)
-    console.log(displayCelsius, "<<<==== APP") 
+   
 
   return (
 
