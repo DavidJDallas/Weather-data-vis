@@ -1,7 +1,7 @@
 
 
 /*desktop view*/
-@media(min-width: 510px){
+@media(min-width: 600px){
     .container{
         display: flex;
         flex-direction:column;
@@ -18,6 +18,7 @@
       min-width: 100px;
       margin: 5%;
       
+      
     
     }    
     .text-area{
@@ -28,6 +29,7 @@
         margin-left: 10%;
         background-color: whitesmoke;       
         margin-right: 5%;
+        font-size: 2rem;
     }    
 
     #searchbutton{
@@ -35,8 +37,8 @@
         padding: 2%;
       
         border-radius: 10px;
-        margin-left: 20%;
-        margin-right: 10%;
+        margin-left: 30%;
+        margin-right: 30%;
     }
     #searchbutton:hover{
         background-color: #1A1A1A;
@@ -49,7 +51,7 @@
 
 
 /*mobile view*/
-@media(max-width: 510px){
+@media(max-width: 600px){
     .container{
         display: flex;
         flex-direction:column;
@@ -63,7 +65,7 @@
         height:100px;
         width: 80%;
         border-radius: 10px;
-         min-width: 200px;
+         min-width: 100px;
         margin: 5%;
         
         

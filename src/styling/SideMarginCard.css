@@ -1,18 +1,44 @@
-.SideMarginCard{
-    border: solid white;
-    border-width: 2px;   
-    text-align: center;    
-    border-radius: 10px;
-    background-color: #181717;
-    margin: 5% 15% 0% 15%;
-    padding: 2% 2% 0% 2%;
-    color: white;
+/*Mobile view*/
+@media(max-width: 600px){
+    .SideMarginCard{
+        border: solid white;
+        border-width: 2px;   
+        text-align: center;    
+        border-radius: 10px;
+        background-color: #181717;
+        margin: 0% 5% 0% 5%;
+        padding: 0% 0% 0% 0%;
+        color: white;
+        font-size: 20px;
+        height: 300px;
+    }
+
+    #weather-image{
+        border-radius: 25px;
+        width: 150px;
+        height: 120px;
     
-
-
+    }
 }
 
-#weather-image{
-    border-radius: 25px;
-   
+
+/*Deskptop view*/
+
+@media(min-width: 600px){
+    .SideMarginCard{
+        border: solid white;
+        border-width: 2px;   
+        text-align: center;    
+        border-radius: 10px;
+        background-color: #181717;
+        margin: 5% 15% 0% 15%;
+        padding: 2% 2% 0% 2%;
+        color: white;
+    }
+
+    #weather-image{
+        border-radius: 25px;
+    
+    }
 }
+

@@ -1,5 +1,4 @@
 import "../styling/SideMargin.css"
-
 import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
 import SideMarginCard from "./SideMarginCard"
@@ -8,7 +7,7 @@ import ErrorHandler from "./ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 
 
-const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading}) => {
+const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch, isMobile}) => {
 
     const [postCode, setPostcode] = useState("")
     const [lat, setLat] = useState(null)
@@ -46,8 +45,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
             let latitude = latitudeAndLongitude[0].center[1]
             let longitude = latitudeAndLongitude[0].center[0]
             setLat(latitude)
-            setLong(longitude)
-            
+            setLong(longitude)            
         }  
         catch (error){
             setIsLoading(false)
@@ -65,16 +63,24 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         }  
         catch(error){
             setIsLoading(false)
-            setError(error)
+            setError(error)            
         }        
     }       
      
-    const handleSubmitPostCode =  (event) => {        
-        setSearchOn(false)
-        setIsLoading(true)
-        setDisplayPostcode(postCode)
-        geocodePostcode()       
-        event.preventDefault()      
+    const handleSubmitPostCode =  (event) => {
+        //The code immediately below checks that the postcode entered is valid via the regex check below. Unfortunately this is needed since the geolocation API was returning data despite postcodes clearly not existing. 
+
+        let postcodeRegEx = /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/gm
+
+        if(postcodeRegEx.test(postCode) === true){            
+            setSearchOn(false)
+            setIsLoading(true)
+            setDisplayPostcode(postCode)
+            geocodePostcode()       
+            event.preventDefault() 
+        } else{
+            setError("Invalid Postcode format. Please enter a valid format.")
+        }            
     }
 
     const handleSubmitPlace = (event) => {        
@@ -92,6 +98,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
     }
   
     if(error){
+        setErrorInSearch(true)
         return (<>
             <ErrorHandler error={error}/>           
             <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
@@ -117,12 +124,10 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
                 </>            
                 ) : 
                 <>                 
-                <SideMarginCard displayCelsius={displayCelsius} weatherdata={weatherdata} handleSearchAgain={handleSearchAgain}/> 
+                <SideMarginCard displayCelsius={displayCelsius} weatherdata={weatherdata} handleSearchAgain={handleSearchAgain} isMobile={isMobile}/> 
                                                       
-                </>}
-            
-            </div>  
-            
+                </>}            
+            </div>         
             
     )
 }

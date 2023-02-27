@@ -1,6 +1,40 @@
+/* Mobile view*/
+
+@media(max-width: 600px){
+    .flexParent-Maincard{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+     
+       
+    }    
+    .flexChild-Maincard{ 
+   
+        flex: 1;
+        border-width: 5px;
+        border-color: black;
+        background-color: #181717;    
+        border: solid white;
+        border-width: 2px;
+        border-radius: 10px;
+        color: #E0D0CD;  
+        min-width: 150px;   
+        max-width: 200px;   
+    
+    }    
+  
+    #weather-image-main{
+        border-radius: 25px;
+        width: 100px;
+        height: 100px;
+        margin: 0% 30% 0% 25%
+    }
+
+}
+
 
 /*desktop view*/
-@media(min-width: 510px){
+@media(min-width: 600px){
     .flexParent-Maincard{
         display: flex;
         flex-direction: row;

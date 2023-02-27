@@ -1,6 +1,7 @@
+import { useMediaQuery } from "react-responsive"
 import "../styling/SideMarginCard.css"
 
-const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
+const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain, isMobile}) => {
        
     const hourlyWeatherData = weatherdata.hourly
     const currentTemp = hourlyWeatherData.temperature_2m[0]
@@ -8,13 +9,15 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
     const currentCloudCover = hourlyWeatherData.cloudcover[0]
     const currentRain = hourlyWeatherData.rain[0]
 
-    
-
+  
     return( 
         <>
         <div className="SideMarginCard">
-            <h2>Currently</h2>
+            {/* Line below displays currently if and only if user is on deskptop view*/}
+            {!isMobile ? <h2>Currently</h2> : null}
             
+            {/* Code from lines 24-31 is to conditionally render the image depending on what weather data is received.*/}
+
              {currentRain > 0 ?   
             <img id="weather-image"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
             currentCloudCover > 70 ? 
@@ -24,25 +27,25 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
             currentCloudCover < 30 ? 
             <img id="weather-image"src={ require('../styling/icons/sunny.png')} alt="sun"/> : null}
 
-            {/* Lines 29-39: Conditional rendering depending on whether user wants to display in degrees F or degrees C*/}
+            {/* Lines 34-42: Conditional rendering depending on whether user wants to display in degrees F or degrees C*/}
             {displayCelsius === true ? <> <h3 id = "current-temp">{currentTemp}°C </h3>
-            <br></br>
-            <h3>Feels like {currentApparentTemp} °C</h3>
-            <br></br>            
+            
+            <h4>Feels like {currentApparentTemp} °C</h4>
+                     
             </>
             :   <> 
             <h3 id = "current-temp">{currentTemp}°F </h3>
-            <br></br>
-            <h3>Feels like {currentApparentTemp} °F</h3>
+            
+            <h4>Feels like {currentApparentTemp} °F</h4>
             <br></br>
             </>
             }
-           
-            <h3>Cloud cover<br></br> {currentCloudCover}%</h3>
-            <br></br>
-            <h3>Rain<br></br> {currentRain}mm</h3>
-            <br>
-            </br>
+            {/* Code direclty below displays cloud cover data only if user is not in mobile mode.*/}
+            {!isMobile ? <h4>Cloud cover<br></br> {currentCloudCover}%</h4> :  null}
+            
+            
+            <h4>Rain: {currentRain}mm</h4>
+            
 
             <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
                     <label></label>                   
