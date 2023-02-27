@@ -13,7 +13,7 @@
       flex: 1;
       border-width: 5px;
       border-color: black;
-        
+       
     
     }    
   
@@ -21,8 +21,9 @@
         border-radius: 25px;
         width: 100px;
         height: 100px;
-    }
-
-   
+        margin-left: 30%;
+        margin-right: 30%;
+        
+    }  
 
 }

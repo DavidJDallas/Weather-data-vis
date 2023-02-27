@@ -1,23 +1,16 @@
 import "../styling/SideMarginToggleSwitch.css"
 
 const SideMarginToggleSwitch = ({displayCelsius, setDisplayCelsius}) => {
-
-
-    return(   <>
-       { displayCelsius ? <p> displaying in degrees celsius</p>
-            : <p> displaying in degrees farenheit</p>
-
+    return(   <>        
+       { displayCelsius ? <h3> Celsius</h3>
+            : <h3> Fahrenheit</h3>
             }
             <label onChange ={(event) => setDisplayCelsius(!displayCelsius)} className="switch">
             <input type="checkbox"/>
             <span className="slider round"></span>
-            </label>
-    
-    
-    </>
-)
- 
-
+            </label>   
+    </> 
+    )
 }
 
 export default SideMarginToggleSwitch

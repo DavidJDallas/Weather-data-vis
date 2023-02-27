@@ -13,7 +13,7 @@ export const findWeather = async (latitude, longitude, tempDisplay) => {
 export const getGeolocationByPostcode = async (postcode) => {    
 
     const pendingGeoLocation = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${postcode}}.json?access_token=pk.eyJ1IjoiZGF2aWRkYWxsYXMiLCJhIjoiY2xkYmJ1bHZlMHJmejNwbW52eTRjM2VzZSJ9.rM_Hjd9qOm5TtFLPW3vPbQ`)
-  
+
     const geoLocationData = pendingGeoLocation.data.features
     return geoLocationData
 }
@@ -23,13 +23,13 @@ export const getGeolocationByPlace = async(place) => {
    
     const pendingGeoLocation = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=pk.eyJ1IjoiZGF2aWRkYWxsYXMiLCJhIjoiY2xkYmJ1bHZlMHJmejNwbW52eTRjM2VzZSJ9.rM_Hjd9qOm5TtFLPW3vPbQ`)
 
-    const geoLocationData = pendingGeoLocation.data.features
+    const geoLocationData = pendingGeoLocation.data.features 
     return geoLocationData
 }
 
-export const mapsCall = async () => {
-    const res = await axios.get()
-}
+// export const mapsCall = async () => {
+//     const res = await axios.get()
+// }
 
 
 

@@ -1,18 +1,16 @@
 import "../styling/SideMarginCard.css"
-import { useState } from "react"
 
 const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
-
-   
+       
     const hourlyWeatherData = weatherdata.hourly
     const currentTemp = hourlyWeatherData.temperature_2m[0]
     const currentApparentTemp = hourlyWeatherData.apparent_temperature[0]
     const currentCloudCover = hourlyWeatherData.cloudcover[0]
     const currentRain = hourlyWeatherData.rain[0]
 
-   
-    return( 
+    
 
+    return( 
         <>
         <div className="SideMarginCard">
             
@@ -25,43 +23,34 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
             currentCloudCover < 30 ? 
             <img id="weather-image"src={ require('../styling/icons/sunny.png')} alt="sun"/> : null}
 
-            {displayCelsius == true ? <> <h3 id = "current-temp">{currentTemp}°C </h3>
+            {/* Lines 29-39: Conditional rendering depending on whether user wants to display in degrees F or degrees C*/}
+            {displayCelsius === true ? <> <h3 id = "current-temp">{currentTemp}°C </h3>
             <br></br>
-
-            <h3>Feels like: {currentApparentTemp} °C</h3>
-            <br></br>
-            
+            <h3>Feels like {currentApparentTemp} °C</h3>
+            <br></br>            
             </>
             :   <> 
             <h3 id = "current-temp">{currentTemp}°F </h3>
             <br></br>
-
-            <h3>Feels like: {currentApparentTemp} °F</h3>
+            <h3>Feels like {currentApparentTemp} °F</h3>
             <br></br>
-            
             </>
-            
             }
            
-            <h3>Cloud cover: {currentCloudCover}%</h3>
+            <h3>Cloud cover<br></br> {currentCloudCover}%</h3>
             <br></br>
-            <h3>Rain: {currentRain}mm</h3>
+            <h3>Rain<br></br> {currentRain}mm</h3>
             <br>
             </br>
 
             <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
                     <label></label>                   
                     <button id = "searchbutton" type="submit">Search Again</button>
-            </form>
-           
-           
+            </form>          
 
-        </div>
- 
+        </div> 
         </>
-
     )
-
 }
 
 export default SideMarginCard

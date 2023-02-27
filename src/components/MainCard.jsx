@@ -8,12 +8,9 @@ const MainCard = ({weatherdata, displayCelsius}) => {
     const cloudCover = hourlyWeatherData.cloudcover
     const rain = hourlyWeatherData.rain
     const time  = hourlyWeatherData.time
+    const today = new Date()
+    const hour = today.getHours()
     
-    //BUG: displayCelsius is coming up as undefined, for some reason. 
-
-    
-  
-
    let arrOfWeatherObjects = []
     
 
@@ -31,11 +28,9 @@ const MainCard = ({weatherdata, displayCelsius}) => {
             time: time[i]
            }
         )
-
-        }
-       
+        }       
     }
-
+   
     
     return(
         <div className="flexParent-Maincard">
@@ -43,7 +38,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
         return <>
         <div className="flexChild-Maincard">
             
-            <h4>+{card.time.slice(-4,-3)} hrs</h4>
+            <h4>{hour + parseInt(card.time.slice(-4,-3))}:00 </h4>
             
             {card.rainInMillimetres > 0 ?   
            <img id="weather-image-main"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
