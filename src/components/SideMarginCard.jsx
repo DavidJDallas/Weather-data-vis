@@ -13,6 +13,7 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain}) => {
     return( 
         <>
         <div className="SideMarginCard">
+            <h2>Currently</h2>
             
              {currentRain > 0 ?   
             <img id="weather-image"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 

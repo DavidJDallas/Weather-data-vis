@@ -54,7 +54,7 @@ const MainCard = ({weatherdata, displayCelsius}) => {
            <h3 id = "current-temp">{card.temperature}°C </h3>
            <br></br>
 
-           <h3>Feels like: {card.apparentTemperature} °C</h3>
+           <h4>Feels like {card.apparentTemperature} °C</h4>
            <br></br>
            </>           
            : 
@@ -62,15 +62,15 @@ const MainCard = ({weatherdata, displayCelsius}) => {
             <h3 id = "current-temp">{card.temperature}°F </h3>
            <br></br>
 
-           <h3>Feels like: {card.apparentTemperature} °F</h3>
+           <h4>Feels like: {card.apparentTemperature} °F</h4>
            <br></br>
            </>
            }
 
            
-           <h3>Cloud cover: {card.cloudCoverPercentage}%</h3>
+           <h4>Cloud cover: {card.cloudCoverPercentage}%</h4>
            <br></br>
-           <h3>Rain: {card.rainInMillimetres}mm</h3>
+           <h4>Rain: {card.rainInMillimetres}mm</h4>
            <br>
            </br> 
           

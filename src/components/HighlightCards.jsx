@@ -29,11 +29,8 @@ const HighlightCards = ({weatherdata, displayCelsius}) => {
             
            }
         )
-
+    }       
     }
-       
-    }
-
 
     return(
         <div className="flexParent-Highlightcard">
@@ -41,14 +38,13 @@ const HighlightCards = ({weatherdata, displayCelsius}) => {
         return <>
         <div className="flexChild-Highlightcard">
 
-            <h3>{card.time.slice(8, 10) + "." + (card.time.slice(5,7))}</h3>
-            
+            <h3>{card.time.slice(8, 10) + "." + (card.time.slice(5,7))}</h3>        
 
             {/* The code on lines 42-50 is a conditional logic block which tells the programme which weather logo to use, depending on the data that the weather API gives us.*/}
             
             {card.rainInMillimetres > 0 ?   
            <img id="weather-image-highlight"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
-           card.cloudCoverPercentage > 70 ? 
+           card.cloudCoverPercentage >= 70 ? 
            <img id="weather-image-highlight"src={ require('../styling/icons/cloudy.png')} alt="clouds"/> :
            card.cloudCoverPercentage <70 && card.cloudCoverPercentage > 30 ?
            <img id="weather-image-highlight"src={ require('../styling/icons/cloudy-sun.png')} alt="clouds and sun"/>:
@@ -61,24 +57,18 @@ const HighlightCards = ({weatherdata, displayCelsius}) => {
             {displayCelsius === true ?
             <>
             <h3 id = "current-temp">{card.temperature}°C </h3>
-           <br></br>
-
-           <h4>Feels like: {card.apparentTemperature} °C</h4>
-           <br></br>
+           <br></br>           
             </>
             : 
             <>
             <h3 id = "current-temp">{card.temperature}°F </h3>
            <br></br>
-           <h4>Feels like: {card.apparentTemperature} °F</h4>
-           <br></br>
+          
             </>      
         
         }
            
-           <h4>Cloud cover: {card.cloudCoverPercentage}%</h4>
-           <br></br>
-           <h4>Rain: {card.rainInMillimetres}mm</h4>
+           
           
 
            
