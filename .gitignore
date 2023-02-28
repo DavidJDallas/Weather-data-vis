@@ -24,3 +24,5 @@ yarn-error.log*
 
 config.codekit
 *.sass-cache*
+# Local Netlify folder
+.netlify

@@ -76,6 +76,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
             setSearchOn(false)
             setIsLoading(true)
             setDisplayPostcode(postCode)
+            setDisplayLocation(null)
             geocodePostcode()       
             event.preventDefault() 
         } else{
@@ -87,6 +88,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         setSearchOn(false)
         setIsLoading(true)
         setDisplayLocation(place)
+        setDisplayPostcode(null)
         geocodePlace()  
         event.preventDefault()    
     }

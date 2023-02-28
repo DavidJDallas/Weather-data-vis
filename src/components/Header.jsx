@@ -3,10 +3,12 @@ import "../styling/General.css"
 import { useEffect } from "react"
 
 
-const Header = ({ displayLocation, displayPostcode, errorInSearch}) => {
+const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) => {
    
     let postCodeCaps = ""
     let rectifiedLocation =  ""   
+    console.log(displayLocation)
+    console.log(displayPostcode)
     
     //Below ensures that if user types postcode in anything other than all caps, the correct format of all caps is nonetheless displayed.
     if(displayPostcode){
@@ -20,14 +22,14 @@ const Header = ({ displayLocation, displayPostcode, errorInSearch}) => {
 
     //UseEffect below ensures that the title that tells the user where they have searched for is updated every time the user searches for a different place. 
     useEffect(() => {
-
+        
     }, [displayLocation, displayPostcode]) 
     
    
     return(
         <section>   
-        {rectifiedLocation && !errorInSearch ? <h1 >{rectifiedLocation}</h1>: 
-        postCodeCaps && !errorInSearch ? <h1>{postCodeCaps} </h1> :
+        {displayLocation && !errorInSearch && !searchOn ? <h1 >{rectifiedLocation}</h1>: 
+        displayPostcode && !errorInSearch && !searchOn ? <h1>{postCodeCaps} </h1> :
         <h1> Weather</h1>
         }
         </section>

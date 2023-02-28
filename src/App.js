@@ -31,7 +31,7 @@ function App() {
       </div>
       
       <div className="grid-Header">
-        <Header weatherdata={weatherdata}displayLocation={displayLocation} displayPostcode={displayPostcode} errorInSearch={errorInSearch}searchOn={searchOn} isMobile={isMobile}/>
+        <Header weatherdata={weatherdata}displayLocation={displayLocation} displayPostcode={displayPostcode} errorInSearch={errorInSearch}searchOn={searchOn} isMobile={isMobile} />
       </div>
 
       <div className="grid-Main">
