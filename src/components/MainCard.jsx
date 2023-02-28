@@ -37,7 +37,7 @@ const MainCard = ({weatherdata, displayCelsius, isMobile}) => {
         return <>
         <div className="flexChild-Maincard">
             
-            {/* Lines 44-49 : time is conditionally rendered depending on whether it not it goes larger than 24. At 24, clock starts again at 01.00. */}
+            {/* Lines 42-47 : time is conditionally rendered depending on whether it not it goes larger than 24. At 24, clock starts again at 01.00. */}
             <h3>{ 
             (hour + parseInt(card.time.slice(-4,-3))) > 24 ? 
             (hour + parseInt(card.time.slice(-4,-3))) - 24
@@ -45,6 +45,7 @@ const MainCard = ({weatherdata, displayCelsius, isMobile}) => {
             (hour + parseInt(card.time.slice(-4,-3)))
              }:00 </h3>
             
+            {/* Lines 49-56: Conditional rendering to get the logo to correspond to the correct weather data.*/}
             {card.rainInMillimetres > 0 ?   
            <img id="weather-image-main"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
            card.cloudCoverPercentage >= 70 ? 
