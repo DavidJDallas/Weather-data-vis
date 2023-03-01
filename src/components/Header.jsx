@@ -5,10 +5,7 @@ import { useEffect } from "react"
 const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) => {
    
     let postCodeCaps = ""
-    let rectifiedLocation =  ""   
-    console.log(displayLocation)
-    console.log(displayPostcode)
-    
+    let rectifiedLocation =  ""     
     //Below ensures that if user types postcode in anything other than all caps, the correct format of all caps is nonetheless displayed.
     if(displayPostcode){
        postCodeCaps = displayPostcode.toUpperCase()
