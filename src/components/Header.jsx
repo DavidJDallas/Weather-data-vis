@@ -2,7 +2,6 @@ import "../styling/Header.css"
 import "../styling/General.css"
 import { useEffect } from "react"
 
-
 const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) => {
    
     let postCodeCaps = ""

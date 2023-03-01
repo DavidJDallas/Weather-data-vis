@@ -13,12 +13,15 @@ const Highlights = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMob
     const today = new Date()
     const date = today.getDate()
     const month = today.getMonth()   
+
+
+    //The data given by the API is formatted inconveniently for my purposes of displaying specific cards, so below I create an array of objects which all have the relevant data for the card which is dispalyed for 24 hour (1 day) increments. 
  
    let arrOfWeatherObjects = []
-    {/* for loop below pushes to the assigned empty array just above, and creates a more suitable array of objects to map over. */}
-   for(let i=0; i<120; i++){    
-        if(i%24 ===0){
-            arrOfWeatherObjects.push(
+    
+   for(let i=0; i<120; i+=24){    
+       
+        arrOfWeatherObjects.push(
             {
                 temperature: temp[i],
                 apparentTemperature: apparentTemp[i],
@@ -27,12 +30,13 @@ const Highlights = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMob
                 time: time[i]                
             }
             )
-        }       
+               
     }
 
     if(isMobile && searchOn){
         return null
     }
+
     return(
         <>
         <h2>This week</h2>
@@ -40,22 +44,14 @@ const Highlights = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMob
         <div className="flexParent-Highlightcard">
         {arrOfWeatherObjects.map((card, index) => {
 
-            return(<ul key={index}>
-             <div className="flexChild-Highlightcard">
-                    
-                <li>
-                    <HighlightCards weatherdata={weatherdata} displayCelsius={displayCelsius} card={card} time={time}/> 
-                </li>
-
-                   
+        return(<ul key={index}>
+            <div className="flexChild-Highlightcard">
+            <li id="highlightcard-list">
+                <HighlightCards weatherdata={weatherdata} displayCelsius={displayCelsius} card={card} time={time}/> 
+            </li>
             </div> </ul>
-            
             )
-
-
-        })}
-      
-        
+        })}        
         </div>  
         </>
     )

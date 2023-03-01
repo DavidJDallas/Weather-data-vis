@@ -16,7 +16,7 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain, isMobil
             {/* Line below displays currently if and only if user is on deskptop view*/}
             {!isMobile ? <h2>Currently</h2> : null}
             
-            {/* Code from lines 24-31 is to conditionally render the image depending on what weather data is received.*/}
+            {/* Code below is to conditionally render the image depending on what weather data is received.*/}
 
              {currentRain > 0 ?   
             <img id="weather-image"src={ require('../styling/icons/rain.png')} alt="rain"/>  : 
@@ -27,7 +27,7 @@ const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain, isMobil
             currentCloudCover < 30 ? 
             <img id="weather-image"src={ require('../styling/icons/sunny.png')} alt="sun"/> : null}
 
-            {/* Lines 34-42: Conditional rendering depending on whether user wants to display in degrees F or degrees C*/}
+            {/* Code below conditionally renders depending on whether user wants to display in degrees F or degrees C*/}
             {displayCelsius === true ? <> <h3 id = "current-temp">{currentTemp}°C </h3>
             
             <h4>Feels like {currentApparentTemp} °C</h4>
