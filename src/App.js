@@ -27,7 +27,7 @@ function App() {
     <div className="wrapper">
 
       <div className="grid-sideMargin">
-        <SideMargin setWeatherData={setWeatherData} weatherdata={weatherdata} setDisplayPostcode={setDisplayPostcode} setDisplayLocation={setDisplayLocation} displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius} searchOn={searchOn} setSearchOn={setSearchOn} isLoading={isLoading} setIsLoading={setIsLoading} setErrorInSearch={setErrorInSearch} isMobile = {isMobile}/>
+         <SideMargin setWeatherData={setWeatherData} weatherdata={weatherdata} setDisplayPostcode={setDisplayPostcode} setDisplayLocation={setDisplayLocation} displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius} searchOn={searchOn} setSearchOn={setSearchOn} isLoading={isLoading} setIsLoading={setIsLoading} setErrorInSearch={setErrorInSearch} isMobile = {isMobile}/>        
       </div>
       
       <div className="grid-Header">
@@ -35,11 +35,19 @@ function App() {
       </div>
 
       <div className="grid-Main">
+        { weatherdata ? 
         <Main weatherdata={weatherdata} displayCelsius={displayCelsius} searchOn={searchOn} isLoading={isLoading} errorInSearch={errorInSearch} isMobile={isMobile}/>
+        : 
+        <h3>Please enter a location or postcode</h3>
+        }  
       </div>
 
       <div className="grid-Highlights">
-        <Highlights weatherdata={weatherdata} displayCelsius={displayCelsius} searchOn={searchOn} isLoading={isLoading} errorInSearch={errorInSearch} isMobile={isMobile}/>
+        {weatherdata ? 
+         <Highlights weatherdata={weatherdata} displayCelsius={displayCelsius} searchOn={searchOn} isLoading={isLoading} errorInSearch={errorInSearch} isMobile={isMobile}/>
+         : 
+         null
+      }       
       </div>
 
     </div>  

@@ -96,7 +96,8 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
     const handleSearchAgain = (event) => {        
         setSearchOn(true)  
         setLat(null)
-        setLong(null)      
+        setLong(null)
+        setWeatherData(null)      
     }
   
     if(error){

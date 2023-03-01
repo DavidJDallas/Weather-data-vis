@@ -1,40 +1,13 @@
 import "../styling/HighlightCards.css"
 
 
-const HighlightCards = ({weatherdata, displayCelsius}) => {
+const HighlightCards = ({weatherdata, displayCelsius, card, time}) => {
 
-    const dailyWeatherData = weatherdata
-    const hourlyWeatherData = weatherdata.hourly
-    const temp = hourlyWeatherData.temperature_2m
-    const apparentTemp = hourlyWeatherData.apparent_temperature
-    const cloudCover = hourlyWeatherData.cloudcover
-    const rain = hourlyWeatherData.rain  
-    const time  = hourlyWeatherData.time
-    const today = new Date()
-    const date = today.getDate()
-    const month = today.getMonth()   
- 
-   let arrOfWeatherObjects = []
-    {/* for loop below pushes to the assigned empty array just above, and creates a more suitable array of objects to map over. */}
-   for(let i=0; i<120; i++){    
-        if(i%24 ===0){
-            arrOfWeatherObjects.push(
-            {
-                temperature: temp[i],
-                apparentTemperature: apparentTemp[i],
-                cloudCoverPercentage: cloudCover[i],
-                rainInMillimetres: rain[i],
-                time: time[i]                
-            }
-            )
-        }       
-    }
 
-    return(
-        <div className="flexParent-Highlightcard">
-       {arrOfWeatherObjects.map((card) => {
-            return <>
-                <div className="flexChild-Highlightcard">
+    return(<>
+       
+     
+                
                 <h3>{card.time.slice(8, 10) + "." + (card.time.slice(5,7))}</h3>        
 
                 {/* The code on lines 42-50 is a conditional logic block which tells the programme which weather logo to use, depending on the data that the weather API gives us.*/}
@@ -62,10 +35,10 @@ const HighlightCards = ({weatherdata, displayCelsius}) => {
                 <br></br>                
                 </>                
                 }
-            </div>
-            </>       
-        })}    
-    </div>
+          
+                
+        </>
+    
     )
 }
 

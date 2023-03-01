@@ -29,6 +29,9 @@
         height: 100px;
         margin: 0% 30% 0% 25%
     }
+    #maincard-list{
+        list-style-type: none;
+    }
 
 }
 
@@ -62,6 +65,10 @@
         width: 100px;
         height: 100px;
         margin: 0% 30% 0% 25%
+    }
+    #maincard-list{
+        list-style-type: none;
+        
     }
 
    
