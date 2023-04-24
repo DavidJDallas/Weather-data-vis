@@ -1,7 +1,9 @@
 import { useMediaQuery } from "react-responsive"
 import "../styling/SideMarginCard.css"
+import * as React from 'react'
+import { SideMarginCardProps } from "../Types"
 
-const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain, isMobile}) => {
+const SideMarginCard = ({displayCelsius, weatherdata, handleSearchAgain, isMobile}: SideMarginCardProps) => {
        
     const hourlyWeatherData = weatherdata.hourly
     const currentTemp = hourlyWeatherData.temperature_2m[0]

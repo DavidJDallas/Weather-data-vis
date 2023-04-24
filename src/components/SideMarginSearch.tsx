@@ -1,6 +1,8 @@
 import "../styling/SideMargin.css"
+import * as React from 'react'
+import { SideMarginSearchProps } from "../Types"
 
-const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace, setPlace}) => {
+const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace, setPlace}: SideMarginSearchProps) => {
 
     return(
     <>

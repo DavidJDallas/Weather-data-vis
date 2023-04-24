@@ -1,7 +1,9 @@
 import "../styling/HighlightCards.css"
+import * as React from 'react';
+import { HighlightCardsProps } from "../Types";
 
 
-const HighlightCards = ({weatherdata, displayCelsius, card, time}) => {
+const HighlightCards = ({weatherdata, displayCelsius, card, time}: HighlightCardsProps) => {
 
     return(<>               
         <h3>{card.time.slice(8, 10) + "." + (card.time.slice(5,7))}</h3>        

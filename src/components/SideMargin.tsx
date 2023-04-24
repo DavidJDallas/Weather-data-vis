@@ -1,19 +1,20 @@
 import "../styling/SideMargin.css"
-import {getWeatherData, getGeolocationByPlace, getGeolocationByPostcode, findWeather} from "../ApiFunctions"
+import {getGeolocationByPlace, getGeolocationByPostcode, findWeather, findHistoricalWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
 import SideMarginCard from "./SideMarginCard"
 import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "./ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
+import * as React from 'react'
+import { SideMarginProps } from "../Types"
 
+const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch, isMobile}: SideMarginProps) => {
 
-const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch, isMobile}) => {
-
-    const [postCode, setPostcode] = useState("")
-    const [lat, setLat] = useState(null)
-    const [long, setLong] = useState(null)
-    const [place, setPlace] = useState("")   
-    const [error, setError] = useState(null)
+    const [postCode, setPostcode] = useState('')
+    const [lat, setLat] = useState('')
+    const [long, setLong] = useState('')
+    const [place, setPlace] = useState('')   
+    const [error, setError] = useState('')    
 
     useEffect(() => {
             if(lat && long){            
@@ -21,12 +22,16 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
             }
         }, [lat, long])
 
+        console.log(lat)
+        console.log(long)
+
     const getWeatherData = async() => {   
         try{
             if(displayCelsius===true){
                 const weatherData = await findWeather(lat, long, 'celsius')
                 setWeatherData(weatherData.data) 
-                setIsLoading(false)   
+                setIsLoading(false) 
+               
             } else if(displayCelsius===false){
                 const weatherData = await findWeather(lat, long, 'fahrenheit')
                 setWeatherData(weatherData.data) 
@@ -53,11 +58,12 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         }                   
     }    
     
-    const geocodePlace =async() => {  
+    const geocodePlace = async() => {  
         try{
             const latitudeAndLongitude = await getGeolocationByPlace(place) 
             let latitude = latitudeAndLongitude[0].center[1]
             let longitude = latitudeAndLongitude[0].center[0]
+            console.log(latitude)
             setLat(latitude)
             setLong(longitude)            
         }  
@@ -67,7 +73,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         }        
     }       
      
-    const handleSubmitPostCode =  (event) => {
+    const handleSubmitPostCode =  (event: React.SyntheticEvent) => {
         //The code immediately below checks that the postcode entered is valid via the regex check below. Unfortunately this is needed since the geolocation API was returning data despite postcodes clearly not existing. 
 
         let postcodeRegEx = /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/gm
@@ -84,7 +90,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         }            
     }
 
-    const handleSubmitPlace = (event) => {        
+    const handleSubmitPlace = (event: any) => {        
         setSearchOn(false)
         setIsLoading(true)
         setDisplayLocation(place)
@@ -93,7 +99,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         event.preventDefault()    
     }
 
-    const handleSearchAgain = (event) => {        
+    const handleSearchAgain = (event: any) => {        
         setSearchOn(true)  
         setLat(null)
         setLong(null)

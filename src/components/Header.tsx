@@ -1,11 +1,12 @@
 import "../styling/Header.css"
 import "../styling/General.css"
 import { useEffect } from "react"
+import * as React from 'react'
 
 const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) => {
    
-    let postCodeCaps = ""
-    let rectifiedLocation =  ""     
+    let postCodeCaps: string
+    let rectifiedLocation: string   
     //Below ensures that if user types postcode in anything other than all caps, the correct format of all caps is nonetheless displayed.
     if(displayPostcode){
        postCodeCaps = displayPostcode.toUpperCase()

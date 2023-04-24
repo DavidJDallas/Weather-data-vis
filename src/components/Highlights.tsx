@@ -1,23 +1,21 @@
 import HighlightCards from "./HighlightCards"
 import { useMediaQuery } from "react-responsive"
+import * as React from 'react'
+import{ Hourly, WeatherObject, HighlightsProps} from '../Types'
 
-const Highlights = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}) => {  
+const Highlights = ({weatherdata, displayCelsius, searchOn, isMobile}: HighlightsProps) => {  
+    
+    const hourlyWeatherData: Hourly = weatherdata.hourly
+    const temp: number[] = hourlyWeatherData.temperature_2m
+    const apparentTemp: number[] = hourlyWeatherData.apparent_temperature
+    const cloudCover: number[] = hourlyWeatherData.cloudcover
+    const rain: number[] = hourlyWeatherData.rain  
+    const time: string[]  = hourlyWeatherData.time    
+   
 
-    const dailyWeatherData = weatherdata
-    const hourlyWeatherData = weatherdata.hourly
-    const temp = hourlyWeatherData.temperature_2m
-    const apparentTemp = hourlyWeatherData.apparent_temperature
-    const cloudCover = hourlyWeatherData.cloudcover
-    const rain = hourlyWeatherData.rain  
-    const time  = hourlyWeatherData.time
-    const today = new Date()
-    const date = today.getDate()
-    const month = today.getMonth()   
-
-
-    //The data given by the API is formatted inconveniently for my purposes of displaying specific cards, so below I create an array of objects which all have the relevant data for the card which is dispalyed for 24 hour (1 day) increments. 
+    //The data given by the API is formatted inconveniently for my purposes of displaying specific cards, so below I create an array of objects which all have the relevant data for the card which is displayed for 24 hour (1 day) increments. 
  
-   let arrOfWeatherObjects = []
+   let arrOfWeatherObjects: WeatherObject[] = []
     
    for(let i=0; i<120; i+=24){    
        

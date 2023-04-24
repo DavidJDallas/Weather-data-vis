@@ -1,6 +1,8 @@
 import "../styling/SideMarginToggleSwitch.css"
+import * as React from 'react'
+import { SideMarginToggleSwitchProps } from "../Types"
 
-const SideMarginToggleSwitch = ({displayCelsius, setDisplayCelsius}) => {
+const SideMarginToggleSwitch = ({displayCelsius, setDisplayCelsius}: SideMarginToggleSwitchProps) => {
     return(   <>        
        { displayCelsius ? <h3> Celsius</h3>
             : <h3> Fahrenheit</h3>

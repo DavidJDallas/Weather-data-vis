@@ -1,10 +1,9 @@
 import "../styling/Main.css"
 import {useMediaQuery} from 'react-responsive'
+import * as React from 'react'
+import { MainCardProps } from "../Types"
 
-const MainCard = ({weatherdata, displayCelsius, isMobile, card, hour}) => {    
-    
-
-    
+const MainCard = ({weatherdata, displayCelsius, isMobile, card, hour}: MainCardProps) => {        
     
     return(
         <>             
