@@ -1,7 +1,7 @@
 import "../styling/SideMargin.css"
 import {getGeolocationByPlace, getGeolocationByPostcode, findWeather, findHistoricalWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
-import SideMarginCard from "./SideMarginCard"
+
 import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "./ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
@@ -14,26 +14,23 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
     const [lat, setLat] = useState('')
     const [long, setLong] = useState('')
     const [place, setPlace] = useState('')   
-    const [error, setError] = useState('')    
-
+    const [error, setError] = useState('')     
+   
     useEffect(() => {
             if(lat && long){            
                 getWeatherData()
             }
         }, [lat, long])
 
-        console.log(lat)
-        console.log(long)
-
     const getWeatherData = async() => {   
         try{
             if(displayCelsius===true){
-                const weatherData = await findWeather(lat, long, 'celsius')
+                const weatherData = await findHistoricalWeather(lat, long, 'celsius')
                 setWeatherData(weatherData.data) 
                 setIsLoading(false) 
                
             } else if(displayCelsius===false){
-                const weatherData = await findWeather(lat, long, 'fahrenheit')
+                const weatherData = await findHistoricalWeather(lat, long, 'fahrenheit')
                 setWeatherData(weatherData.data) 
                 setIsLoading(false)  
             }            
@@ -97,6 +94,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         setDisplayPostcode(null)
         geocodePlace()  
         event.preventDefault()    
+        //event.preventDefault() stops the default behaviour of a page. Here it's invoked to stop the page refreshing. 
     }
 
     const handleSearchAgain = (event: any) => {        
@@ -105,6 +103,8 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         setLong(null)
         setWeatherData(null)      
     }
+
+   
   
     if(error){
         setErrorInSearch(true)
@@ -129,11 +129,16 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
             {searchOn ? (                   
                 <>
                 <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/> 
+              
                 <SideMarginToggleSwitch displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius}/>  
                 </>            
                 ) : 
-                <>                 
-                <SideMarginCard displayCelsius={displayCelsius} weatherdata={weatherdata} handleSearchAgain={handleSearchAgain} isMobile={isMobile}/> 
+                <>    
+            <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
+                <label></label>                   
+                <button id = "searchbutton" type="submit">Search Again</button>
+            </form>
+               
                                                       
                 </>}            
             </div>         

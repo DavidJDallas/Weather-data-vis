@@ -36,41 +36,23 @@ export interface APICallGeoLocation {
 
 }
 
-export interface Hourly{
-    apparent_temperature: number[],
-    cloudcover: number[],
-    rain: number[],
-    showers: number[],
-    snow_depth: number[],
-    snowfall: number[],
-    temperature_2m: number[],
+export interface DailyObj {
+    rain_sum: number[],
+    temperature_2m_max: number[],
+    temperature_2m_min: number[],
     time: string[],
-    windspeed_10m: number[]
-}
-
-export interface Hourly_Units{
-    apparent_temperature: string,
-    cloudcover: '%',
-    rain: 'mm',
-    showers: 'mm',
-    snow_depth: string,
-    snowfall: string
-    temperature_2m: string,    
-    time: string,    
-    windspeed_10m: string
-   
+    windspeed_10m_max: number[]
 }
 
 export interface WeatherData{
-    elevation: number,
-    generationtime_ms: number,
-    hourly: Hourly,
-    hourly_units: Hourly_Units,
+    daily: DailyObj,
+    daily_units: object,
     latitude: number,
-    longitude: number,
     timezone: string,
-    timezone_abbrevation: string,
-    utc_offset_seconds: number
+    longitude: number,
+    utc_offset_seconds: number,
+    timezone_abbreviation: string,
+
 
 
 }

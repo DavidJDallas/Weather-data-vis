@@ -27,7 +27,7 @@ const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) =>
         <section>   
         {displayLocation && !errorInSearch && !searchOn ? <h1 >{rectifiedLocation}</h1>: 
         displayPostcode && !errorInSearch && !searchOn ? <h1>{postCodeCaps} </h1> :
-        <h1> Weather</h1>
+        <h1> Historical Weather Data</h1>
         }
         </section>
     )

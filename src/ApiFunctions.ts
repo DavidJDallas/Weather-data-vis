@@ -8,9 +8,9 @@ export const findWeather = async (latitude: string, longitude: string, tempDispl
     return pendingWeatherData 
 }
 
-export const findHistoricalWeather = async (latitude: string, longitude: string) => {
+export const findHistoricalWeather = async (latitude: string, longitude: string, tempDisplay: string) => {
 
-    const pendingWeather: HistoricalWeatherDataType = await axios.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&timezone=GMT&start_date=1945-04-01&end_date=2023-04-15&daily=temperature_2m_max&daily=temperature_2m_min&daily=rain_sum&daily=windspeed_10m_max`)
+    const pendingWeather: HistoricalWeatherDataType = await axios.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&timezone=GMT&start_date=1945-01-01&end_date=2023-04-15&daily=temperature_2m_max&daily=temperature_2m_min&daily=rain_sum&daily=windspeed_10m_max&temperature_unit=${tempDisplay}`)
 
  
     return pendingWeather

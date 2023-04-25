@@ -13,7 +13,7 @@ const DataVisualisation = ({weatherdata}) => {
     useEffect(() => {
         if(weatherdata) setTemperature(weatherdata.hourly.temperature_2m.slice(0, 24))
     }, [weatherdata])
-    console.log(temperature)
+  
     
     const width: number = 600;
     const height: number = 140;

@@ -14,19 +14,19 @@ const HistoricalDataIndex = () => {
     const [place, setPlace] = useState(null)
     
 
-    useEffect(() => {
-        const getHistoricalweatherData = async() => {
-            try{
-                const weatherData: HistoricalWeatherDataType = await findHistoricalWeather(lat, long)
-                setHistoricalWeatherData(weatherData.data.daily)
+    // useEffect(() => {
+    //     const getHistoricalweatherData = async() => {
+    //         try{
+    //             const weatherData: HistoricalWeatherDataType = await findHistoricalWeather(lat, long)
+    //             setHistoricalWeatherData(weatherData.data.daily)
            
-            }
-            catch(err){
-                console.log(err)
-            }
-        }
-        getHistoricalweatherData()
-    }, [lat, long])
+    //         }
+    //         catch(err){
+    //             console.log(err)
+    //         }
+    //     }
+    //     getHistoricalweatherData()
+    // }, [lat, long])
 
     console.log(historicalWeatherData)
 

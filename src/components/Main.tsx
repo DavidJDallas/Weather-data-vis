@@ -1,79 +1,58 @@
 import * as React from 'react'
 import "../styling/Main.css"
-import MainCard from "./MainCard"
-import { useState } from 'react'
+import * as d3 from 'd3'
+import { useState, useEffect } from 'react'
 import DataVisualisation from './DataVisualisation'
-import {Hourly, WeatherObject, MainProps, Hourly_Units} from '../Types'
+import {MainProps} from '../Types'
+import RainByYear from './Graphs/RainByYear'
 
 const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: MainProps) => { 
-       
-    const [viewData, setViewData] = useState(false);
-    const hourlyWeatherData: Hourly = weatherdata.hourly
-    const temp: number[] = hourlyWeatherData.temperature_2m
-    const apparentTemp: number[] = hourlyWeatherData.apparent_temperature
-    const cloudCover: number[] = hourlyWeatherData.cloudcover
-    const rain: number[] = hourlyWeatherData.rain
-    const time: string[]  = hourlyWeatherData.time
-    const today: Date = new Date()
-    const hour: number = today.getHours()
+
+    const [formattedData, setFormattedData] = useState([])
+
+    //Suitable data object made for the charts. 
+
+    useEffect(() => {
+        const parsedTime = d3.timeParse('%Y-%m-%d');
+        const dates = weatherdata.daily.time.map(parsedTime)
+
+        let modifiedData = dates.map((date, i) => ({
+                time : date,
+                temperature_2m_max : weatherdata.daily.temperature_2m_max[i],
+                temperature_2m_min: weatherdata.daily.temperature_2m_min[i],
+                rain_sum: weatherdata.daily.rain_sum[i],
+                windspeed_10m_max: weatherdata.daily.windspeed_10m_max[i]
+
+            }))
+
+        const dataByYearFunction = d3.group(modifiedData, (d) => d.time.getFullYear())
+
+        const arrOfGroupedObjects = Array.from(dataByYearFunction).map((element, i) => ({
+            year: element[0],
+            data: element[1]
+
+        }))
+
+       setFormattedData(Array.from(arrOfGroupedObjects))
     
-    let arrOfWeatherObjects: WeatherObject[] = []    
+    },[weatherdata])
 
-    //The data given by the API is formatted inconveniently for my purposes of displaying specific cards, so below I create an array of objects which all have the relevant data for the card which is dispalyed for 2 hour increments. 
 
-    for(let i=0; i<10; i+=2){           
-        arrOfWeatherObjects.push(
-           {
-            temperature: temp[i],
-            apparentTemperature: apparentTemp[i],
-            cloudCoverPercentage: cloudCover[i],
-            rainInMillimetres: rain[i],
-            time: time[i]
-            }
-        )                   
-    }  
-
-    const handleDataDisplay = () => {
-        setViewData(true)
-    }
-    
     if(isMobile && searchOn){
         return null
     }
 
+
     return(
         <>    
-        <h2>Today</h2>  
+         <h2>The data that is visualised here goes back to April of 1945. The aim is to be able to show trends and patterns in weather over the last 80 or so years. </h2> 
 
+        <RainByYear formattedData={formattedData} 
+        width={700} 
+        height={400} 
+        />
        
-       
-        <section className="container-Main-Display">
-        {weatherdata && !searchOn && !errorInSearch && !viewData ? 
-        
-        <div className="flexParent-Maincard">
-
-<form onSubmit = {handleDataDisplay}>
-                    <label></label>                   
-                    <button id = "searchbutton" type="submit">View as Data</button>
-            </form>   
-        {arrOfWeatherObjects.map((card, index) => {
-            return(<ul key={index}>
-              <div className="flexChild-Maincard">   
-               <li id='maincard-list'>
-                    <MainCard  weatherdata={weatherdata} displayCelsius={displayCelsius} isMobile={isMobile} hour={hour} card={card}/>
-                </li>
-                </div>
-               </ul>
-                    )
-                })}
-        </div>         
-        : !viewData ?
-        <h3>Please enter a location or postcode</h3>
-        : <DataVisualisation weatherdata={weatherdata}/>
-    
-    
-    }
-        </section>         
+         
         </>
     )
 }
