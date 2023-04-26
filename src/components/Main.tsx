@@ -11,6 +11,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
 
     const [formattedDataByYear, setFormattedDataByYear] = useState([])
     const [formattedDataByMonth, setFormattedDataByMonth] = useState([])
+    const [formattedDataBySeasons, setFormmatedDataBySeasons] = useState([])
 
     //Suitable data object made for the charts. 
 
@@ -27,17 +28,17 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
 
             }))
 
+        //Group data by year
         const dataByYearFunction = d3.group(modifiedData, (d) => d.time.getFullYear())
 
         const dataByMonthFunction = d3.group(modifiedData, (d) => d.time.getMonth())
-
-        console.log(Array.from(dataByMonthFunction))
 
         const arrOfGroupedObjectsByYear = Array.from(dataByYearFunction).map((element, i) => ({
             year: element[0],
             data: element[1]
         }))
 
+        //Group data by month
         let numberToMonthTranslator = {
             0: 'January',
             1: 'February',
@@ -53,16 +54,52 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             11: 'December'
         }
 
-
         let arrOfGroupedObjectsByMonth = Array.from(dataByMonthFunction)
         .map((element) => ({
             month: numberToMonthTranslator[element[0]],
             data: element[1]
         }))
 
+        //Group data by season
+
+        let seasonTranslator = {
+            January: 'Winter',
+            February: 'Winter',
+            March: 'Spring',
+            April: 'Spring',
+            May: 'Spring',
+            June: 'Summer',
+            July: 'Summer',
+            August: 'Summer',
+            September: 'Autumn',
+            October: 'Autumn',
+            November: 'Autumn',
+            December: 'Winter'
+        }
+
+        //create initial object
+
+        let groupedBySeasonStep1 = arrOfGroupedObjectsByMonth.map((element) => ({
+            season: seasonTranslator[element.month],
+            data: element.data
+        }))
+
+        //group using d3, which creates a map, and then change this map into an array.
+
+        let groupedBySeasonArr = Array.from(d3.group(groupedBySeasonStep1, d => d.season))
+
+        //change into the final arr of objects. 
+
+        let groupedBySeasonFin = groupedBySeasonArr.map((element) => ({
+            season: element[0],
+            data: element[1].flatMap((element) => element.data)
+            }        
+        ))
+        
 
        setFormattedDataByYear(arrOfGroupedObjectsByYear)
        setFormattedDataByMonth(arrOfGroupedObjectsByMonth)
+       setFormmatedDataBySeasons(groupedBySeasonFin)
        
 
     
@@ -85,6 +122,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
         />
         <RainBySeason 
         formattedDataByMonth = {formattedDataByMonth}
+        formattedDataBySeasons = {formattedDataBySeasons}
         width = {850}
         height={220}
         />

@@ -2,7 +2,7 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 
-const RainBySeason = ({formattedDataByMonth, width, height}) => {
+const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, width, height}) => {
 
     const chartRef = useRef();
     d3.select(chartRef.current).selectAll('*').remove();
@@ -12,6 +12,14 @@ const RainBySeason = ({formattedDataByMonth, width, height}) => {
         totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
         avgRain: d3.mean(object.data.map((element) => element.rain_sum))
     }))
+
+  
+    // // let rainPerSeason = formattedDataByMonth.map((object) => ({
+    // //     season: seasonTranslator[object.month],
+      
+    // // }))
+
+    // console.log(rainPerSeason)
 
 
     
