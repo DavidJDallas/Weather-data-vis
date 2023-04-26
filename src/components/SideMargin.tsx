@@ -1,5 +1,5 @@
 import "../styling/SideMargin.css"
-import {getGeolocationByPlace, getGeolocationByPostcode, findWeather, findHistoricalWeather} from "../ApiFunctions"
+import {getGeolocationByPlace, getGeolocationByPostcode,  findHistoricalWeather} from "../ApiFunctions"
 import {useState, useEffect} from "react"
 
 import SideMarginSearch from "./SideMarginSearch"
@@ -8,7 +8,7 @@ import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 import * as React from 'react'
 import { SideMarginProps } from "../Types"
 
-const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherdata, setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch, isMobile}: SideMarginProps) => {
+const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch}: SideMarginProps) => {
 
     const [postCode, setPostcode] = useState('')
     const [lat, setLat] = useState('')
@@ -87,7 +87,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         }            
     }
 
-    const handleSubmitPlace = (event: any) => {        
+    const handleSubmitPlace = (event: React.SyntheticEvent) => {        
         setSearchOn(false)
         setIsLoading(true)
         setDisplayLocation(place)
@@ -97,7 +97,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData, weatherd
         //event.preventDefault() stops the default behaviour of a page. Here it's invoked to stop the page refreshing. 
     }
 
-    const handleSearchAgain = (event: any) => {        
+    const handleSearchAgain = (event: React.SyntheticEvent) => {        
         setSearchOn(true)  
         setLat(null)
         setLong(null)

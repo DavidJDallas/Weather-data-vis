@@ -1,12 +1,7 @@
 import axios, {AxiosHeaders} from "axios"
-import {Properties, Features, Data, APICallGeoLocation, WeatherAPICall, HistoricalWeatherDataType} from './Types'
+import { Features, APICallGeoLocation, WeatherAPICall, HistoricalWeatherDataType} from './Types'
 
-export const findWeather = async (latitude: string, longitude: string, tempDisplay: string) => {
 
-    const pendingWeatherData: WeatherAPICall =  await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&hourly=apparent_temperature&hourly=cloudcover&hourly=windspeed_10m&hourly=snowfall&hourly=rain&hourly=showers&hourly=snow_depth&temperature_unit=${tempDisplay}`)  
-
-    return pendingWeatherData 
-}
 
 export const findHistoricalWeather = async (latitude: string, longitude: string, tempDisplay: string) => {
 

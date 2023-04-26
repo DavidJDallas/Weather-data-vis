@@ -1,9 +1,5 @@
-import { NumberMatcher } from "cypress/types/net-stubbing"
+//GeoLocation stuff
 
-export interface Properties{
-    wikidata: string,
-    mapbox_id: string
-}
 export interface Features{
     id: string,
     type: string,
@@ -15,17 +11,14 @@ export interface Features{
     center: string[],
     context: object[],
     geometry: object,
-    place_name: string,
-    
+    place_name: string,    
 }
 
-export interface Data{
-    attribution: string,
-    features: Features[],
-    query: [string],
-    type: string,
-
+export interface Properties{
+    wikidata: string,
+    mapbox_id: string
 }
+
 export interface APICallGeoLocation {
     data: Data,
     status: number,
@@ -35,7 +28,14 @@ export interface APICallGeoLocation {
     request: any,
 
 }
+export interface Data{
+    attribution: string,
+    features: Features[],
+    query: [string],
+    type: string,
+}
 
+//Weather Call
 export interface DailyObj {
     rain_sum: number[],
     temperature_2m_max: number[],
@@ -52,9 +52,6 @@ export interface WeatherData{
     longitude: number,
     utc_offset_seconds: number,
     timezone_abbreviation: string,
-
-
-
 }
 
 export interface WeatherAPICall{
@@ -83,12 +80,6 @@ export interface MainProps{
     isMobile: boolean
 }
 
-export interface HighlightsProps extends Omit<MainProps, 'errorInSearch'>{}
-
-export interface HighlightCardsProps extends Pick<MainProps, 'weatherdata' | 'displayCelsius' >{
-    card: any,
-    time: string[]
-}
 
 export interface MainCardProps extends Pick<MainProps, 'weatherdata' | 'displayCelsius' | 'isMobile'>{     
     card: any,
@@ -107,9 +98,7 @@ export interface SideMarginSearchProps {
 
 }
 
-export interface SideMarginCardProps extends Pick<MainCardProps, 'displayCelsius' | 'isMobile' | 'weatherdata'> {
-    handleSearchAgain: (event: React.SyntheticEvent) => void
-}
+
 
 export interface SideMarginProps extends Pick<MainProps, 'displayCelsius' | 'isMobile' | 'displayCelsius' | 'searchOn' | 'weatherdata'> {
     setDisplayCelsius: Function,
@@ -124,26 +113,6 @@ export interface SideMarginProps extends Pick<MainProps, 'displayCelsius' | 'isM
 
 //Historical Weather DAta
 
-export interface DailyData{
-    rain_sum: number[],
-    temperature_2m_max: number[],
-    temperature_2m_min: number[],
-    time: number[],
-    windspeed_10m_max: number[],
-
-}
-export interface HistoricalData {
-    daily: DailyData,
-    elevation: number,
-    daily_units: object,
-    generationtime_ms:number,
-    latitude: number,
-    longitude: number,
-    timezone: 'GMT',
-    timezone_abbreviation: 'GMT',
-    utc_offset_seconds: 0
-}
-
 export interface HistoricalWeatherDataType {
     config: object,
     data: HistoricalData,
@@ -151,4 +120,25 @@ export interface HistoricalWeatherDataType {
     request: object,
     status: 200,
     statusText: 'OK'
+}
+
+export interface HistoricalData {
+    daily: DailyData,
+    elevation: number,
+    daily_units: object,
+    generationtime_ms:number,
+    latitude: number,
+    longitude: number,
+    timezone: number,
+    timezone_abbreviation: number,
+    utc_offset_seconds: 0
+}
+
+export interface DailyData{
+    rain_sum: number[],
+    temperature_2m_max: number[],
+    temperature_2m_min: number[],
+    time: number[],
+    windspeed_10m_max: number[],
+
 }
