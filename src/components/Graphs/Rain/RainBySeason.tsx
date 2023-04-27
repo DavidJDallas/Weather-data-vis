@@ -7,6 +7,7 @@ import { Container , Row, Col} from 'react-bootstrap'
 
 const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDataByYear, width, height}) => {
 
+    
     const chartRef = useRef();
     d3.select(chartRef.current).selectAll('*').remove();
 
@@ -25,8 +26,7 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
     }))
 
     const [rainData, setRainData] = useState(rainPerMonth)
-    console.log(rainPerMonth)
-    console.log(rainPerSeason)
+
 
     const handleSubmitSeason = (event) => {
         setRainData(rainPerSeason);
@@ -40,7 +40,8 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
 
     useEffect(() => {                 
 
-        if(rainData){        
+        if(rainData.length>0){      
+            
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])
                             .range([0, width]);
@@ -110,20 +111,29 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
     return(
         <>
         <Container>
+            <Row>
 
-        <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+                <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
 
-       
-       <form onSubmit = {handleSubmitSeason}>
+            </Row>
+            <Row>
+                <Col>
+                  <form onSubmit = {handleSubmitSeason}>
                 <label></label>                   
                 <button id = "selectionbutton" type="submit">View by Seasons</button>
             </form>
-           
-     <form onSubmit = {handleSubmitMonth}>
+           </Col>
+           <Col>
+             <form onSubmit = {handleSubmitMonth}>
                 <label></label>                   
                 <button id = "selectionbutton" type="submit">View By Months</button>
             </form>
-    
+            </Col>
+            </Row>
+
+        
+       
+     
     </Container>
                
         </>

@@ -142,3 +142,9 @@ export interface DailyData{
     windspeed_10m_max: number[],
 
 }
+
+//Checkbox
+
+export interface FormCheckType {
+    type: 'checkbox' | 'radio';
+}
