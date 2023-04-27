@@ -7,36 +7,21 @@ import { Container , Row, Col} from 'react-bootstrap'
 
 const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDataByYear, width, height}) => {
 
-    
+    const [rainData, setRainData] = useState([])
     const chartRef = useRef();
     d3.select(chartRef.current).selectAll('*').remove();
 
-    let rainPerMonth = formattedDataByMonth.map((object, index) => ({
-        format: 'Month',
-        month: object.month,
-        totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
-        avgRain: d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
-    }))
-
-    let rainPerSeason = formattedDataBySeasons.map((object) => ({
-        format: 'Season',
+  
+    useEffect(() => {
+          let rainPerSeason = formattedDataBySeasons.map((object) => ({
+        format: 'season',
         season: object.season,
         totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
         avgRain:  d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
     }))
+        setRainData(rainPerSeason)
+    }, [formattedDataBySeasons])   
 
-    const [rainData, setRainData] = useState(rainPerMonth)
-
-
-    const handleSubmitSeason = (event) => {
-        setRainData(rainPerSeason);
-        event.preventDefault();
-    }
-
-    const handleSubmitMonth = (event) => {
-        setRainData(rainPerMonth);
-        event.preventDefault();
-    }  
 
     useEffect(() => {                 
 
@@ -48,10 +33,10 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(rainData.map((element) => element.avgRain))])
-                            .range([height -10, 10]);
+                            .range([height, 100]);
 
         const xAxis = d3.scaleBand()
-                            .domain(rainData.map((x) => x.season ? x.season : x.month))
+                            .domain(rainData.map((x) => x.season))
                             .range([0, width])
                             .padding([0.1]);
 
@@ -77,11 +62,11 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
                     .append('rect')
                     .attr('x', (d,i) => xScale(i))
                     .attr('y', d => yScale(d.avgRain))
-                    .attr('width', xScale(1)-xScale(0)-20)
-                    .attr('height', (d, i) => (height))
-                    .attr('fill', "#0bb4ff")                        
+                    .attr('width', xScale(5)-xScale(4) -20)
+                    .attr('height', (d, i) => (height-yScale(d.avgRain) ))
+                    .attr('fill', "#b3d4ff")                        
                     .on('mouseover', (event, d) => {
-                            tooltip.html(String(d.avgRain).slice(0,3) + 'mm')
+                            tooltip.html(`${(d.season)}: ${String(d.avgRain).slice(0,6)} `+ 'mm')
                                 .style('visibility', 'visible')
                         })
                     .on('mousemove', (event) => {
@@ -100,7 +85,7 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
                    .text(`Average rain per ${rainData[0].format}`);
 
             svg.append('g')
-                    .attr('transform', `translate(0, ${height-10})`)                
+                    .attr('transform', `translate(0, ${height})`)                
                     .call(d3.axisBottom(xAxis));
         }
 
@@ -111,30 +96,17 @@ const RainBySeason = ({formattedDataByMonth, formattedDataBySeasons, formattedDa
     return(
         <>
         <Container>
-            <Row>
+            <Row style={{height: '300px'}}>
 
                 <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
 
             </Row>
-            <Row>
-                <Col>
-                  <form onSubmit = {handleSubmitSeason}>
-                <label></label>                   
-                <button id = "selectionbutton" type="submit">View by Seasons</button>
-            </form>
-           </Col>
-           <Col>
-             <form onSubmit = {handleSubmitMonth}>
-                <label></label>                   
-                <button id = "selectionbutton" type="submit">View By Months</button>
-            </form>
-            </Col>
-            </Row>
+           
 
         
        
      
-    </Container>
+        </Container>
                
         </>
     )

@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 import RainIndex from '../Graphs/Rain/RainIndex';
 import TemperatureIndex from '../Graphs/Temperature/TemperatureIndex';
 import WindIndex from '../Graphs/Wind/Windindex';
+import {Container, Row, Col} from 'react-bootstrap';
 
 const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: MainProps) => { 
 
@@ -118,20 +119,26 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
         <>    
          <h2>Data</h2> 
         <div className= 'h-100 w-100'>
-        <NavBar/>
-            <Routes>
-                
-                <Route path='/rain' 
-                    element={<RainIndex 
-                    formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>} 
-                />                
-                <Route path = '/Temperature' 
-                    element={<TemperatureIndex 
-                    formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
-                />
-                <Route path= '/wind' element={<WindIndex/>}/>
+            <Container>
+                <Row style={{height: '40px'}}>
+                    <NavBar/> 
+                </Row>
+                <Row>
+                    <Routes>
+                                    
+                        <Route path='/rain' 
+                            element={<RainIndex 
+                            formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}                                    />                
+                      <Route path = '/Temperature' 
+                            element={<TemperatureIndex                          formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
+                                    />
+                   <Route path= '/wind' element={<WindIndex/>}/>
 
-            </Routes>    
+                    </Routes> 
+                </Row>
+          
+            </Container>
+         
        </div>         
         </>
     )

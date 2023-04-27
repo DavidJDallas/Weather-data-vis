@@ -1,40 +1,49 @@
 import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
+import '../../../styling/RainGraphs.css'
+import { Container , Row, Col} from 'react-bootstrap'
 
-const RainByYear = ({formattedDataByYear, width, height}) => {
+
+const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}) => {
+
+    
+    const [rainData, setRainData] = useState([])
 
     const chartRef = useRef();
     d3.select(chartRef.current).selectAll('*').remove();
 
-      let totalRainPerYear = formattedDataByYear.map((object, index) => ({
-                        year: object.year,
-                        rainAmount: d3.sum(object.data.map((element) => element.rain_sum))
-                    })); 
-                
-    let selectiveListYear = formattedDataByYear
-                    .map((element) => element.year)
-                    .filter((year) => {
-                        return year%5 ===0
-                    });
 
+    useEffect(() => {
+        let rainPerMonth = formattedDataByMonth.map((object, index) => ({
+                format: 'month',
+                month: object.month,
+                totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
+                avgRain: d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
+            }))
+            setRainData(rainPerMonth)
+    }, [formattedDataByMonth])
   
+
+
+
 
     useEffect(() => {                 
 
+        if(rainData.length>0){      
+            
         const xScale = d3.scaleLinear()
-                            .domain([0, totalRainPerYear.length])
-                            .range([10, width]);            
-
+                            .domain([0, rainData.length])
+                            .range([0, width]);
 
         const yScale = d3.scaleLinear()
-                            .domain([0, d3.max(totalRainPerYear.map((element) => element.rainAmount))])
-                            .range([height -10, 10]);
+                            .domain([0, d3.max(rainData.map((element) => element.avgRain))])
+                            .range([height, 100]);
 
         const xAxis = d3.scaleBand()
-                            .domain(selectiveListYear)
-                            .range([10, width])
-                            .padding([0]);
+                            .domain(rainData.map((x) => x.month))
+                            .range([0, width])
+                            .padding([0.1]);
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
@@ -52,21 +61,17 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
                             .style('padding', '5px')
                             .style('font-size', '12px');
 
-        
-
             svg.selectAll('rect')
-                    .data(totalRainPerYear)
+                    .data(rainData)
                     .enter()
                     .append('rect')
                     .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => yScale(d.rainAmount))
-                    .attr('width', xScale(1)-xScale(0)-1)
-                    .attr('height', (d, i) => (height-yScale(d.rainAmount))-20)
-                    .attr('fill', "#0bb4ff")                        
+                    .attr('y', d => yScale(d.avgRain))
+                    .attr('width', xScale(1)-xScale(0) -5)
+                    .attr('height', (d, i) => (height-yScale(d.avgRain) ))
+                    .attr('fill', "#00bfa0")                        
                     .on('mouseover', (event, d) => {
-                            tooltip.html(
-                                `${d.year} : ${d.rainAmount}`.slice(0,13) + 'mm' 
-                             )
+                            tooltip.html(`${(d.month)}: ${String(d.avgRain).slice(0,5)} `+ 'mm')
                                 .style('visibility', 'visible')
                         })
                     .on('mousemove', (event) => {
@@ -77,30 +82,37 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
                             tooltip.style('visibility', 'hidden')
                         });
                     
-            svg.append('text')
+             svg.append('text')
                    .attr('x', width/2)
                    .attr('y', 30)
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
-                   .style('font-family', 'Alata', 'sans-serif')
-                   .text('Total Rainfall by Year');
+                   .text(`Average rain per ${rainData[0].format}`);
 
-            svg.append('g')
-                    .attr('transform', `translate(0, ${height-20})`)                
-                    .call(d3.axisBottom(xAxis));
+     
+        }
 
-    }, [formattedDataByYear, width, height, totalRainPerYear, selectiveListYear]);
-  
+    }, [rainData, height, width]);
   
 
 
     return(
-        <>     
+        <>
+        <Container>
+            <Row style={{height: '300px'}}>
 
-        <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+                <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+
+            </Row>
+           
+
+        
+       
+     
+        </Container>
                
         </>
     )
 }
 
-export default RainByYear
+export default RainByMonths

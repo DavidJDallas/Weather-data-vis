@@ -34,13 +34,13 @@ const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByY
             onChange={handleChangeRainByMonth}
             defaultChecked
           />
-          <Form.Check
+          {/* <Form.Check
             inline = {true}
             disabled
             label="3 (disabled)"
             type={'checkbox'}
             id={`inline-${'checkbox'}-3`}
-          />
+          /> */}
         </div>
       
     </Form>
