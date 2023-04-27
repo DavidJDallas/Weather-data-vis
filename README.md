@@ -1,4 +1,5 @@
-# Weather App
+# App to View Historical Weather Trends and Patterns
+## Work in Progress! Still Very Incompleted.
 
 ## How to Run
 
