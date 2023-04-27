@@ -1,6 +1,6 @@
-import "../styling/SideMarginToggleSwitch.css"
+import "../../styling/SideMarginToggleSwitch.css"
 import * as React from 'react'
-import { SideMarginToggleSwitchProps } from "../Types"
+import { SideMarginToggleSwitchProps } from "../../Types"
 
 const SideMarginToggleSwitch = ({displayCelsius, setDisplayCelsius}: SideMarginToggleSwitchProps) => {
     return(   <>        

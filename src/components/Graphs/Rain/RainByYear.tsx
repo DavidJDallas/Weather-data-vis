@@ -52,6 +52,8 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
                             .style('padding', '5px')
                             .style('font-size', '12px');
 
+        
+
             svg.selectAll('rect')
                     .data(totalRainPerYear)
                     .enter()
@@ -61,7 +63,9 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
                     .attr('width', xScale(1)-xScale(0)-1)
                     .attr('height', (d, i) => (height-yScale(d.rainAmount))-20)
                     .attr('fill', "#0bb4ff")                        .on('mouseover', (event, d) => {
-                            tooltip.html(String(d.rainAmount).slice(0,3) + 'mm')
+                            tooltip.html(
+                                `${d.year} : ${d.rainAmount}`.slice(0,13) + 'mm' 
+                             )
                                 .style('visibility', 'visible')
                         })
                     .on('mousemove', (event) => {
@@ -83,21 +87,15 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
                     .attr('transform', `translate(0, ${height-20})`)                
                     .call(d3.axisBottom(xAxis));
 
-    }, [formattedDataByYear, width, height, totalRainPerYear]);
+    }, [formattedDataByYear, width, height, totalRainPerYear, selectiveListYear]);
   
   
 
 
     return(
-        <>
-       <div className='m-2 p2 h-100 w-100'>
+        <>     
 
         <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
-
-       </div>
-
-    
-
                
         </>
     )

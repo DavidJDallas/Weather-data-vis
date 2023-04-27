@@ -1,11 +1,13 @@
-import * as React from 'react'
-import "../styling/Main.css"
-import * as d3 from 'd3'
-import { useState, useEffect } from 'react'
-import DataVisualisation from './DataVisualisation'
-import {MainProps} from '../Types'
-import RainByYear from './Graphs/RainByYear'
-import RainBySeason from './Graphs/RainBySeason'
+import * as React from 'react';
+import "../../styling/Main.css";
+import * as d3 from 'd3';
+import { useState, useEffect } from 'react';
+import {MainProps} from '../../Types';
+import {Routes, Route} from 'react-router-dom';
+import NavBar from './NavBar';
+import RainIndex from '../Graphs/Rain/RainIndex';
+import TemperatureIndex from '../Graphs/Temperature/TemperatureIndex';
+import WindIndex from '../Graphs/Wind/Windindex';
 
 const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: MainProps) => { 
 
@@ -96,6 +98,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             }        
         ))
         
+        //set relevant states
 
        setFormattedDataByYear(arrOfGroupedObjectsByYear)
        setFormattedDataByMonth(arrOfGroupedObjectsByMonth)
@@ -115,19 +118,21 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
         <>    
          <h2>Data</h2> 
         <div className= 'h-100 w-100'>
-        <RainByYear formattedDataByYear={formattedDataByYear} 
+        <NavBar/>
+            <Routes>
+                
+                <Route path='/rain' 
+                    element={<RainIndex 
+                    formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>} 
+                />                
+                <Route path = '/Temperature' 
+                    element={<TemperatureIndex 
+                    formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
+                />
+                <Route path= '/wind' element={<WindIndex/>}/>
 
-        width={850} 
-        height={220} 
-        />
-        <RainBySeason 
-        formattedDataByMonth = {formattedDataByMonth}
-        formattedDataBySeasons = {formattedDataBySeasons}
-        width = {850}
-        height={220}
-        />
-       </div>
-         
+            </Routes>    
+       </div>         
         </>
     )
 }

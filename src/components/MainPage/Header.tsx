@@ -1,5 +1,5 @@
-import "../styling/Header.css"
-import "../styling/General.css"
+import "../../styling/Header.css"
+import "../../styling/General.css"
 import { useEffect } from "react"
 import * as React from 'react'
 

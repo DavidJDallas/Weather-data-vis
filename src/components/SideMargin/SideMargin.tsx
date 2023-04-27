@@ -1,12 +1,12 @@
-import "../styling/SideMargin.css"
-import {getGeolocationByPlace, getGeolocationByPostcode,  findHistoricalWeather} from "../ApiFunctions"
+import "../../styling/SideMargin.css"
+import {getGeolocationByPlace, getGeolocationByPostcode,  findHistoricalWeather} from "../../ApiFunctions"
 import {useState, useEffect} from "react"
 
 import SideMarginSearch from "./SideMarginSearch"
-import ErrorHandler from "./ErrorHandler"
+import ErrorHandler from "../ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 import * as React from 'react'
-import { SideMarginProps } from "../Types"
+import { SideMarginProps } from "../../Types"
 
 const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch}: SideMarginProps) => {
 
