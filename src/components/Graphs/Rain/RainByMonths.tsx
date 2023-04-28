@@ -37,9 +37,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
         let adjustedWidth = width-30
             
 
-        let yAxisDomain = rainData.filter((element) => {
-
-        }) 
+        
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])
                             .range([30, adjustedWidth]);
@@ -54,14 +52,12 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                             .padding([0]);
 
         const yAxis = d3.axisLeft(yScale)
-                        .tickFormat(d => d.toString().slice(0,3))
-
-        
+                        .tickFormat(d => d.toString().slice(0,3));       
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
                             .attr('width', width)
-                            .attr('height', height);
+                            .attr('height', height+25);
 
         const tooltip = d3.select('body').append('div')
                             .style('position', 'absolute')
@@ -79,7 +75,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                     .enter()
                     .append('rect')
                     .attr('x', (d,i) => xScale(i)+1)
-                    .attr('y', d => yScale(d.avgRain)-25)
+                    .attr('y', d => yScale(d.avgRain))
                     .attr('width', xScale(1)-xScale(0) -1)
                    .attr('height', d => height - yScale(d.avgRain))
                     .attr('fill', "#00bfa0")                        
@@ -103,13 +99,13 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                    .text(`Average rain per ${rainData[0].format}`);
             
             svg.append('g')
-                .attr('transform', `translate(0, ${height-25})`)
+                .attr('transform', `translate(0, ${height})`)
                 .call(d3.axisBottom(xAxis))
                 .selectAll('text')
                 .style('font-size', '13px')
                         
             svg.append('g') 
-                .attr('transform', `translate(30,-25)`)              
+                .attr('transform', `translate(30,0)`)              
                 .call(yAxis)
                 .selectAll('text')
                 .style('font-size', '9px')    

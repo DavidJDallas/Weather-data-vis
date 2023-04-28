@@ -10,7 +10,7 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
       let totalRainPerYear = formattedDataByYear.map((object, index) =>     ({
                 year: object.year,
-                rainAmount: d3.sum(object.data.map((element) => element.rain_sum))
+                rainAmount: d3.sum(object.data.map((element) => element.rain_sum)) -37
                 })); 
                 
     let selectiveListYear = formattedDataByYear
@@ -26,22 +26,25 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
         const xScale = d3.scaleLinear()
                             .domain([0, totalRainPerYear.length])
-                            .range([20, width-20]);            
+                            .range([35, width-35]);            
 
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(totalRainPerYear.map((element) => element.rainAmount))])
-                            .range([height -15, 15]);
+                            .range([height, 0]);
 
         const xAxis = d3.scalePoint()
                             .domain(selectiveListYear)
-                            .range([20, width-20])
+                            .range([35, width-35])
                             .padding([0]);
+        
+        const yAxis = d3.axisLeft(yScale)
+                        .tickFormat(d => d.toString().slice(0,4))
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
                             .attr('width', width)
-                            .attr('height', height);
+                            .attr('height', height +25);
 
         const tooltip = d3.select('body').append('div')
                             .style('position', 'absolute')
@@ -61,9 +64,9 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
                     .enter()
                     .append('rect')
                     .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => yScale(d.rainAmount)-5)
+                    .attr('y', d => yScale(d.rainAmount))
                     .attr('width', xScale(1)-xScale(0)-1)
-                    .attr('height', (d, i) => (height-yScale(d.rainAmount))-20)
+                    .attr('height', (d, i) => (height-yScale(d.rainAmount)))
                     .attr('fill', "#0bb4ff")                        
                     .on('mouseover', (event, d) => {
                             tooltip.html(
@@ -88,8 +91,16 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
                    .text('Total Rainfall by Year');
 
             svg.append('g')
-                    .attr('transform', `translate(0, ${height-25})`)                
-                    .call(d3.axisBottom(xAxis));
+                    .attr('transform', `translate(0, ${height})`)                
+                    .call(d3.axisBottom(xAxis))
+                    .selectAll('text')
+                    .style('font-size', '9px')
+
+            svg.append('g')
+                        .attr('transform', `translate(35, 0)`)
+                        .call(yAxis)
+                        .selectAll('text')
+                        .style('font-size', '9px')
 
     }, [formattedDataByYear, width, height, totalRainPerYear, selectiveListYear]);
   
