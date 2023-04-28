@@ -96,7 +96,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                    .attr('y', 30)
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
-                   .text(`Average rain per ${rainData[0].format}`);
+                   .text(`Average rain per ${rainData[0].format} (mm)`);
             
             svg.append('g')
                 .attr('transform', `translate(0, ${height})`)

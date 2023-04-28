@@ -88,7 +88,7 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
                    .style('font-family', 'Alata', 'sans-serif')
-                   .text('Total Rainfall by Year');
+                   .text('Total Rainfall by Year (mm)');
 
             svg.append('g')
                     .attr('transform', `translate(0, ${height})`)                

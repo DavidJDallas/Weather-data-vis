@@ -32,11 +32,13 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
     useEffect((): void => {                 
 
-        if(rainData.length>0){      
+        if(rainData.length>0){  
+            
+            let adjustedWidth = width-30
             
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])
-                            .range([0, width]);
+                            .range([30, adjustedWidth]);
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(rainData.map((element) => element.avgRain))])
@@ -44,13 +46,16 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
         const xAxis = d3.scaleBand()
                             .domain(rainData.map((x) => x.season))
-                            .range([0, width])
-                            .padding([0.1]);
+                            .range([30, adjustedWidth])
+                            .padding([0]);
+
+        const yAxis = d3.axisLeft(yScale)
+                        .tickFormat(d => d.toString().slice(0,5))
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
                             .attr('width', width)
-                            .attr('height', height);
+                            .attr('height', height+25);
 
         const tooltip = d3.select('body').append('div')
                             .style('position', 'absolute')
@@ -89,11 +94,20 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
                    .attr('y', 30)
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
-                   .text(`Average rain per ${rainData[0].format}`);
+                   .text(`Average rain per ${rainData[0].format} (mm)`);
 
             svg.append('g')
                     .attr('transform', `translate(0, ${height})`)                
-                    .call(d3.axisBottom(xAxis));
+                    .call(d3.axisBottom(xAxis))
+                    .selectAll('text')
+                    .style('font-size', '13px')
+            
+            svg.append('g')
+                .attr('transform', 'translate(30,0)')
+                .call(yAxis)
+                .selectAll('text')
+                .style('font-size', '9px')
+
         }
 
     }, [rainData, height, width]);
@@ -103,7 +117,7 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
     return(
         <>
         <Container>
-            <Row style={{height: '300px'}}>
+            <Row style={{height: '500px'}}>
                 {rainData.length > 0 ? 
                  <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
                  :
