@@ -1,16 +1,17 @@
 import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
+import { RainByYearProps } from '../../../Types';
 
-const RainByYear = ({formattedDataByYear, width, height}) => {
+const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
     const chartRef = useRef();
     d3.select(chartRef.current).selectAll('*').remove();
 
-      let totalRainPerYear = formattedDataByYear.map((object, index) => ({
-                        year: object.year,
-                        rainAmount: d3.sum(object.data.map((element) => element.rain_sum))
-                    })); 
+      let totalRainPerYear = formattedDataByYear.map((object, index) =>     ({
+                year: object.year,
+                rainAmount: d3.sum(object.data.map((element) => element.rain_sum))
+                })); 
                 
     let selectiveListYear = formattedDataByYear
                     .map((element) => element.year)
@@ -20,7 +21,7 @@ const RainByYear = ({formattedDataByYear, width, height}) => {
 
   
 
-    useEffect(() => {                 
+    useEffect((): void => {                 
 
         const xScale = d3.scaleLinear()
                             .domain([0, totalRainPerYear.length])

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {Form} from 'react-bootstrap';
-import {FormCheckType} from '../../../Types'
+import { CheckFormProps } from '../../../Types'
 
-const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason}) => {
+const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason}: CheckFormProps) => {
     
-    const handleChangeRainByYear = () => {
+    const handleChangeRainByYear = (): void => {
         setDisplayRainByYear(!displayRainByYear)
     }
 
-    const handleChangeRainByMonth = () => {
+    const handleChangeRainByMonth = (): void => {
         setDisplayRainBySeason(!displayRainBySeason)
     }
     return(

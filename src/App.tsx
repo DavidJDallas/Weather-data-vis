@@ -5,10 +5,7 @@ import SideMargin from "./components/SideMargin/SideMargin"
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import * as React from 'react';
-import {Container, Row,  Col} from 'react-bootstrap'
-
-
-
+import {Container, Row,  Col} from 'react-bootstrap';
 
 function App() {
 

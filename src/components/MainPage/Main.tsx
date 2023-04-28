@@ -2,7 +2,7 @@ import * as React from 'react';
 import "../../styling/Main.css";
 import * as d3 from 'd3';
 import { useState, useEffect } from 'react';
-import {MainProps} from '../../Types';
+import {FormattedDataByMonth, FormattedDataByYear, MainProps, FormattedDataBySeasons} from '../../Types';
 import {Routes, Route} from 'react-router-dom';
 import NavBar from './NavBar';
 import RainIndex from '../Graphs/Rain/RainIndex';
@@ -12,15 +12,16 @@ import {Container, Row, Col} from 'react-bootstrap';
 
 const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: MainProps) => { 
 
-    const [formattedDataByYear, setFormattedDataByYear] = useState([])
-    const [formattedDataByMonth, setFormattedDataByMonth] = useState([])
-    const [formattedDataBySeasons, setFormmatedDataBySeasons] = useState([])
+    const [formattedDataByYear, setFormattedDataByYear] = useState<FormattedDataByYear[]>([])
+    const [formattedDataByMonth, setFormattedDataByMonth] = useState<FormattedDataByMonth[]>([])
+    const [formattedDataBySeasons, setFormmatedDataBySeasons] = useState<FormattedDataBySeasons[]>([])
 
-    //Suitable data object made for the charts. 
 
-    useEffect(() => {
+    //**Suitable data object made for the charts**.// 
+
+    useEffect((): void => {
         const parsedTime = d3.timeParse('%Y-%m-%d');
-        const dates = weatherdata.daily.time.map(parsedTime)
+        const dates: Date[] = weatherdata.daily.time.map(parsedTime)
 
         let modifiedData = dates.map((date, i) => ({
                 time : date,
@@ -31,7 +32,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
 
             }))
 
-        //Group data by year
+        //1. Group data by year
         const dataByYearFunction = d3.group(modifiedData, (d) => d.time.getFullYear())
 
         const dataByMonthFunction = d3.group(modifiedData, (d) => d.time.getMonth())
@@ -41,7 +42,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             data: element[1]
         }))
 
-        //Group data by month
+        //2. Group data by month
         let numberToMonthTranslator = {
             0: 'January',
             1: 'February',
@@ -63,7 +64,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             data: element[1]
         }))
 
-        //Group data by season
+        //3. Group data by season
 
         let seasonTranslator = {
             January: 'Winter',
@@ -80,18 +81,18 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             December: 'Winter'
         }
 
-        //create initial object
+        //3i.create initial object
 
         let groupedBySeasonStep1 = arrOfGroupedObjectsByMonth.map((element) => ({
             season: seasonTranslator[element.month],
             data: element.data
         }))
 
-        //group using d3, which creates a map, and then change this map into an array.
+        //3ii. Group using d3, which creates a map, and then change this map into an array.
 
         let groupedBySeasonArr = Array.from(d3.group(groupedBySeasonStep1, d => d.season))
 
-        //change into the final arr of objects. 
+        //3iii. Change into the final arr of objects. 
 
         let groupedBySeasonFin = groupedBySeasonArr.map((element) => ({
             season: element[0],
@@ -99,7 +100,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
             }        
         ))
         
-        //set relevant states
+        //4. Set relevant states
 
        setFormattedDataByYear(arrOfGroupedObjectsByYear)
        setFormattedDataByMonth(arrOfGroupedObjectsByMonth)
@@ -129,10 +130,10 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
                         <Route path='/rain' 
                             element={<RainIndex 
                             formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}                                    />                
-                      <Route path = '/Temperature' 
+                        <Route path = '/Temperature' 
                             element={<TemperatureIndex                          formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
                                     />
-                   <Route path= '/wind' element={<WindIndex/>}/>
+                        <Route path= '/wind' element={<WindIndex/>}/>
 
                     </Routes> 
                 </Row>

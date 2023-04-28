@@ -5,14 +5,15 @@ import {Container, Row, Col, Form, Card} from 'react-bootstrap'
 import CheckForm from './CheckForm';
 import {useState} from 'react'
 import RainByMonths from './RainByMonths';
+import { RainIndexProps } from '../../../Types';
 
-const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySeasons}) => {
+const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySeasons}: RainIndexProps) => {
 
    const [displayRainBySeason, setDisplayRainBySeason] = useState(true);
    const [displayRainByYear, setDisplayRainByYear] = useState(true);
 
-   console.log(displayRainBySeason);
-   console.log(displayRainByYear)
+   
+ 
     return(
         <>
         <Container fluid={true}>
@@ -48,16 +49,13 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 <Col>
                 <Card className='m-0 p-0 card' border={'0'}>
                     <Card.Body>
-
                 
-                  <RainBySeason 
-                formattedDataByMonth = {formattedDataByMonth}
-                formattedDataBySeasons = {formattedDataBySeasons}
-                formattedDataByYear={formattedDataByYear}
-                width = {400}
-                height={300}
-               
-            />
+                  <RainBySeason                 
+                    formattedDataBySeasons = {formattedDataBySeasons}
+                    formattedDataByYear={formattedDataByYear}
+                    width = {400}
+                    height={300}               
+                />
             </Card.Body>
             </Card>
             </Col>
