@@ -20,94 +20,97 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
     //**Suitable data object made for the charts**.// 
 
     useEffect((): void => {
-        const parsedTime = d3.timeParse('%Y-%m-%d');
-        const dates: Date[] = weatherdata.daily.time.map(parsedTime)
+        try{
+            const parsedTime = d3.timeParse('%Y-%m-%d');
+            const dates: Date[] = weatherdata.daily.time.map(parsedTime)
 
-        let modifiedData = dates.map((date, i) => ({
-                time : date,
-                temperature_2m_max : weatherdata.daily.temperature_2m_max[i],
-                temperature_2m_min: weatherdata.daily.temperature_2m_min[i],
-                rain_sum: weatherdata.daily.rain_sum[i],
-                windspeed_10m_max: weatherdata.daily.windspeed_10m_max[i]
+            let modifiedData = dates.map((date, i) => ({
+                    time : date,
+                    temperature_2m_max : weatherdata.daily.temperature_2m_max[i],
+                    temperature_2m_min: weatherdata.daily.temperature_2m_min[i],
+                    rain_sum: weatherdata.daily.rain_sum[i],
+                    windspeed_10m_max: weatherdata.daily.windspeed_10m_max[i]
 
+                }))
+
+            //1. Group data by year
+            const dataByYearFunction = d3.group(modifiedData, (d) => d.time.getFullYear())
+
+            const dataByMonthFunction = d3.group(modifiedData, (d) => d.time.getMonth())
+
+            const arrOfGroupedObjectsByYear = Array.from(dataByYearFunction).map((element, i) => ({
+                year: element[0],
+                data: element[1]
             }))
 
-        //1. Group data by year
-        const dataByYearFunction = d3.group(modifiedData, (d) => d.time.getFullYear())
+            //2. Group data by month
+            let numberToMonthTranslator = {
+                0: 'January',
+                1: 'February',
+                2: 'March',
+                3: 'April',
+                4: 'May',
+                5: 'June',
+                6: 'July',
+                7: 'August',
+                8: 'September',
+                9: 'October',
+                10: 'November',
+                11: 'December'
+            }
 
-        const dataByMonthFunction = d3.group(modifiedData, (d) => d.time.getMonth())
+            let arrOfGroupedObjectsByMonth = Array.from(dataByMonthFunction)
+            .map((element) => ({
+                month: numberToMonthTranslator[element[0]],
+                data: element[1]
+            }))
 
-        const arrOfGroupedObjectsByYear = Array.from(dataByYearFunction).map((element, i) => ({
-            year: element[0],
-            data: element[1]
-        }))
+            //3. Group data by season
 
-        //2. Group data by month
-        let numberToMonthTranslator = {
-            0: 'January',
-            1: 'February',
-            2: 'March',
-            3: 'April',
-            4: 'May',
-            5: 'June',
-            6: 'July',
-            7: 'August',
-            8: 'September',
-            9: 'October',
-            10: 'November',
-            11: 'December'
-        }
+            let seasonTranslator = {
+                January: 'Winter',
+                February: 'Winter',
+                March: 'Spring',
+                April: 'Spring',
+                May: 'Spring',
+                June: 'Summer',
+                July: 'Summer',
+                August: 'Summer',
+                September: 'Autumn',
+                October: 'Autumn',
+                November: 'Autumn',
+                December: 'Winter'
+            }
 
-        let arrOfGroupedObjectsByMonth = Array.from(dataByMonthFunction)
-        .map((element) => ({
-            month: numberToMonthTranslator[element[0]],
-            data: element[1]
-        }))
+            //3i.create initial object
 
-        //3. Group data by season
+            let groupedBySeasonStep1 = arrOfGroupedObjectsByMonth.map((element) => ({
+                season: seasonTranslator[element.month],
+                data: element.data
+            }))
 
-        let seasonTranslator = {
-            January: 'Winter',
-            February: 'Winter',
-            March: 'Spring',
-            April: 'Spring',
-            May: 'Spring',
-            June: 'Summer',
-            July: 'Summer',
-            August: 'Summer',
-            September: 'Autumn',
-            October: 'Autumn',
-            November: 'Autumn',
-            December: 'Winter'
-        }
+            //3ii. Group using d3, which creates a map, and then change this map into an array.
 
-        //3i.create initial object
+            let groupedBySeasonArr = Array.from(d3.group(groupedBySeasonStep1, d => d.season))
 
-        let groupedBySeasonStep1 = arrOfGroupedObjectsByMonth.map((element) => ({
-            season: seasonTranslator[element.month],
-            data: element.data
-        }))
+            //3iii. Change into the final arr of objects. 
 
-        //3ii. Group using d3, which creates a map, and then change this map into an array.
+            let groupedBySeasonFin = groupedBySeasonArr.map((element) => ({
+                season: element[0],
+                data: element[1].flatMap((element) => element.data)
+                }        
+            ))
+            
+            //4. Set relevant states
 
-        let groupedBySeasonArr = Array.from(d3.group(groupedBySeasonStep1, d => d.season))
+            setFormattedDataByYear(arrOfGroupedObjectsByYear)
+            setFormattedDataByMonth(arrOfGroupedObjectsByMonth)
+            setFormmatedDataBySeasons(groupedBySeasonFin)
 
-        //3iii. Change into the final arr of objects. 
+        }   catch(error){
+            console.error(error)
+            }
 
-        let groupedBySeasonFin = groupedBySeasonArr.map((element) => ({
-            season: element[0],
-            data: element[1].flatMap((element) => element.data)
-            }        
-        ))
-        
-        //4. Set relevant states
-
-       setFormattedDataByYear(arrOfGroupedObjectsByYear)
-       setFormattedDataByMonth(arrOfGroupedObjectsByMonth)
-       setFormmatedDataBySeasons(groupedBySeasonFin)
-       
-
-    
     },[weatherdata])
 
 

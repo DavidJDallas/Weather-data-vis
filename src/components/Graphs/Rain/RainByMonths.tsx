@@ -10,7 +10,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
     
     const [rainData, setRainData] = useState<RainDataMonth[]>([])
-
+    
     const chartRef = useRef();
     // d3.select(chartRef.current).selectAll('*').remove();
 
@@ -31,20 +31,32 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
     useEffect((): void => {                 
 
-        if(rainData.length>0){      
+        if(rainData.length>0){   
             
+        let adjustedHeight = height-25
+        let adjustedWidth = width-30
+            
+
+        let yAxisDomain = rainData.filter((element) => {
+
+        }) 
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])
-                            .range([0, width]);
+                            .range([30, adjustedWidth]);
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(rainData.map((element) => element.avgRain))])
                             .range([height, 100]);
 
-        const xAxis = d3.scaleBand()
-                            .domain(rainData.map((x) => x.month))
-                            .range([0, width])
-                            .padding([0.1]);
+        const xAxis = d3.scalePoint()
+                            .domain(rainData.map((x) => x.month.slice(0,3)))
+                            .range([30, adjustedWidth])
+                            .padding([0]);
+
+        const yAxis = d3.axisLeft(yScale)
+                        .tickFormat(d => d.toString().slice(0,3))
+
+        
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
@@ -66,10 +78,10 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                     .data(rainData)
                     .enter()
                     .append('rect')
-                    .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => yScale(d.avgRain))
-                    .attr('width', xScale(1)-xScale(0) -5)
-                    .attr('height', (d, i) => (height-yScale(d.avgRain) ))
+                    .attr('x', (d,i) => xScale(i)+1)
+                    .attr('y', d => yScale(d.avgRain)-25)
+                    .attr('width', xScale(1)-xScale(0) -1)
+                   .attr('height', d => height - yScale(d.avgRain))
                     .attr('fill', "#00bfa0")                        
                     .on('mouseover', (event, d) => {
                             tooltip.html(`${(d.month)}: ${String(d.avgRain).slice(0,5)} `+ 'mm')
@@ -89,6 +101,18 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
                    .text(`Average rain per ${rainData[0].format}`);
+            
+            svg.append('g')
+                .attr('transform', `translate(0, ${height-25})`)
+                .call(d3.axisBottom(xAxis))
+                .selectAll('text')
+                .style('font-size', '13px')
+                        
+            svg.append('g') 
+                .attr('transform', `translate(30,-25)`)              
+                .call(yAxis)
+                .selectAll('text')
+                .style('font-size', '9px')    
 
      
         }
@@ -99,10 +123,10 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
     return(
         <>
-        <Container>
-            <Row style={{height: '300px'}}>
+        <Container fluid>
+            <Row style={{height: '500px'}}>
 
-                <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+                <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
 
             </Row>
            

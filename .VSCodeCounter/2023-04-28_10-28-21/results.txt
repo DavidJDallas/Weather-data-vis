@@ -1,0 +1,68 @@
+Date : 2023-04-28 10:28:21
+Directory : /home/david/coding-post-NC/weather-app/weather-app/src
+Total : 29 files,  1587 codes, 39 comments, 397 blanks, all 2023 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |         16 |        780 |         23 |        226 |      1,029 |
+| CSS            |          9 |        341 |          9 |        100 |        450 |
+| XML            |          1 |        257 |          0 |          0 |        257 |
+| TypeScript     |          2 |        196 |          7 |         68 |        271 |
+| JavaScript     |          1 |         13 |          0 |          3 |         16 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                      | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                         |         29 |      1,587 |         39 |        397 |      2,023 |
+| . (Files)                                                                                                 |          4 |        251 |          7 |         80 |        338 |
+| components                                                                                                |         15 |        738 |         23 |        217 |        978 |
+| components (Files)                                                                                        |          1 |         11 |          0 |          2 |         13 |
+| components/Graphs                                                                                         |          8 |        410 |          9 |        137 |        556 |
+| components/Graphs/Rain                                                                                    |          5 |        369 |          9 |        125 |        503 |
+| components/Graphs/Temperature                                                                             |          2 |         33 |          0 |         10 |         43 |
+| components/Graphs/Wind                                                                                    |          1 |          8 |          0 |          2 |         10 |
+| components/MainPage                                                                                       |          3 |        159 |         11 |         48 |        218 |
+| components/SideMargin                                                                                     |          3 |        158 |          3 |         30 |        191 |
+| font                                                                                                      |          1 |        257 |          0 |          0 |        257 |
+| styling                                                                                                   |          9 |        341 |          9 |        100 |        450 |
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                  | language       | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| /home/david/coding-post-NC/weather-app/weather-app/src/ApiFunctions.ts                                    | TypeScript     |         28 |          0 |         31 |         59 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/App.tsx                                            | TypeScript JSX |         42 |          0 |          9 |         51 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/Types.ts                                           | TypeScript     |        168 |          7 |         37 |        212 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/ErrorHandler.tsx                        | TypeScript JSX |         11 |          0 |          2 |         13 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/CheckForm.tsx               | TypeScript JSX |         40 |          7 |         11 |         58 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainByMonths.tsx            | TypeScript JSX |         83 |          1 |         35 |        119 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainBySeason.tsx            | TypeScript JSX |         95 |          1 |         31 |        127 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainByYear.tsx              | TypeScript JSX |         81 |          0 |         27 |        108 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainIndex.tsx               | TypeScript JSX |         70 |          0 |         21 |         91 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Temperature/TempBySeason.tsx     | TypeScript JSX |         18 |          0 |          7 |         25 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Temperature/TemperatureIndex.tsx | TypeScript JSX |         15 |          0 |          3 |         18 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Wind/Windindex.tsx               | TypeScript JSX |          8 |          0 |          2 |         10 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/Header.tsx                     | TypeScript JSX |         25 |          3 |          8 |         36 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/Main.tsx                       | TypeScript JSX |        110 |          8 |         34 |        152 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/NavBar.tsx                     | TypeScript JSX |         24 |          0 |          6 |         30 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMargin.tsx               | TypeScript JSX |        124 |          3 |         22 |        149 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMarginSearch.tsx         | TypeScript JSX |         18 |          0 |          6 |         24 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMarginToggleSwitch.tsx   | TypeScript JSX |         16 |          0 |          2 |         18 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/font/weathericons-regular-webfont.svg              | XML            |        257 |          0 |          0 |        257 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/index.js                                           | JavaScript     |         13 |          0 |          3 |         16 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/General.css                                | CSS            |         42 |          0 |         10 |         52 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/Header.css                                 | CSS            |          5 |          0 |          2 |          7 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/HighlightCards.css                         | CSS            |         57 |          2 |         20 |         79 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/Main.css                                   | CSS            |         60 |          2 |         18 |         80 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/Nav.css                                    | CSS            |          6 |          0 |          1 |          7 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/RainGraphs.css                             | CSS            |          9 |          0 |          1 |         10 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMargin.css                             | CSS            |         76 |          2 |         30 |        108 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMarginCard.css                         | CSS            |         34 |          2 |          9 |         45 |
+| /home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMarginToggleSwitch.css                 | CSS            |         52 |          1 |          9 |         62 |
+| Total                                                                                                     |                |      1,587 |         39 |        397 |      2,023 |
++-----------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

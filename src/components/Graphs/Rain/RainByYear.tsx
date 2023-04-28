@@ -21,20 +21,21 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
   
 
-    useEffect((): void => {                 
+    useEffect((): void => {     
+                    
 
         const xScale = d3.scaleLinear()
                             .domain([0, totalRainPerYear.length])
-                            .range([10, width]);            
+                            .range([20, width-20]);            
 
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(totalRainPerYear.map((element) => element.rainAmount))])
-                            .range([height -10, 10]);
+                            .range([height -15, 15]);
 
-        const xAxis = d3.scaleBand()
+        const xAxis = d3.scalePoint()
                             .domain(selectiveListYear)
-                            .range([10, width])
+                            .range([20, width-20])
                             .padding([0]);
 
         const svg= d3.select(chartRef.current)
@@ -60,7 +61,7 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
                     .enter()
                     .append('rect')
                     .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => yScale(d.rainAmount))
+                    .attr('y', d => yScale(d.rainAmount)-5)
                     .attr('width', xScale(1)-xScale(0)-1)
                     .attr('height', (d, i) => (height-yScale(d.rainAmount))-20)
                     .attr('fill', "#0bb4ff")                        
@@ -87,7 +88,7 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
                    .text('Total Rainfall by Year');
 
             svg.append('g')
-                    .attr('transform', `translate(0, ${height-20})`)                
+                    .attr('transform', `translate(0, ${height-25})`)                
                     .call(d3.axisBottom(xAxis));
 
     }, [formattedDataByYear, width, height, totalRainPerYear, selectiveListYear]);

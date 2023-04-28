@@ -10,11 +10,7 @@ import { RainIndexProps } from '../../../Types';
 const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySeasons}: RainIndexProps) => {
 
    const [displayRainBySeason, setDisplayRainBySeason] = useState(true);
-   const [displayRainByYear, setDisplayRainByYear] = useState(true);
-
-   console.log(displayRainByYear, 'year')
-   console.log(displayRainBySeason, 'season')
-   
+   const [displayRainByYear, setDisplayRainByYear] = useState(true);   
  
     return(
         <>
@@ -68,7 +64,7 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
 
             <Col>
             <Card className='m-0 p-0 card' border={'0'}>
-                <Card.Body>
+                <Card.Body className='m-0 p-3'>
                  
                     
             <RainByMonths

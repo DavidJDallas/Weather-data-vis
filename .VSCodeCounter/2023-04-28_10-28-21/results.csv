@@ -1,0 +1,31 @@
+"filename", "language", "JavaScript", "TypeScript", "TypeScript JSX", "CSS", "XML", "comment", "blank", "total"
+"/home/david/coding-post-NC/weather-app/weather-app/src/ApiFunctions.ts", "TypeScript", 0, 28, 0, 0, 0, 0, 31, 59
+"/home/david/coding-post-NC/weather-app/weather-app/src/App.tsx", "TypeScript JSX", 0, 0, 42, 0, 0, 0, 9, 51
+"/home/david/coding-post-NC/weather-app/weather-app/src/Types.ts", "TypeScript", 0, 168, 0, 0, 0, 7, 37, 212
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/ErrorHandler.tsx", "TypeScript JSX", 0, 0, 11, 0, 0, 0, 2, 13
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/CheckForm.tsx", "TypeScript JSX", 0, 0, 40, 0, 0, 7, 11, 58
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainByMonths.tsx", "TypeScript JSX", 0, 0, 83, 0, 0, 1, 35, 119
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainBySeason.tsx", "TypeScript JSX", 0, 0, 95, 0, 0, 1, 31, 127
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainByYear.tsx", "TypeScript JSX", 0, 0, 81, 0, 0, 0, 27, 108
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Rain/RainIndex.tsx", "TypeScript JSX", 0, 0, 70, 0, 0, 0, 21, 91
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Temperature/TempBySeason.tsx", "TypeScript JSX", 0, 0, 18, 0, 0, 0, 7, 25
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Temperature/TemperatureIndex.tsx", "TypeScript JSX", 0, 0, 15, 0, 0, 0, 3, 18
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/Graphs/Wind/Windindex.tsx", "TypeScript JSX", 0, 0, 8, 0, 0, 0, 2, 10
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/Header.tsx", "TypeScript JSX", 0, 0, 25, 0, 0, 3, 8, 36
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/Main.tsx", "TypeScript JSX", 0, 0, 110, 0, 0, 8, 34, 152
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/MainPage/NavBar.tsx", "TypeScript JSX", 0, 0, 24, 0, 0, 0, 6, 30
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMargin.tsx", "TypeScript JSX", 0, 0, 124, 0, 0, 3, 22, 149
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMarginSearch.tsx", "TypeScript JSX", 0, 0, 18, 0, 0, 0, 6, 24
+"/home/david/coding-post-NC/weather-app/weather-app/src/components/SideMargin/SideMarginToggleSwitch.tsx", "TypeScript JSX", 0, 0, 16, 0, 0, 0, 2, 18
+"/home/david/coding-post-NC/weather-app/weather-app/src/font/weathericons-regular-webfont.svg", "XML", 0, 0, 0, 0, 257, 0, 0, 257
+"/home/david/coding-post-NC/weather-app/weather-app/src/index.js", "JavaScript", 13, 0, 0, 0, 0, 0, 3, 16
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/General.css", "CSS", 0, 0, 0, 42, 0, 0, 10, 52
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/Header.css", "CSS", 0, 0, 0, 5, 0, 0, 2, 7
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/HighlightCards.css", "CSS", 0, 0, 0, 57, 0, 2, 20, 79
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/Main.css", "CSS", 0, 0, 0, 60, 0, 2, 18, 80
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/Nav.css", "CSS", 0, 0, 0, 6, 0, 0, 1, 7
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/RainGraphs.css", "CSS", 0, 0, 0, 9, 0, 0, 1, 10
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMargin.css", "CSS", 0, 0, 0, 76, 0, 2, 30, 108
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMarginCard.css", "CSS", 0, 0, 0, 34, 0, 2, 9, 45
+"/home/david/coding-post-NC/weather-app/weather-app/src/styling/SideMarginToggleSwitch.css", "CSS", 0, 0, 0, 52, 0, 1, 9, 62
+"Total", "-", 13, 196, 780, 341, 257, 39, 397, 2023

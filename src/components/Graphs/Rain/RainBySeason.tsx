@@ -13,13 +13,20 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
   
     useEffect((): void => {
-          let rainPerSeason = formattedDataBySeasons.map((object) => ({
-        format: 'season',
-        season: object.season,
-        totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
-        avgRain:  d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
-    }))
-        setRainData(rainPerSeason)
+        try{
+            let rainPerSeason = formattedDataBySeasons.map((object) => ({
+                    format: 'season',
+                    season: object.season,
+                    totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
+                    avgRain:  d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
+                }))
+            setRainData(rainPerSeason)
+        }        
+        
+        catch(error){
+            console.error(error)
+        }
+        
     }, [formattedDataBySeasons])   
 
 
@@ -97,8 +104,13 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
         <>
         <Container>
             <Row style={{height: '300px'}}>
+                {rainData.length > 0 ? 
+                 <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+                 :
+                 <>Error: No Data Available</>
+                }
 
-                <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
+               
 
             </Row>
            

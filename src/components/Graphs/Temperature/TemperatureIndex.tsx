@@ -6,10 +6,11 @@ const TemperatureIndex = ({formattedDataByMonth, formattedDataBySeasons, formatt
     return(
         <>
            <TempBySeason
-        formattedDataByMonth = {formattedDataByMonth}
-        formattedDataBySeasons = {formattedDataBySeasons}
-        width = {850}
-        height={250}/>
+                formattedDataByMonth = {formattedDataByMonth}
+                formattedDataBySeasons = {formattedDataBySeasons}
+                width = {850}
+                height={250}
+            />
         </>
     )
 }
