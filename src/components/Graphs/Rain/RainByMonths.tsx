@@ -120,7 +120,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
     return(
         <>
         <Container fluid>
-            <Row style={{height: '500px'}}>
+            <Row style={{height: '400px'}}>
 
                 <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
 

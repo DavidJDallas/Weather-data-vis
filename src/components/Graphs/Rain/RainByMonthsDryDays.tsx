@@ -3,39 +3,50 @@ import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
 import { Container , Row, Col} from 'react-bootstrap'
-import {RainBySeasonProps, RainDataSeason} from '../../../Types'
+import { RainByMonthsProp , RainDataMonth} from '../../../Types'
 
-const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, height}: RainBySeasonProps) => {
 
-    const [rainData, setRainData] = useState<RainDataSeason[]>([])
+const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, height}: RainByMonthsProp) => {
+
+    
+    const [rainData, setRainData] = useState([])
+    
     const chartRef = useRef();
     // d3.select(chartRef.current).selectAll('*').remove();
 
-  
+    console.log(formattedDataByMonth)
+    console.log(rainData)
+
     useEffect((): void => {
-        try{
-            let rainPerSeason = formattedDataBySeasons.map((object) => ({
-                    format: 'season',
-                    season: object.season,
-                    totalRain: d3.sum(object.data.map((element) => element.rain_sum)),
-                    avgRain:  d3.sum(object.data.map((element) => element.rain_sum))/formattedDataByYear.length
-                }))
-            setRainData(rainPerSeason)
-        }        
-        
-        catch(error){
-            console.error(error)
+
+        const daysInMonth = (month, year)=>{
+            return new Date(month, year, 0).getDate()
         }
+        console.log(daysInMonth(0, 2010))
         
-    }, [formattedDataBySeasons])   
+        let rainPercentage = formattedDataByMonth.map((object, index) => ({    
+                
+                month: object.month,
+                daysDryPercentage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length,
+                daysDryAverage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010)
+
+    }))
+            setRainData(rainPercentage)
+    }, [formattedDataByMonth])
+  
+console.log(rainData)
+
 
 
     useEffect((): void => {                 
 
-        if(rainData.length>0){  
+        if(rainData.length>0){   
             
-            let adjustedWidth = width-30
+        let adjustedHeight = height-25
+        let adjustedWidth = width-30
             
+
+        
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])
                             .range([30, adjustedWidth]);
@@ -44,13 +55,13 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
                             .domain([0, d3.max(rainData.map((element) => element.avgRain))])
                             .range([height, 100]);
 
-        const xAxis = d3.scaleBand()
-                            .domain(rainData.map((x) => x.season))
+        const xAxis = d3.scalePoint()
+                            .domain(rainData.map((x) => x.month.slice(0,3)))
                             .range([30, adjustedWidth])
                             .padding([0]);
 
         const yAxis = d3.axisLeft(yScale)
-                        .tickFormat(d => d.toString().slice(0,5))
+                        .tickFormat(d => d.toString().slice(0,3));       
 
         const svg= d3.select(chartRef.current)
                             .append('svg')
@@ -72,13 +83,13 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
                     .data(rainData)
                     .enter()
                     .append('rect')
-                    .attr('x', (d,i) => xScale(i))
+                    .attr('x', (d,i) => xScale(i)+1)
                     .attr('y', d => yScale(d.avgRain))
-                    .attr('width', xScale(5)-xScale(4) -20)
-                    .attr('height', (d, i) => (height-yScale(d.avgRain) ))
-                    .attr('fill', "#b3d4ff")                        
+                    .attr('width', xScale(1)-xScale(0) -1)
+                   .attr('height', d => height - yScale(d.avgRain))
+                    .attr('fill', "#00bfa0")                        
                     .on('mouseover', (event, d) => {
-                            tooltip.html(`${(d.season)}: ${String(d.avgRain).slice(0,6)} `+ 'mm')
+                            tooltip.html(`${(d.month)}: ${String(d.avgRain).slice(0,5)} `+ 'mm')
                                 .style('visibility', 'visible')
                         })
                     .on('mousemove', (event) => {
@@ -94,20 +105,21 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
                    .attr('y', 30)
                    .style('text-anchor', 'middle')
                    .style('font-size', '18px')
-                   .text(`Average rain per ${rainData[0].format} (mm)`);
-
-            svg.append('g')
-                    .attr('transform', `translate(0, ${height})`)                
-                    .call(d3.axisBottom(xAxis))
-                    .selectAll('text')
-                    .style('font-size', '13px')
+                   .text(`Percentage of Completely Dry Days Per Month`);
             
             svg.append('g')
-                .attr('transform', 'translate(30,0)')
+                .attr('transform', `translate(0, ${height})`)
+                .call(d3.axisBottom(xAxis))
+                .selectAll('text')
+                .style('font-size', '13px')
+                        
+            svg.append('g') 
+                .attr('transform', `translate(30,0)`)              
                 .call(yAxis)
                 .selectAll('text')
-                .style('font-size', '9px')
+                .style('font-size', '9px')    
 
+     
         }
 
     }, [rainData, height, width]);
@@ -116,15 +128,10 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
     return(
         <>
-        <Container>
+        <Container fluid>
             <Row style={{height: '400px'}}>
-                {rainData.length > 0 ? 
-                 <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
-                 :
-                 <>Error: No Data Available</>
-                }
 
-               
+                <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
 
             </Row>
            
@@ -138,4 +145,4 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
     )
 }
 
-export default RainBySeason
+export default RainByMonthsDryDays

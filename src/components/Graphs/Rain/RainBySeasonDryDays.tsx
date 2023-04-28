@@ -5,7 +5,7 @@ import '../../../styling/RainGraphs.css'
 import { Container , Row, Col} from 'react-bootstrap'
 import {RainBySeasonProps, RainDataSeason} from '../../../Types'
 
-const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, height}: RainBySeasonProps) => {
+const RainBySeasonDryDays = ({formattedDataBySeasons, formattedDataByYear, width, height}: RainBySeasonProps) => {
 
     const [rainData, setRainData] = useState<RainDataSeason[]>([])
     const chartRef = useRef();
@@ -117,7 +117,7 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
     return(
         <>
         <Container>
-            <Row style={{height: '400px'}}>
+            <Row style={{height: '500px'}}>
                 {rainData.length > 0 ? 
                  <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
                  :
@@ -126,11 +126,7 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
                
 
-            </Row>
-           
-
-        
-       
+            </Row>      
      
         </Container>
                
@@ -138,4 +134,4 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
     )
 }
 
-export default RainBySeason
+export default RainBySeasonDryDays
