@@ -4,12 +4,15 @@ import { CheckFormProps } from '../../../Types'
 
 const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason}: CheckFormProps) => {
     
-    const handleChangeRainByYear = (): void => {
+    const handleChangeRainByYear = (event): void => {
         setDisplayRainByYear(!displayRainByYear)
+        console.log('checked Year')
+        
     }
 
     const handleChangeRainByMonth = (): void => {
         setDisplayRainBySeason(!displayRainBySeason)
+        console.log('checked month')
     }
     return(
         <>

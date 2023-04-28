@@ -9,7 +9,7 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
     const [rainData, setRainData] = useState<RainDataSeason[]>([])
     const chartRef = useRef();
-    d3.select(chartRef.current).selectAll('*').remove();
+    // d3.select(chartRef.current).selectAll('*').remove();
 
   
     useEffect((): void => {

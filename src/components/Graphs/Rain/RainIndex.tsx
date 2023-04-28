@@ -12,6 +12,8 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
    const [displayRainBySeason, setDisplayRainBySeason] = useState(true);
    const [displayRainByYear, setDisplayRainByYear] = useState(true);
 
+   console.log(displayRainByYear, 'year')
+   console.log(displayRainBySeason, 'season')
    
  
     return(
@@ -45,11 +47,15 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 null}
           
             {displayRainBySeason ? 
+            
              <Row style={{height: '500px'}}>
+               
                 <Col>
-                <Card className='m-0 p-0 card' border={'0'}>
-                    <Card.Body>
                 
+                <Card className='m-0 p-0 card' border={'0'}>
+                 
+                    <Card.Body>
+                      
                   <RainBySeason                 
                     formattedDataBySeasons = {formattedDataBySeasons}
                     formattedDataByYear={formattedDataByYear}
@@ -63,6 +69,7 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
             <Col>
             <Card className='m-0 p-0 card' border={'0'}>
                 <Card.Body>
+                 
                     
             <RainByMonths
               formattedDataByMonth = {formattedDataByMonth}              
