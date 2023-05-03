@@ -128,8 +128,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
                     <NavBar/> 
                 </Row>
                 <Row>
-                    <Routes>
-                                    
+                    <Routes>                                    
                         <Route path='/rain' 
                             element={<RainIndex 
                             formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}                                    />                
@@ -137,7 +136,6 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
                             element={<TemperatureIndex                          formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
                                     />
                         <Route path= '/wind' element={<WindIndex/>}/>
-
                     </Routes> 
                 </Row>
           

@@ -31,12 +31,10 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
     useEffect((): void => {                 
 
-        if(rainData.length>0){   
+        if(rainData.length>0){  
             
         let adjustedHeight = height-25
         let adjustedWidth = width-30
-            
-
         
         const xScale = d3.scaleLinear()
                             .domain([0, rainData.length])

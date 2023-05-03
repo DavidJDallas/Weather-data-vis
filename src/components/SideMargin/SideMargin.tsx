@@ -103,7 +103,8 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
         setLong(null)
         setWeatherData(null)      
     }
-
+    console.log(place)
+    console.log(postCode)
    
   
     if(error){
