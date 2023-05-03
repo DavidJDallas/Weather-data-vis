@@ -5,22 +5,18 @@ import { SideMarginSearchProps } from "../../Types"
 
 const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace, setPlace}: SideMarginSearchProps) => {
 
-
     const handlePlaceTextChange = (event) => {
         if (event.keyCode === 13 || event.which === 13){
             event.preventDefault()
             handleSubmitPlace(event)
-        }
-      
+        }      
     };
-
     const handlePostcodeTextChange = (event) => {
         if(event.keyCode === 13 || event.which === 13){
             event.preventDefault()
             handleSubmitPostCode(event)
         } 
     };
-
 
     return(
     <>
@@ -29,8 +25,7 @@ const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace,
             className="text-area" 
             onChange={(event) =>setPostcode(event.target.value)}
             onKeyDown ={handlePostcodeTextChange}           
-            >       
-
+            >
             </textarea>
             <button id = "searchbutton" type="submit">Search by postcode</button>
         </form> 
@@ -38,18 +33,13 @@ const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace,
         <form className="grid-item" id="place" onSubmit = {handleSubmitPlace}>                
             <textarea className="text-area" 
             onChange = {(event) => setPlace (event.target.value)}
-             onKeyDown={handlePlaceTextChange}
-         
+             onKeyDown={handlePlaceTextChange}         
              >
-            
-
             </textarea>
             <button id = "searchbutton" type="submit">Search by places</button>                
-        </form>
-                
+        </form>                
     </>
     )
 }
-
 
 export default SideMarginSearch

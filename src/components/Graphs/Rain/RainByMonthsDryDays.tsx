@@ -8,9 +8,7 @@ import { RainByMonthsProp , RainDataMonth} from '../../../Types'
 
 const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, height}: RainByMonthsProp) => {
 
-    
     const [rainData, setRainData] = useState([])
-    
     const chartRef = useRef();
     // d3.select(chartRef.current).selectAll('*').remove();
 
@@ -18,19 +16,34 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
     console.log(rainData)
 
     useEffect((): void => {
-
         const daysInMonth = (month, year)=>{
             return new Date(month, year, 0).getDate()
-        }
-        console.log(daysInMonth(0, 2010))
+        } 
         
-        let rainPercentage = formattedDataByMonth.map((object, index) => ({    
-                
-                month: object.month,
-                daysDryPercentage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length,
-                daysDryAverage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010)
+        
+        let rainPercentage = formattedDataByMonth.map((object, index) => {    
+            
+                const days = object.data.map(day => day)
+                const dryDays = days.filter((day) => day.rain_sum === 0)
+                const daysDryPercentage = dryDays.length /days.length
+                const daysTotal = daysInMonth(index, 2010)
+                const daysDryAverage = (dryDays.length /days.length) * daysTotal
+                const daysWetAverage = daysTotal - daysDryAverage 
 
-    }))
+                return{
+                    month: object.month,
+                    daysDryPercentage,
+                    daysDryAverage,
+                    daysTotal,
+                    daysWetAverage
+                }
+
+                // month: object.month,
+                // daysDryPercentage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length,
+                // daysDryAverage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010),
+                // daysTotal: daysInMonth(index, 2010),
+                // daysWetAverage: daysInMonth(index, 2010) - (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010)
+    })
             setRainData(rainPercentage)
     }, [formattedDataByMonth])
   
@@ -38,14 +51,14 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
     //Draw stacked bar chart ********
 
 
+    useEffect((): void => {
+        if(rainData.length>0){
 
-    useEffect((): void => {                 
-
-        if(rainData.length>0){   
-            
             let adjustedHeight = height-25
-            let adjustedWidth = width-30
-                
+            let adjustedWidth = width-30   
+            
+            const stackedData = d3.stack()
+                                .keys([''])
 
             
             const xScale = d3.scaleLinear()
