@@ -37,13 +37,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                     daysTotal,
                     daysWetAverage
                 }
-
-                // month: object.month,
-                // daysDryPercentage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length,
-                // daysDryAverage: (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010),
-                // daysTotal: daysInMonth(index, 2010),
-                // daysWetAverage: daysInMonth(index, 2010) - (object.data.filter((day) => day.rain_sum === 0)).length/ (object.data.map((day) => day)).length * daysInMonth(index, 2010)
-    })
+        })
             setRainData(rainPercentage)
     }, [formattedDataByMonth])
   
@@ -57,16 +51,19 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             let adjustedHeight = height-25
             let adjustedWidth = width-30   
             
-            const stackedData = d3.stack()
-                                .keys([''])
+            const stacking = d3.stack()
+                                .keys(['daysDryAverage', 'daysWetAverage'])
 
+            const stackedData = stacking(rainData)
+            console.log(stackedData)
+                
             
             const xScale = d3.scaleLinear()
                                 .domain([0, rainData.length])
                                 .range([30, adjustedWidth]);
 
             const yScale = d3.scaleLinear()
-                                .domain([0, d3.max(rainData.map((element) => element.avgRain))])
+                                .domain([0, 31])
                                 .range([height, 100]);
 
             const xAxis = d3.scalePoint()
@@ -100,7 +97,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                         .attr('x', (d,i) => xScale(i)+1)
                         .attr('y', d => yScale(d.avgRain))
                         .attr('width', xScale(1)-xScale(0) -1)
-                    .attr('height', d => height - yScale(d.avgRain))
+                        .attr('height', d => height - yScale(d.avgRain))
                         .attr('fill', "#00bfa0")                        
                         .on('mouseover', (event, d) => {
                                 tooltip.html(`${(d.month)}: ${String(d.avgRain).slice(0,5)} `+ 'mm')
