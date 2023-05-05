@@ -8,12 +8,20 @@ import RainByMonths from './RainByMonths';
 import { RainIndexProps } from '../../../Types';
 import RainBySeasonDryDays from './RainBySeasonDryDays';
 import RainByMonthsDryDays from './RainByMonthsDryDays';
+import RangeSlider from './RangeSlider';
+import { useContext } from 'react';
+import {YearContext} from '../../../Context'
 
 const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySeasons}: RainIndexProps) => {
 
    const [displayRainBySeason, setDisplayRainBySeason] = useState(true);
-   const [displayRainByYear, setDisplayRainByYear] = useState(true);   
+   const [displayRainByYear, setDisplayRainByYear] = useState(true);  
+   const [displayRainDryDays, setDisplayRainDryDays] = useState(true)
  
+   const {yearValue, setYearValue} = useContext(YearContext)
+ 
+   
+
     return(
         <>
         <Container fluid={true}>
@@ -23,10 +31,22 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 <CheckForm 
                 setDisplayRainByYear = {setDisplayRainByYear}
                 setDisplayRainBySeason={setDisplayRainBySeason}
+                setDisplayRainDryDays = {setDisplayRainDryDays}
                 displayRainBySeason={displayRainBySeason}
                 displayRainByYear={displayRainByYear}
+                displayRainDryDays = {displayRainDryDays}
+
                 />
+
+                            
               
+            </Row>
+            <Row>
+            <RangeSlider
+                
+                
+                />
+
             </Row>
             
             {displayRainByYear ?   
@@ -83,7 +103,9 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
             :
             null
         }
-        <Row>
+        {
+            displayRainDryDays ?   
+            <Row>
             <Col>
                 <RainBySeasonDryDays
                   formattedDataBySeasons = {formattedDataBySeasons}
@@ -103,6 +125,10 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 />
             </Col>
         </Row>
+        :
+        null
+        }
+      
            
           
         </Container>

@@ -1,18 +1,24 @@
 import * as React from 'react';
 import {Form} from 'react-bootstrap';
 import { CheckFormProps } from '../../../Types'
+import {useContext} from 'react';
+import {YearContext} from '../../../Context'
 
-const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason}: CheckFormProps) => {
+const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason, setDisplayRainDryDays, displayRainDryDays}: CheckFormProps) => {
     
+
     const handleChangeRainByYear = (event): void => {
-        setDisplayRainByYear(!displayRainByYear)
-        console.log('checked Year')
+        setDisplayRainByYear(!displayRainByYear)    
         
     }
 
     const handleChangeRainByMonth = (): void => {
         setDisplayRainBySeason(!displayRainBySeason)
-        console.log('checked month')
+    
+    }
+
+    const handleChangeDisplayRainDryDays = (): void => {
+      setDisplayRainDryDays(!displayRainDryDays)
     }
     return(
         <>
@@ -37,13 +43,14 @@ const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByY
             onChange={handleChangeRainByMonth}
             defaultChecked
           />
-          {/* <Form.Check
-            inline = {true}
-            disabled
-            label="3 (disabled)"
+          <Form.Check
+            inline = {true}          
+            label= 'Amount of Dry Days per Month and Season'
             type={'checkbox'}
             id={`inline-${'checkbox'}-3`}
-          /> */}
+            onChange = {handleChangeDisplayRainDryDays}
+            defaultChecked
+          />
         </div>
       
     </Form>

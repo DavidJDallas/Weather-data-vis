@@ -6,9 +6,13 @@ import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import * as React from 'react';
 import {Container, Row,  Col} from 'react-bootstrap';
+import { useContext } from "react";
+import { YearContext } from './Context'
 
 function App() {
 
+  const {yearValue} = useContext(YearContext)
+  console.log(yearValue)
   const [weatherdata, setWeatherData] =  useState(null);
   const [displayLocation, setDisplayLocation] = useState('');
   const [displayPostcode, setDisplayPostcode] = useState('');

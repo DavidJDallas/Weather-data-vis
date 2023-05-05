@@ -182,8 +182,10 @@ export interface RainByYearProps extends Omit<RainBySeasonProps, 'formattedDataB
 export interface CheckFormProps {
     setDisplayRainBySeason: Function,
     setDisplayRainByYear: Function,
+    setDisplayRainDryDays: Function,
     displayRainByYear: boolean,
-    displayRainBySeason: boolean
+    displayRainBySeason: boolean,
+    displayRainDryDays: boolean
 }
 
     //Api Call stuff
@@ -210,3 +212,10 @@ export interface FormattedDataObj{
     time: Date,
     windspeed_10m_max: number
 }
+
+//Context
+
+export interface YearContextProps {
+    yearValue: number,
+    setYearValue: React.Dispatch<React.SetStateAction<number>>;
+  }

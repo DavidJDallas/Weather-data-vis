@@ -17,22 +17,23 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
     useEffect((): void => {
         const daysInMonth = (month, year)=>{
-            return new Date(month, year, 0).getDate()
+            return new Date(year, month, 0).getDate()
         } 
-        
-        
+       
         let rainPercentage = formattedDataByMonth.map((object, index) => {    
             
                 const days = object.data.map(day => day)
                 const dryDays = days.filter((day) => day.rain_sum === 0)
-                const daysDryPercentage = dryDays.length /days.length
-                const daysTotal = daysInMonth(index, 2010)
+                const daysDryPercentage = (dryDays.length /days.length) * 100
+                const daysWetPercentage = 100 - daysDryPercentage
+                const daysTotal = daysInMonth(index+1, 2010)
                 const daysDryAverage = (dryDays.length /days.length) * daysTotal
                 const daysWetAverage = daysTotal - daysDryAverage 
-
+                console.log(daysInMonth(1, 2022))
                 return{
                     month: object.month,
                     daysDryPercentage,
+                    daysWetPercentage,
                     daysDryAverage,
                     daysTotal,
                     daysWetAverage
@@ -48,25 +49,45 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
     useEffect((): void => {
         if(rainData.length>0){
 
-            let adjustedHeight = height-25
+            let adjustedHeight = height-50
             let adjustedWidth = width-30   
             
+            console.log(rainData)
             const stacking = d3.stack()
                                 .keys(['daysDryAverage', 'daysWetAverage'])
 
-            const stackedData = stacking(rainData)
-            console.log(stackedData)
-                
+            const stackedData = stacking(rainData)   
             
+            stackedData[0].forEach((element) => {
+                element.push({
+                    category: 'dry'
+                })
+            })
+
+            stackedData[1].forEach((element) => {
+                element.push({
+                    category: 'wet'
+                })
+            })
+            
+            
+            console.log(stackedData)
+
+            const stackingPercentages = d3.stack()
+                
+            let colourScale = d3.scaleOrdinal()
+                                .domain(['daysDryAverage', 'daysWetAverage'])
+                                .range(["#50e991", '#0bb4ff'])
+                                
             const xScale = d3.scaleLinear()
-                                .domain([0, rainData.length])
+                                .domain([0, 12])
                                 .range([30, adjustedWidth]);
 
             const yScale = d3.scaleLinear()
-                                .domain([0, 31])
+                                .domain([0, 33])
                                 .range([height, 100]);
 
-            const xAxis = d3.scalePoint()
+            const xAxis = d3.scaleBand()
                                 .domain(rainData.map((x) => x.month.slice(0,3)))
                                 .range([30, adjustedWidth])
                                 .padding([0]);
@@ -77,7 +98,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             const svg= d3.select(chartRef.current)
                                 .append('svg')
                                 .attr('width', width)
-                                .attr('height', height+25);
+                                .attr('height', height +100);
 
             const tooltip = d3.select('body').append('div')
                                 .style('position', 'absolute')
@@ -88,35 +109,60 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                                 .style('border-width', '2px')
                                 .style('border-color', '#50e991')
                                 .style('padding', '5px')
-                                .style('font-size', '12px');
+                                .style('font-size', '12px')
+                                .style('line-height', '1');
 
-                svg.selectAll('rect')
-                        .data(rainData)
-                        .enter()
-                        .append('rect')
-                        .attr('x', (d,i) => xScale(i)+1)
-                        .attr('y', d => yScale(d.avgRain))
-                        .attr('width', xScale(1)-xScale(0) -1)
-                        .attr('height', d => height - yScale(d.avgRain))
-                        .attr('fill', "#00bfa0")                        
-                        .on('mouseover', (event, d) => {
-                                tooltip.html(`${(d.month)}: ${String(d.avgRain).slice(0,5)} `+ 'mm')
+            const stacks = svg.selectAll('.stack')
+                                .data(stackedData)
+                                .join('g')
+                                .attr('class', 'stack')
+                                .attr('fill', d => colourScale(d.key))
+
+
+            const practice = (d) => d
+
+            console.log(practice(stackedData))
+
+            stacks.selectAll('rect')
+                    .data(d => d)
+                    .join('rect')
+                    .attr('x', (d, i) => xScale(i)+1)
+                    .attr('y', d => yScale(d[1]))
+                    .attr('height', (d)=> (yScale(d[0])- yScale(d[1])))
+                    .attr('width', xScale(1) - xScale(0) -1)                                        
+                    .on('mouseover', (event, d) => {
+                        console.log(d[2].category)
+                        tooltip.html(
+                            d[2].category === 'wet' ?
+                                `<u>${(d.data.month).slice(0,3)}</u> 
+                                <br></br>
+                                
+                               On average ${Math.round(d[1] - d[0])} days with rain`
+                                :
+                                `<u>${(d.data.month).slice(0,3)}</u> 
+                                <br></br>
+                                On average ${Math.round(d[1])} dry days`
+
+                                
+                                
+                                
+                                )
                                     .style('visibility', 'visible')
                             })
-                        .on('mousemove', (event) => {
+                    .on('mousemove', (event) => {
                                 tooltip.style('top', event.pageY - 10 + 'px')
                                 tooltip.style('left', event.pageX + 10 + 'px')
                             })
-                        .on('mouseout', () => {
+                    .on('mouseout', () => {
                                 tooltip.style('visibility', 'hidden')
                             });
                         
-                svg.append('text')
-                    .attr('x', width/2)
-                    .attr('y', 30)
-                    .style('text-anchor', 'middle')
-                    .style('font-size', '18px')
-                    .text(`Percentage of Completely Dry Days Per Month`);
+                // svg.append('text')
+                //     .attr('x', width/2)
+                //     .attr('y', 30)
+                //     .style('text-anchor', 'middle')
+                //     .style('font-size', '18px')
+                //     .text(`Percentage of Completely Dry Days Per Month`);
                 
                 svg.append('g')
                     .attr('transform', `translate(0, ${height})`)
@@ -128,9 +174,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                     .attr('transform', `translate(30,0)`)              
                     .call(yAxis)
                     .selectAll('text')
-                    .style('font-size', '9px')    
-
-     
+                    .style('font-size', '9px')     
         }
 
     }, [rainData, height, width]);

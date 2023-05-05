@@ -7,14 +7,20 @@ import ErrorHandler from "../ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 import * as React from 'react'
 import { SideMarginProps } from "../../Types"
+import {YearContext} from '../../Context'
+import { useContext } from "react"
 
 const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch}: SideMarginProps) => {
 
-    const [postCode, setPostcode] = useState('')
-    const [lat, setLat] = useState('')
-    const [long, setLong] = useState('')
-    const [place, setPlace] = useState('')   
-    const [error, setError] = useState('')     
+    const [postCode, setPostcode] = useState('');
+    const [lat, setLat] = useState('');
+    const [long, setLong] = useState('');
+    const [place, setPlace] = useState('');   
+    const [error, setError] = useState('');   
+    
+    // const {yearValue} = useContext(YearContext);
+
+    // console.log(yearValue)
    
     useEffect(() => {
             if(lat && long){            

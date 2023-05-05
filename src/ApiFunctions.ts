@@ -3,10 +3,12 @@ import { Features, APICallGeoLocation, WeatherAPICall, HistoricalWeatherDataType
 
 
 
-export const findHistoricalWeather = async (latitude: string, longitude: string, tempDisplay: string): Promise<HistoricalWeatherDataType> => {
+export const findHistoricalWeather = async (latitude: string, longitude: string, tempDisplay: string, yearValue: number = 1945): Promise<HistoricalWeatherDataType> => {
 
     try{
-        const pendingWeather: HistoricalWeatherDataType = await axios.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&timezone=GMT&start_date=1945-01-01&end_date=2023-04-15&daily=temperature_2m_max&daily=temperature_2m_min&daily=rain_sum&daily=windspeed_10m_max&temperature_unit=${tempDisplay}`)
+
+        console.log(yearValue, 'hey')
+        const pendingWeather: HistoricalWeatherDataType = await axios.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&timezone=GMT&start_date=${yearValue}-01-01&end_date=2022-12-31&daily=temperature_2m_max&daily=temperature_2m_min&daily=rain_sum&daily=windspeed_10m_max&temperature_unit=${tempDisplay}`)
 
  
         return pendingWeather
