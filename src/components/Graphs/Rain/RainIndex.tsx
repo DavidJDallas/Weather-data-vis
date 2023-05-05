@@ -16,11 +16,7 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
 
    const [displayRainBySeason, setDisplayRainBySeason] = useState(true);
    const [displayRainByYear, setDisplayRainByYear] = useState(true);  
-   const [displayRainDryDays, setDisplayRainDryDays] = useState(true)
- 
-   const {yearValue, setYearValue} = useContext(YearContext)
- 
-   
+   const [displayRainDryDays, setDisplayRainDryDays] = useState(true) 
 
     return(
         <>
@@ -36,10 +32,7 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 displayRainByYear={displayRainByYear}
                 displayRainDryDays = {displayRainDryDays}
 
-                />
-
-                            
-              
+                />                                        
             </Row>
             <Row>
             <RangeSlider
