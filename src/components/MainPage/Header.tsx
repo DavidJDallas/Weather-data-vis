@@ -2,8 +2,9 @@ import "../../styling/Header.css"
 import "../../styling/General.css"
 import { useEffect } from "react"
 import * as React from 'react'
+import {HeaderProps} from '../../Types/PropsTypes'
 
-const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}) => {
+const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}: HeaderProps) => {
    
     let postCodeCaps: string
     let rectifiedLocation: string   

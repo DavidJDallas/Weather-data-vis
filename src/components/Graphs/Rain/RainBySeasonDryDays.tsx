@@ -2,18 +2,15 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
-import { Container , Row, Col} from 'react-bootstrap'
-import { RainBySeasonProps} from '../../../Types'
+import { Container , Row} from 'react-bootstrap'
+import { RainBySeasonProps} from '../../../Types/GraphsTypes'
 
 
-const RainBySeasonsDryDays= ({formattedDataBySeasons, formattedDataByYear, width, height}: RainBySeasonProps) => {
+const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeasonProps) => {
 
     const [rainData, setRainData] = useState([])
     const chartRef = useRef();
-    // d3.select(chartRef.current).selectAll('*').remove();
 
-    console.log(formattedDataBySeasons)
-    console.log(rainData)
 
     useEffect((): void => {
 
@@ -31,7 +28,7 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, formattedDataByYear, width
                 const daysTotal = daysInMonth(index+1, 2010)
                 const daysDryAverage = (dryDays.length /days.length) * daysTotal
                 const daysWetAverage = daysTotal - daysDryAverage 
-                console.log(daysInMonth(1, 2022))
+               
                 return{
                     season: object.season,
                     daysDryPercentage,
@@ -53,10 +50,8 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, formattedDataByYear, width
 
             d3.select(chartRef.current).selectAll('*').remove();
 
-            let adjustedHeight = height-50
             let adjustedWidth = width-30   
             
-            console.log(rainData)
             const stacking = d3.stack()
                                 .keys(['daysDryAverage', 'daysWetAverage'])
 
@@ -74,8 +69,6 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, formattedDataByYear, width
                 })
             })
             
-            
-            console.log(stackedData)
 
             const stackingPercentages = d3.stack()
                 
@@ -134,7 +127,7 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, formattedDataByYear, width
                     .attr('height', (d)=> (yScale(d[0])- yScale(d[1])))
                     .attr('width', xScale(1) - xScale(0) -20)                                        
                     .on('mouseover', (event, d) => {
-                        console.log(d[2].category)
+                        
                         tooltip.html(
                             d[2].category === 'wet' ?
                                 `<u>${(d.data.season)}</u> 

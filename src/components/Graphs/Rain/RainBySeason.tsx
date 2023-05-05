@@ -2,15 +2,13 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
-import { Container , Row, Col} from 'react-bootstrap'
-import {RainBySeasonProps, RainDataSeason} from '../../../Types'
+import { Container , Row} from 'react-bootstrap'
+import {RainBySeasonProps, RainDataSeason} from '../../../Types/GraphsTypes'
 
 const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, height}: RainBySeasonProps) => {
 
     const [rainData, setRainData] = useState<RainDataSeason[]>([])
     const chartRef = useRef();
-    // d3.select(chartRef.current).selectAll('*').remove();
-
   
     useEffect((): void => {
         try{
@@ -22,13 +20,10 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
                 }))
             setRainData(rainPerSeason)
         }        
-        
         catch(error){
             console.error(error)
         }
-        
-    }, [formattedDataBySeasons])   
-
+    }, [formattedDataBySeasons]) 
 
     useEffect((): void => {                 
 

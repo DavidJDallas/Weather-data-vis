@@ -2,8 +2,8 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
-import { Container , Row, Col} from 'react-bootstrap'
-import { RainByMonthsProp , RainDataMonth} from '../../../Types'
+import { Container , Row } from 'react-bootstrap'
+import { RainByMonthsProp } from '../../../Types/GraphsTypes'
 
 
 const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, height}: RainByMonthsProp) => {
@@ -11,9 +11,6 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
     const [rainData, setRainData] = useState([])
     const chartRef = useRef();
     // d3.select(chartRef.current).selectAll('*').remove();
-
-    console.log(formattedDataByMonth)
-    console.log(rainData)
 
     useEffect((): void => {
 
@@ -31,7 +28,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                 const daysTotal = daysInMonth(index+1, 2010)
                 const daysDryAverage = (dryDays.length /days.length) * daysTotal
                 const daysWetAverage = daysTotal - daysDryAverage 
-                console.log(daysInMonth(1, 2022))
+               
                 return{
                     month: object.month,
                     daysDryPercentage,
@@ -56,7 +53,6 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             let adjustedHeight = height-50
             let adjustedWidth = width-30   
             
-            console.log(rainData)
             const stacking = d3.stack()
                                 .keys(['daysDryAverage', 'daysWetAverage'])
 
@@ -75,7 +71,6 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             })
             
             
-            console.log(stackedData)
 
             const stackingPercentages = d3.stack()
                 
@@ -123,9 +118,6 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                                 .attr('fill', d => colourScale(d.key))
 
 
-            const practice = (d) => d
-
-            console.log(practice(stackedData))
 
             stacks.selectAll('rect')
                     .data(d => d)
@@ -135,7 +127,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                     .attr('height', (d)=> (yScale(d[0])- yScale(d[1])))
                     .attr('width', xScale(1) - xScale(0) -1)                                        
                     .on('mouseover', (event, d) => {
-                        console.log(d[2].category)
+                        
                         tooltip.html(
                             d[2].category === 'wet' ?
                                 `<u>${(d.data.month).slice(0,3)}</u> 

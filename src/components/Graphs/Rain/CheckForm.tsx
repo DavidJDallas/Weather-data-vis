@@ -1,29 +1,22 @@
 import * as React from 'react';
 import {Form} from 'react-bootstrap';
-import { CheckFormProps } from '../../../Types'
-import {useContext} from 'react';
-import {YearContext} from '../../../Context'
+import { CheckFormProps } from '../../../Types/GraphsTypes'
 
 const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason, setDisplayRainDryDays, displayRainDryDays}: CheckFormProps) => {
-    
 
     const handleChangeRainByYear = (event): void => {
         setDisplayRainByYear(!displayRainByYear)    
-        
     }
-
     const handleChangeRainByMonth = (): void => {
         setDisplayRainBySeason(!displayRainBySeason)
-    
     }
-
     const handleChangeDisplayRainDryDays = (): void => {
       setDisplayRainDryDays(!displayRainDryDays)
     }
+
     return(
         <>
        <Form>
-   
         <div className="mb-3">
           <Form.Check
             inline = {true}
@@ -52,14 +45,9 @@ const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByY
             defaultChecked
           />
         </div>
-      
     </Form>
       </>
-      
-    
-    
-    
-        )
+    )
 }
 
 export default CheckForm

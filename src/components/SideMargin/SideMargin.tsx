@@ -6,7 +6,8 @@ import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "../ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 import * as React from 'react'
-import { SideMarginProps, YearContextType } from "../../Types"
+import { SideMarginProps} from '../../Types/PropsTypes'
+import { YearContextType } from "../../Types/ContextTypes"
 import {YearContext} from '../../Context'
 import { useContext } from "react"
 
@@ -20,24 +21,17 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
     
     const {yearValue} = useContext<YearContextType>(YearContext);
 
-    console.log(yearValue)
-   
-    // useEffect(() => {
-    //         if(lat && long){            
-    //             getWeatherData()
-    //         }
-    //     }, [lat, long])
 
 
     useEffect(() => {
-        console.log('enabled')
+      
         const getWeatherData = async() => {   
             try{
                 if(displayCelsius===true){
                     const weatherData = await findHistoricalWeather(lat, long, 'celsius', yearValue)
                     setWeatherData(weatherData.data) 
                     setIsLoading(false) 
-                    console.log('called')
+                   
                 
                 } else if(displayCelsius===false){
                     const weatherData = await findHistoricalWeather(lat, long, 'fahrenheit', yearValue)
@@ -51,7 +45,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
             }        
     }   
         if (lat && long) {
-            console.log('yes')
+          
             getWeatherData()
         }
     }, [yearValue, lat, long])   
@@ -76,7 +70,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
             const latitudeAndLongitude = await getGeolocationByPlace(place) 
             let latitude = latitudeAndLongitude[0].center[1]
             let longitude = latitudeAndLongitude[0].center[0]
-            console.log(latitude)
+            
             setLat(latitude)
             setLong(longitude)            
         }  
@@ -119,8 +113,7 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
         setLong(null)
         setWeatherData(null)      
     }
-    console.log(place)
-    console.log(postCode)
+    
    
   
     if(error){

@@ -2,8 +2,8 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
-import { Container , Row, Col} from 'react-bootstrap'
-import { RainByMonthsProp , RainDataMonth} from '../../../Types'
+import { Container , Row } from 'react-bootstrap'
+import { RainByMonthsProp , RainDataMonth} from '../../../Types/GraphsTypes'
 
 
 const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}: RainByMonthsProp) => {

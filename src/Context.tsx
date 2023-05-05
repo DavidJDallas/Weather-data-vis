@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createContext, useState } from 'react';
-import RangeSlider from './components/Graphs/Rain/RangeSlider';
-import App from './App';
-import {YearContextProps} from './Types'
+import {YearContextProps} from './Types/ContextTypes'
 
 
 export const YearContext = createContext<YearContextProps>({

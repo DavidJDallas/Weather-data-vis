@@ -1,7 +1,7 @@
 import * as React from 'react'
-import {useState, useEffect, useRef} from 'react'
+import { useEffect, useRef} from 'react'
 import * as d3 from 'd3'
-import { RainByYearProps } from '../../../Types';
+import { RainByYearProps } from '../../../Types/GraphsTypes';
 
 const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 

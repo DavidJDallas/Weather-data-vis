@@ -2,7 +2,8 @@ import * as React from 'react';
 import "../../styling/Main.css";
 import * as d3 from 'd3';
 import { useState, useEffect } from 'react';
-import {FormattedDataByMonth, FormattedDataByYear, MainProps, FormattedDataBySeasons} from '../../Types';
+import {FormattedDataByMonth, FormattedDataByYear, FormattedDataBySeasons} from '../../Types/GraphsTypes';
+import {MainProps} from '../../Types/PropsTypes'
 import {Routes, Route} from 'react-router-dom';
 import NavBar from './NavBar';
 import RainIndex from '../Graphs/Rain/RainIndex';

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {Form} from 'react-bootstrap/'
-import {useState, useContext} from 'react'
+import { useContext} from 'react'
 import {YearContext} from '../../../Context'
-import {YearContextType} from '../../../Types'
+import {YearContextType} from '../../../Types/ContextTypes'
 
 
 
@@ -19,7 +19,7 @@ const RangeSlider = () => {
     const handleSliderChange = (event) => {
         setYearValue(event.target.value)
     }
-    console.log(yearValue)
+
 
     return(
         <>

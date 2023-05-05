@@ -12,7 +12,6 @@ import { YearContext } from './Context'
 function App() {
 
   const {yearValue} = useContext(YearContext)
-  console.log(yearValue)
   const [weatherdata, setWeatherData] =  useState(null);
   const [displayLocation, setDisplayLocation] = useState('');
   const [displayPostcode, setDisplayPostcode] = useState('');
