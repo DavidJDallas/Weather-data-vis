@@ -16,6 +16,8 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
     console.log(rainData)
 
     useEffect((): void => {
+
+        
         const daysInMonth = (month, year)=>{
             return new Date(year, month, 0).getDate()
         } 
@@ -48,6 +50,8 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
     useEffect((): void => {
         if(rainData.length>0){
+
+            d3.select(chartRef.current).selectAll('*').remove();
 
             let adjustedHeight = height-50
             let adjustedWidth = width-30   

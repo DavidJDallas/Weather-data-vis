@@ -6,7 +6,7 @@ import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "../ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
 import * as React from 'react'
-import { SideMarginProps } from "../../Types"
+import { SideMarginProps, YearContextType } from "../../Types"
 import {YearContext} from '../../Context'
 import { useContext } from "react"
 
@@ -18,34 +18,44 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
     const [place, setPlace] = useState('');   
     const [error, setError] = useState('');   
     
-    // const {yearValue} = useContext(YearContext);
+    const {yearValue} = useContext<YearContextType>(YearContext);
 
-    // console.log(yearValue)
+    console.log(yearValue)
    
-    useEffect(() => {
-            if(lat && long){            
-                getWeatherData()
-            }
-        }, [lat, long])
+    // useEffect(() => {
+    //         if(lat && long){            
+    //             getWeatherData()
+    //         }
+    //     }, [lat, long])
 
-    const getWeatherData = async() => {   
-        try{
-            if(displayCelsius===true){
-                const weatherData = await findHistoricalWeather(lat, long, 'celsius')
-                setWeatherData(weatherData.data) 
-                setIsLoading(false) 
-               
-            } else if(displayCelsius===false){
-                const weatherData = await findHistoricalWeather(lat, long, 'fahrenheit')
-                setWeatherData(weatherData.data) 
-                setIsLoading(false)  
-            }            
-        }    
-        catch{
-            setIsLoading(false)
-            setError(error)           
-        }        
-    }    
+
+    useEffect(() => {
+        console.log('enabled')
+        const getWeatherData = async() => {   
+            try{
+                if(displayCelsius===true){
+                    const weatherData = await findHistoricalWeather(lat, long, 'celsius', yearValue)
+                    setWeatherData(weatherData.data) 
+                    setIsLoading(false) 
+                    console.log('called')
+                
+                } else if(displayCelsius===false){
+                    const weatherData = await findHistoricalWeather(lat, long, 'fahrenheit', yearValue)
+                    setWeatherData(weatherData.data) 
+                    setIsLoading(false)  
+                }            
+            }    
+            catch{
+                setIsLoading(false)
+                setError(error)           
+            }        
+    }   
+        if (lat && long) {
+            console.log('yes')
+            getWeatherData()
+        }
+    }, [yearValue, lat, long])   
+   
 
     const geocodePostcode = async() => {   
         try{            

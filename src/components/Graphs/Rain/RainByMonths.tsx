@@ -12,8 +12,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
     const [rainData, setRainData] = useState<RainDataMonth[]>([])
     
     const chartRef = useRef();
-    // d3.select(chartRef.current).selectAll('*').remove();
-
+  
 
     useEffect((): void => {
         let rainPerMonth = formattedDataByMonth.map((object, index) => ({
@@ -32,6 +31,7 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
     useEffect((): void => {                 
 
         if(rainData.length>0){  
+            d3.select(chartRef.current).selectAll('*').remove();
             
         let adjustedHeight = height-25
         let adjustedWidth = width-30

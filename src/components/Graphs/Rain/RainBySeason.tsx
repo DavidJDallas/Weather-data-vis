@@ -33,6 +33,8 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
     useEffect((): void => {                 
 
         if(rainData.length>0){  
+
+            d3.select(chartRef.current).selectAll('*').remove();
             
             let adjustedWidth = width-30
             

@@ -6,7 +6,7 @@ import { RainByYearProps } from '../../../Types';
 const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
     const chartRef = useRef();
-    d3.select(chartRef.current).selectAll('*').remove();
+    
 
       let totalRainPerYear = formattedDataByYear.map((object, index) =>     ({
                 year: object.year,
@@ -23,7 +23,7 @@ const RainByYear = ({formattedDataByYear, width, height}: RainByYearProps) => {
 
     useEffect((): void => {     
                     
-
+        d3.select(chartRef.current).selectAll('*').remove();
         const xScale = d3.scaleLinear()
                             .domain([0, totalRainPerYear.length])
                             .range([35, width-35]);            
