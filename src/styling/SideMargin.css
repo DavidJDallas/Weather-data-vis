@@ -3,6 +3,7 @@
 /*desktop view*/
 @media(min-width: 600px){
     .container{
+        margin-top: 5px;
         display: flex;
         flex-direction:column;
         flex-wrap: wrap;
@@ -25,9 +26,9 @@
         flex: 1;
         height:80px;
         width: 80%;
-        border-radius: 10px;
+        border-radius: 8px;
         margin-left: 10%;
-        background-color: whitesmoke;       
+        background-color: white;       
         margin-right: 5%;
         font-size: 2rem;
     }    
@@ -43,9 +44,9 @@
 
     
     #searchbutton:hover{
-        background-color: #1A1A1A;
+        background-color: rgba(236,196,196,1);
       cursor: pointer;
-      color:antiquewhite
+      color: black
     }
 
 

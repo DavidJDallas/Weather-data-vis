@@ -3,6 +3,7 @@ import {Form} from 'react-bootstrap/'
 import { useContext} from 'react'
 import {YearContext} from '../../../Context'
 import {YearContextType} from '../../../Types/ContextTypes'
+import '../../../styling/Range-Slider.css'
 
 
 
@@ -30,6 +31,7 @@ const RangeSlider = () => {
         min={1945}
         max = {2022}
         step={1}
+        className='custom-range'
         
         />
         <div>{yearValue}</div>

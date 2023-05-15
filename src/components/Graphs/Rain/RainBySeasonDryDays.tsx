@@ -137,10 +137,7 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeas
                                 :
                                 `<u>${(d.data.month).slice(0,3)}</u> 
                                 <br></br>
-                                On average ${Math.round(d[1])} dry days`
-
-                                
-                                
+                                On average ${Math.round(d[1])} dry days`                        
                                 
                                 )
                                     .style('visibility', 'visible')

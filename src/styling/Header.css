@@ -1,7 +1,10 @@
-.title{
+.header-title{
  
-   border-radius: 10px;
-   border-width: 1px;
-   color: black
+   margin-left: 0%;
+
+   position: relative; 
+   border-bottom: 2px solid #ecc4c4
   
+ 
 }
+

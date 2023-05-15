@@ -8,6 +8,7 @@ import * as React from 'react';
 import {Container, Row,  Col} from 'react-bootstrap';
 import { useContext } from "react";
 import { YearContext } from './Context'
+import './styling/General.css'
 
 function App() {
 
@@ -30,17 +31,25 @@ function App() {
       <Container fluid>
         <Row> 
           <Header displayLocation={displayLocation} displayPostcode={displayPostcode} errorInSearch={errorInSearch}searchOn={searchOn} />
+         
         </Row>
         <Row>
             <Col xs={12} md={3}>
+              
                 <SideMargin setWeatherData={setWeatherData} weatherdata={weatherdata} setDisplayPostcode={setDisplayPostcode} setDisplayLocation={setDisplayLocation} displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius} searchOn={searchOn} setSearchOn={setSearchOn} isLoading={isLoading} setIsLoading={setIsLoading} setErrorInSearch={setErrorInSearch} isMobile = {isMobile}/>   
             </Col>         
-            <Col md={8}>
+            <Col md={9}>
                 { weatherdata ? 
                 <Main weatherdata={weatherdata} displayCelsius={displayCelsius} searchOn={searchOn}  errorInSearch={errorInSearch} isMobile={isMobile}/>
-                : <> <br></br>         
+                : <>         
             
-                <h2>Please enter a location or postcode to start.  </h2>             
+                <h2
+                className='main-body-text'
+                >
+                  This app allows you to see trends in the weather, anywhere in the world, over customisable periods of time.
+                  <br></br><br></br>
+                  
+                  Please enter a location or postcode to start.  </h2>             
               </>}
             </Col>
         </Row>

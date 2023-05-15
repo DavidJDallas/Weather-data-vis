@@ -1,0 +1,13 @@
+
+.custom-range::-webkit-slider-thumb{
+    background-color: #8d5d5d;
+   
+}
+
+.custom-range::-moz-range-thumb{
+    background-color: #8d5d5d;
+}
+
+.custom-range::-ms-thumb{
+    background-color: #8d5d5d;
+}

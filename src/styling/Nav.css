@@ -1,7 +1,20 @@
 .Link-button{
     color: black;
-    font-size: 20px;
-    
+    font-size: 2rem;    
     padding: 1%;
-    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+   
+    margin-left: 5%;
+}
+
+.active-link{
+    color: black;
+    font-size: 2rem;    
+    padding: 1%;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 3px solid #8d5d5d;
+    padding-bottom: 10px;
+    margin-left: 5%;
 }

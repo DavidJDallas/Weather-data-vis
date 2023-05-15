@@ -3,6 +3,7 @@ import "../../styling/General.css"
 import { useEffect } from "react"
 import * as React from 'react'
 import {HeaderProps} from '../../Types/PropsTypes'
+import '../../styling/Header.css'
 
 const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}: HeaderProps) => {
    
@@ -25,7 +26,7 @@ const Header = ({ displayLocation, displayPostcode, errorInSearch, searchOn}: He
     
    
     return(
-        <section>   
+        <section className='header-title'>   
         {displayLocation && !errorInSearch && !searchOn ? <h1 >{rectifiedLocation}</h1>: 
         displayPostcode && !errorInSearch && !searchOn ? <h1>{postCodeCaps} </h1> :
         <h1> Historical Weather Data</h1>

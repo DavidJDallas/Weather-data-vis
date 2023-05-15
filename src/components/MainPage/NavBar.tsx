@@ -1,29 +1,58 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, NavLink, NavLinkProps} from 'react-router-dom'
 import {Row, Col, Container} from 'react-bootstrap'
 import '../../styling/Nav.css'
 
-const NavBar = () => {
+
+const NavBar: React.FC = () => {
+
+    interface CustomNavLinkProps extends NavLinkProps{
+        activeClassName: string;
+    }
 
     return(
-        <nav>
+        <div>
             <Container fluid={true}>
             <Row>
                 <Col>
-                    <Link className='Link-button' to = '/rain'>Rain</Link>
+                <NavLink
+                    className={({isActive, isPending}) =>
+                    isPending ? 'Link-button' : isActive ? 'active-link' : 'Link-button'                
+                }
+                    to='/rain'
+                >
+                    Rain
+                </NavLink>
+                    {/* <Link className='Link-button' to = '/rain'>Rain</Link> */}
+               
+                
                 </Col>    
                 <Col>
-                     <Link className='Link-button' to ='/temperature'>Temperature</Link>
+                   <NavLink
+                    className={({isActive, isPending}) =>
+                    isPending ? 'Link-button' : isActive ? 'active-link' : 'Link-button'                 
+                    }
+                    to='/temperature'
+                >
+                    Temperature
+                </NavLink>
                 </Col>  
                 <Col>
-                    <Link className='Link-button' to='/wind'>Wind</Link>
+                <NavLink
+                    className={({isActive, isPending}) =>
+                    isPending ? 'Link-button' : isActive ? 'active-link' : 'Link-button'                 
+                    }
+                    to='/wind'
+                >
+                    Wind
+                </NavLink>
                 </Col>          
             </Row>
             </Container>
       
                 
              
-        </nav>
+        </div>
     )
 }
 

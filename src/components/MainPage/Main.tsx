@@ -122,10 +122,11 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
 
     return(
         <>    
-         <h2>Data</h2> 
+     
         <div className= 'h-100 w-100'>
             <Container>
-                <Row style={{height: '40px'}}>
+               
+                <Row style={{height: '100px', marginTop: '10px'}}>
                     <NavBar/> 
                 </Row>
                 <Row>
@@ -133,7 +134,7 @@ const Main = ({weatherdata, displayCelsius, searchOn, errorInSearch, isMobile}: 
                         <Route path='/rain' 
                             element={<RainIndex 
                             formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}                                    />                
-                        <Route path = '/Temperature' 
+                        <Route path = '/temperature' 
                             element={<TemperatureIndex                          formattedDataByMonth={formattedDataByMonth} formattedDataBySeasons={formattedDataBySeasons} formattedDataByYear={formattedDataByYear}/>}
                                     />
                         <Route path= '/wind' element={<WindIndex/>}/>

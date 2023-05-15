@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Form} from 'react-bootstrap';
 import { CheckFormProps } from '../../../Types/GraphsTypes'
+import '../../../styling/CheckForm.css'
 
 const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByYear, displayRainBySeason, setDisplayRainDryDays, displayRainDryDays}: CheckFormProps) => {
 
@@ -26,6 +27,7 @@ const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByY
             id={`inline-${'checkbox'}-1`}
             onChange={handleChangeRainByYear}
             defaultChecked
+            
           />
           <Form.Check
             inline = {true}
@@ -43,6 +45,7 @@ const CheckForm = ({setDisplayRainBySeason, setDisplayRainByYear, displayRainByY
             id={`inline-${'checkbox'}-3`}
             onChange = {handleChangeDisplayRainDryDays}
             defaultChecked
+
           />
         </div>
     </Form>
