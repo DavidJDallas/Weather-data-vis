@@ -20,7 +20,7 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
         <>
         <Container fluid={true}>
             
-            <Row style ={{height: '60px'}}>
+            <Row style ={{height: '60px', marginLeft: '15px', marginRight: '15px'}}>
                
                 <CheckForm 
                 setDisplayRainByYear = {setDisplayRainByYear}
@@ -32,7 +32,9 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
 
                 />                                        
             </Row>
-            <Row>
+            <Row
+            style={{height: '60px', marginLeft: '20px', marginRight: '15%'}}
+            >
             <RangeSlider
                 
                 

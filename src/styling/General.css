@@ -6,15 +6,13 @@
     padding:0;
     margin:0; 
     font-size: 1rem;
-    background-color: #ffffff;
-    ;
-   
+    background-color: #ffffff;  
 
 }
 
 
 h1{
-    font-size: 4rem; 
+    font-size: 4.854rem; 
     text-align: center;   
      
 }  
@@ -24,7 +22,7 @@ h2{
     font-size: 3rem;
 }
 h3{
-    font-size: 2rem;
+    font-size: 1.854rem;
     text-align: center;
 }
 
