@@ -42,9 +42,9 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
         const yScale = d3.scaleLinear()
                             .domain([0, d3.max(rainData.map((element) => element.avgRain))])
-                            .range([height, 100]);
+                            .range([height, 75]);
 
-        const xAxis = d3.scalePoint()
+        const xAxis = d3.scaleBand()
                             .domain(rainData.map((x) => x.month.slice(0,3)))
                             .range([30, adjustedWidth])
                             .padding([0]);
@@ -116,19 +116,9 @@ const RainByMonths= ({formattedDataByMonth, formattedDataByYear, width, height}:
 
 
     return(
-        <>
-        <Container fluid>
-            <Row style={{height: '400px'}}>
-
-                <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
-
-            </Row>
-           
-
-        
-       
-     
-        </Container>
+        <>       
+        <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
+    
                
         </>
     )

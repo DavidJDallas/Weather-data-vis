@@ -9,6 +9,7 @@ import { RainIndexProps } from '../../../Types/GraphsTypes';
 import RainBySeasonDryDays from './RainBySeasonDryDays';
 import RainByMonthsDryDays from './RainByMonthsDryDays';
 import RangeSlider from './RangeSlider';
+import '../../../styling/RainIndex.css'
 
 const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySeasons}: RainIndexProps) => {
 
@@ -20,7 +21,8 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
         <>
         <Container fluid={true}>
             
-            <Row style ={{height: '60px', marginLeft: '15px', marginRight: '15px'}}>
+            <Row className='check-form-row'
+           >
                
                 <CheckForm 
                 setDisplayRainByYear = {setDisplayRainByYear}
@@ -33,17 +35,13 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 />                                        
             </Row>
             <Row
-            style={{height: '60px', marginLeft: '20px', marginRight: '15%'}}
+           className='slider-row'
             >
-            <RangeSlider
-                
-                
-                />
-
+            <RangeSlider/>
             </Row>
             
-            {displayRainByYear ?   
-                <Row style={{height: '350px'}}>
+            {displayRainByYear &&   
+                <Row className='rainfall-by-year-row'>
                     <Card className='m-0 p-0 b-0 card' border={'0'}>
                     <Card.Body className = 'm-0 p-3'>
                         <RainByYear formattedDataByYear={formattedDataByYear} 
@@ -54,18 +52,19 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 </Card.Body>
                 </Card>
                 </Row>
-                :
-                null}
+          }
           
-            {displayRainBySeason ? 
+            {displayRainBySeason && 
             
-             <Row style={{height: '500px'}}>
+             <Row className='rain-by-season-row'>
                
-                <Col>
+                <Col
+                style={{width: '100%', height: '100%'}}
+                >
                 
-                <Card className='m-0 p-0 card' border={'0'}>
+                <Card className='m-0 p-0 h-100 w-100 card'>
                  
-                    <Card.Body>
+                    <Card.Body className='m-0 p-0'>
                       
                   <RainBySeason                 
                     formattedDataBySeasons = {formattedDataBySeasons}
@@ -77,9 +76,11 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
             </Card>
             </Col>
 
-            <Col>
-            <Card className='m-0 p-0 card' border={'0'}>
-                <Card.Body className='m-0 p-3'>
+            <Col
+            style={{width: '100%', height: '100%'}}
+            >
+            <Card className='m-0 p-0 h-100 w-100 card' >
+                <Card.Body className='m-0 p-0'>
                  
                     
             <RainByMonths
@@ -93,13 +94,16 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
             </Card>
             </Col>
             </Row>
-            :
-            null
-        }
-        {
-            displayRainDryDays ?   
-            <Row>
-            <Col>
+           
+            }
+            {
+            displayRainDryDays &&  
+            <Row 
+            className='rain-by-wet-days'
+            >
+            <Col
+            className='h-100 w-100'
+            >
                 <RainBySeasonDryDays
                   formattedDataBySeasons = {formattedDataBySeasons}
                   formattedDataByYear={formattedDataByYear}
@@ -109,7 +113,9 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                 />
             </Col>
 
-            <Col>
+            <Col
+            className= 'w-100 h-100'
+            >
                 <RainByMonthsDryDays
                  formattedDataByMonth = {formattedDataByMonth}
                  formattedDataByYear={formattedDataByYear}
@@ -117,10 +123,9 @@ const RainIndex = ({formattedDataByMonth, formattedDataByYear, formattedDataBySe
                  height={300} 
                 />
             </Col>
-        </Row>
-        :
-        null
-        }
+            </Row>
+        
+            }
       
            
           

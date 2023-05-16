@@ -1,0 +1,26 @@
+.check-form-row{
+    height: 60px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.slider-row{
+    height: 60px;
+    margin-left: 20px;
+    margin-right: 15%;
+
+}
+
+.rainfall-by-year-row{
+    height: 350px;
+
+}
+
+.rain-by-season-row{
+    height: 350px;
+}
+
+.rain-by-wet-days{
+    height: 350px;
+    max-height: 350px;
+}

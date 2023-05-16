@@ -33,37 +33,37 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
             
             let adjustedWidth = width-30
             
-        const xScale = d3.scaleLinear()
-                            .domain([0, rainData.length])
-                            .range([30, adjustedWidth]);
+            const xScale = d3.scaleLinear()
+                                .domain([0, rainData.length])
+                                .range([30, adjustedWidth]);
 
-        const yScale = d3.scaleLinear()
-                            .domain([0, d3.max(rainData.map((element) => element.avgRain))])
-                            .range([height, 100]);
+            const yScale = d3.scaleLinear()
+                                .domain([0, d3.max(rainData.map((element) => element.avgRain))])
+                                .range([height, 75]);
 
-        const xAxis = d3.scaleBand()
-                            .domain(rainData.map((x) => x.season))
-                            .range([30, adjustedWidth])
-                            .padding([0]);
+            const xAxis = d3.scaleBand()
+                                .domain(rainData.map((x) => x.season))
+                                .range([30, adjustedWidth])
+                                .padding([0]);
 
-        const yAxis = d3.axisLeft(yScale)
-                        .tickFormat(d => d.toString().slice(0,5))
+            const yAxis = d3.axisLeft(yScale)
+                            .tickFormat(d => d.toString().slice(0,5))
 
-        const svg= d3.select(chartRef.current)
-                            .append('svg')
-                            .attr('width', width)
-                            .attr('height', height+25);
+            const svg= d3.select(chartRef.current)
+                                .append('svg')
+                                .attr('width', width)
+                                .attr('height', height+25);
 
-        const tooltip = d3.select('body').append('div')
-                            .style('position', 'absolute')
-                            .style('z-index', '10')
-                            .style('visibility', 'hidden')
-                            .style('background-color', 'white')
-                            .style('border-style', 'solid')
-                            .style('border-width', '2px')
-                            .style('border-color', '#50e991')
-                            .style('padding', '5px')
-                            .style('font-size', '12px');
+            const tooltip = d3.select('body').append('div')
+                                .style('position', 'absolute')
+                                .style('z-index', '10')
+                                .style('visibility', 'hidden')
+                                .style('background-color', 'white')
+                                .style('border-style', 'solid')
+                                .style('border-width', '2px')
+                                .style('border-color', '#50e991')
+                                .style('padding', '5px')
+                                .style('font-size', '12px');
 
             svg.selectAll('rect')
                     .data(rainData)
@@ -113,23 +113,14 @@ const RainBySeason = ({formattedDataBySeasons, formattedDataByYear, width, heigh
 
     return(
         <>
-        <Container>
-            <Row style={{height: '400px'}}>
+      
                 {rainData.length > 0 ? 
                  <svg ref={chartRef} height={'100%'} width={'100%'} ></svg>
                  :
                  <>Error: No Data Available</>
-                }
+                }             
 
-               
-
-            </Row>
            
-
-        
-       
-     
-        </Container>
                
         </>
     )

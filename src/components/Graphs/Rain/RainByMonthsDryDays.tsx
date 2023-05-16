@@ -2,7 +2,7 @@ import * as React from 'react'
 import {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import '../../../styling/RainGraphs.css'
-import { Container , Row } from 'react-bootstrap'
+import { Button} from 'react-bootstrap'
 import { RainByMonthsProp } from '../../../Types/GraphsTypes'
 
 
@@ -10,7 +10,15 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
     const [rainData, setRainData] = useState([])
     const chartRef = useRef();
+    const [percentageView, setPercentageView] = useState(true)
     // d3.select(chartRef.current).selectAll('*').remove();
+
+    const handleButtonClick = () => {
+        setPercentageView(!percentageView)
+
+    }
+
+    console.log(percentageView)
 
     useEffect((): void => {
 
@@ -44,6 +52,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
     //Draw stacked bar chart ********
 
+    console.log(rainData)
 
     useEffect((): void => {
         if(rainData.length>0){
@@ -53,6 +62,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             let adjustedHeight = height-50
             let adjustedWidth = width-30   
             
+            //get days chart ready
             const stacking = d3.stack()
                                 .keys(['daysDryAverage', 'daysWetAverage'])
 
@@ -68,11 +78,30 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                 element.push({
                     category: 'wet'
                 })
-            })
-            
+            })       
+            //    
             
 
+            //Get percentage chart ready
             const stackingPercentages = d3.stack()
+                                        .keys(['daysDryPercentage', 'daysWetPercentage']);
+            
+            const stackedPercentageData = stackingPercentages(rainData)
+
+            stackedPercentageData[0].forEach((element) => {
+                element.push({
+                    category: 'dry'
+                })
+            })
+
+            stackedPercentageData[1].forEach((element) => {
+                element.push({
+                    category: 'wet'
+                })
+            })
+            //
+
+            //Days chart
                 
             let colourScale = d3.scaleOrdinal()
                                 .domain(['daysDryAverage', 'daysWetAverage'])
@@ -84,7 +113,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
             const yScale = d3.scaleLinear()
                                 .domain([0, 33])
-                                .range([height, 100]);
+                                .range([height, 75]);
 
             const xAxis = d3.scaleBand()
                                 .domain(rainData.map((x) => x.month.slice(0,3)))
@@ -97,7 +126,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
             const svg= d3.select(chartRef.current)
                                 .append('svg')
                                 .attr('width', width)
-                                .attr('height', height +100);
+                                .attr('height', height+25);
 
             const tooltip = d3.select('body').append('div')
                                 .style('position', 'absolute')
@@ -138,8 +167,7 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                                 `<u>${(d.data.month).slice(0,3)}</u> 
                                 <br></br>
                                 On average ${Math.round(d[1])} dry days`
-
-                                
+       
                                 
                                 
                                 )
@@ -153,12 +181,12 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                                 tooltip.style('visibility', 'hidden')
                             });
                         
-                // svg.append('text')
-                //     .attr('x', width/2)
-                //     .attr('y', 30)
-                //     .style('text-anchor', 'middle')
-                //     .style('font-size', '18px')
-                //     .text(`Percentage of Completely Dry Days Per Month`);
+                svg.append('text')
+                    .attr('x', width/2)
+                    .attr('y', 60)
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '15px')
+                    .text(`Number of Completely Dry Days Per Month`);
                 
                 svg.append('g')
                     .attr('transform', `translate(0, ${height})`)
@@ -170,7 +198,10 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
                     .attr('transform', `translate(30,0)`)              
                     .call(yAxis)
                     .selectAll('text')
-                    .style('font-size', '9px')     
+                    .style('font-size', '9px')  
+                    
+                    
+                //Percentages chart
         }
 
     }, [rainData, height, width]);
@@ -179,18 +210,34 @@ const RainByMonthsDryDays= ({formattedDataByMonth, formattedDataByYear, width, h
 
     return(
         <>
-        <Container fluid>
-            <Row style={{height: '400px'}}>
+
+              
 
                 <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
 
-            </Row>
-           
+            {percentageView ?
+              <Button
+             variant = "outline-primary"
+             size="sm"
+             onClick = {handleButtonClick}
+             style={{marginLeft: '20%', marginRight: '20%'}}
+            
+             >View by Days</Button>
+            :
+            <Button
+                        variant = "outline-primary"
+                        size="sm"
+                        onClick = {handleButtonClick}
+                        style={{marginLeft: '20%', marginRight: '20%'}}
+                        
+                        >View by Percentages (recommended)</Button>
+
+        }
+            
+          
 
         
        
-     
-        </Container>
                
         </>
     )

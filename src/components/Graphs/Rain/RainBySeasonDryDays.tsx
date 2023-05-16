@@ -83,15 +83,15 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeas
 
             const yScale = d3.scaleLinear()
                                 .domain([0, 33])
-                                .range([height, 100]);
+                                .range([height, 75]);
 
             const xAxis = d3.scaleBand()
-                                .domain(rainData.map((x) => x.season.slice(0,3)))
+                                .domain(rainData.map((x) => x.season))
                                 .range([30, adjustedWidth])
                                 .padding(0.3);
 
             const yAxis = d3.axisLeft(yScale)
-                            .tickFormat(d => d.toString().slice(0,3));       
+                            .tickFormat(d => d.toString());       
 
             const svg= d3.select(chartRef.current)
                                 .append('svg')
@@ -135,7 +135,7 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeas
                                 
                                On average ${Math.round(d[1] - d[0])} days with rain`
                                 :
-                                `<u>${(d.data.month).slice(0,3)}</u> 
+                                `<u>${(d.data.month)}</u> 
                                 <br></br>
                                 On average ${Math.round(d[1])} dry days`                        
                                 
@@ -150,12 +150,12 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeas
                                 tooltip.style('visibility', 'hidden')
                             });
                         
-                // svg.append('text')
-                //     .attr('x', width/2)
-                //     .attr('y', 30)
-                //     .style('text-anchor', 'middle')
-                //     .style('font-size', '18px')
-                //     .text(`Percentage of Completely Dry Days Per Month`);
+                svg.append('text')
+                    .attr('x', width/2)
+                    .attr('y', 60)
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '15px')
+                    .text(`Number of Completely Dry Days Per Season`);
                 
                 svg.append('g')
                     .attr('transform', `translate(0, ${height})`)
@@ -176,18 +176,9 @@ const RainBySeasonsDryDays= ({formattedDataBySeasons, width, height}: RainBySeas
 
     return(
         <>
-        <Container fluid>
-            <Row style={{height: '400px'}}>
+        <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
 
-                <svg className=''ref={chartRef} height={'100%'} width={'100%'} preserveAspectRatio='xMinYMin meet' ></svg>
-
-            </Row>
-           
-
-        
-       
-     
-        </Container>
+          
                
         </>
     )
