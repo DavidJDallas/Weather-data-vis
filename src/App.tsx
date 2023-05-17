@@ -35,7 +35,7 @@ function App() {
         </Row>
         <Row>
             <Col xs={12} md={3} 
-            style={{borderRight: '2px solid #ecc4c4'}}
+          
             >
               
                 <SideMargin setWeatherData={setWeatherData} weatherdata={weatherdata} setDisplayPostcode={setDisplayPostcode} setDisplayLocation={setDisplayLocation} displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius} searchOn={searchOn} setSearchOn={setSearchOn} isLoading={isLoading} setIsLoading={setIsLoading} setErrorInSearch={setErrorInSearch} isMobile = {isMobile}/>   

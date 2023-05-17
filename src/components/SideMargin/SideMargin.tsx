@@ -1,7 +1,6 @@
 import "../../styling/SideMargin.css"
 import {getGeolocationByPlace, getGeolocationByPostcode,  findHistoricalWeather} from "../../ApiFunctions"
 import {useState, useEffect} from "react"
-
 import SideMarginSearch from "./SideMarginSearch"
 import ErrorHandler from "../ErrorHandler"
 import SideMarginToggleSwitch from "./SideMarginToggleSwitch"
@@ -10,6 +9,7 @@ import { SideMarginProps} from '../../Types/PropsTypes'
 import { YearContextType } from "../../Types/ContextTypes"
 import {YearContext} from '../../Context'
 import { useContext } from "react"
+import '../../styling/SideMargin.css'
 
 const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisplayLocation, setDisplayPostcode, searchOn, setSearchOn, isLoading, setIsLoading, setErrorInSearch}: SideMarginProps) => {
 
@@ -140,14 +140,18 @@ const SideMargin = ({displayCelsius, setDisplayCelsius, setWeatherData,  setDisp
                 <>
                 <SideMarginSearch setPostcode={setPostcode} handleSubmitPlace={handleSubmitPlace} handleSubmitPostCode={handleSubmitPostCode} setPlace={setPlace}/> 
               
-                <SideMarginToggleSwitch displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius}/>  
+                {/* <SideMarginToggleSwitch displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius}/>   */}
                 </>            
                 ) : 
                 <>    
-            <form className="grid-item" id="place"onSubmit = {handleSearchAgain}>
+            <form id="place"onSubmit = {handleSearchAgain}>
                 <label></label>                   
-                <button id = "searchbutton" type="submit">Search Again</button>
+                <button 
+                className='search-again-button'
+               type="submit">Search Again</button>
             </form>
+
+      
                
                                                       
                 </>}            

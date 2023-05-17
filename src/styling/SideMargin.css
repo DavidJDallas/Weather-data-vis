@@ -8,7 +8,7 @@
         flex-direction:column;
         flex-wrap: wrap;
         justify-content: center;
-       
+   
     }    
     .grid-item{ 
    
@@ -48,7 +48,17 @@
       cursor: pointer;
       color: black
     }
-
+    .search-again-button{
+        margin-top: 12px;
+        border-style: none;
+        margin-left: 15%;
+        margin-right: 15%;
+        font-size: 1.84rem;
+    }
+    .search-again-button:hover{
+        cursor: pointer;
+      
+    }
 
 }
 
