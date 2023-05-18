@@ -29,19 +29,23 @@ function App() {
 
     <div className='w-100 h-100'>
       <Container fluid>
-        <Row> 
+        <Row
+      
+        > 
           <Header displayLocation={displayLocation} displayPostcode={displayPostcode} errorInSearch={errorInSearch}searchOn={searchOn} />
          
         </Row>
         <Row>
+            <Col xs ={1}>
+            </Col>
             <Col xs={12} md={3} 
-          
+            
             >
               
                 <SideMargin setWeatherData={setWeatherData} weatherdata={weatherdata} setDisplayPostcode={setDisplayPostcode} setDisplayLocation={setDisplayLocation} displayCelsius={displayCelsius} setDisplayCelsius={setDisplayCelsius} searchOn={searchOn} setSearchOn={setSearchOn} isLoading={isLoading} setIsLoading={setIsLoading} setErrorInSearch={setErrorInSearch} isMobile = {isMobile}/>   
             </Col>         
-            <Col md={8}
-            style={{marginLeft: '2%', marginRight: '2%'}}
+            <Col md={7}
+            style={{marginLeft: '0%', marginRight: '2%'}}
             >
                 { weatherdata ? 
                 <Main weatherdata={weatherdata} displayCelsius={displayCelsius} searchOn={searchOn}  errorInSearch={errorInSearch} isMobile={isMobile}/>
@@ -50,10 +54,8 @@ function App() {
                 <h2
                 className='main-body-text'
                 >
-                  This app allows you to see trends in the weather, anywhere in the world, over customisable periods of time.
-                  <br></br><br></br>
-                  
-                  Please enter a location or postcode to start.  </h2>             
+                  See trends in the weather, anywhere in the world, over customisable periods of time.
+              </h2>             
               </>}
             </Col>
         </Row>

@@ -3,6 +3,7 @@ import * as React from 'react'
 import { SideMarginSearchProps } from "../../Types/PropsTypes"
 import { Form, Button } from "react-bootstrap"
 
+
 const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace, setPlace}: SideMarginSearchProps) => {
 
     const handlePlaceTextChange = (event) => {
@@ -20,24 +21,19 @@ const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace,
 
     return(
     <>
-        {/* <form className="grid-item" id="postcode"onSubmit =     {handleSubmitPostCode}>
-            <textarea 
-            className="text-area" 
-            onChange={(event) =>setPostcode(event.target.value)}
-            onKeyDown ={handlePostcodeTextChange}           
-            >
-            </textarea>
-            <button id = "searchbutton" type="submit">Search by postcode</button>
-        </form>  */}
+        
 
-      <Form onSubmit = {handleSubmitPostCode}>
+      <Form onSubmit = {handleSubmitPostCode} className='search-by-postode'>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label
-        style={{fontSize: '1.854rem'}}
+        style={{fontSize: '1.854rem', marginTop: '12px'}}
+        
+       
         >Search By Postcode</Form.Label>
         <Form.Control type="postcode" placeholder="Enter Postcode" 
         onChange={(event) =>setPostcode(event.target.value)}
         onKeyDown ={handlePostcodeTextChange} 
+        style={{width: '300px'}}
         
         />     
       </Form.Group>
@@ -55,6 +51,7 @@ const SideMarginSearch = ({setPostcode, handleSubmitPostCode, handleSubmitPlace,
         onChange={(event) =>setPlace(event.target.value)}
         onKeyDown ={handlePlaceTextChange} 
         className=''
+        style={{width: '300px'}}
         />      
       </Form.Group>
       
